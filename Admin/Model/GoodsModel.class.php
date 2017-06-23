@@ -104,6 +104,16 @@ class GoodsModel extends Model{
 		if($ios)
 			$where['is_on_sale'] = array('eq',$ios);
 
+		//添加时间
+		$fa = I('get.fa');
+		$ta = I('get.ta');
+		if($fa && $ta)
+			$where['addtime'] = array('between',array($fa,$ta));
+		else if($fa)
+			$where['addtime'] = array('egt',$fa);
+		else if($ta)
+			$where['addtime'] = array('elt',$ta);
+
 
 
 
@@ -123,7 +133,7 @@ class GoodsModel extends Model{
 
 
 		/*******取数据******/
-		$this ->limit($pageObj->firstRow . ',' . $pageObj ->listRows) -> select();
+		$this ->limit($pageObj->firstRow . ',' . $pageObj ->listRows) ->where($where) -> select();
 	}
 
 

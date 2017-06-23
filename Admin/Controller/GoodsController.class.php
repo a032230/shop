@@ -64,4 +64,20 @@ class GoodsController extends Controller{
 		$this -> assign('data',$data);
 		$this -> display();
 	}
+
+
+	public function del()
+	{
+		$id = I('get.id');
+
+		$goodsModel = M('goods');
+
+		if($goodsModel -> delete($id) !== FALSE)
+		{
+			$this -> success('删除成功',U('lst'));
+			exit;
+		}
+
+		$this -> error($goodsModel -> getError());
+	}
 }
