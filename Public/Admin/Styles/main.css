@@ -856,10 +856,11 @@ em, cite, th {
 #page-table a{
   padding: 5px;
   margin: 5px;
+  text-decoration: none;
   border:1px solid #f00;
 }
 
-#page-table span.cuurent{
+#page-table span.current{
   padding: 5px;
   background-color: #f00;
   margin: 5px;

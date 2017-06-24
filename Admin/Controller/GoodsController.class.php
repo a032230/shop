@@ -16,6 +16,13 @@ class GoodsController extends Controller{
 
 		//将数据分配到前台
 		$this -> assign($data);
+
+		//分配页头动态标题和链接
+		$this -> assign(array(
+			'_page_title' => '商品列表',
+			'_page_btn_name' => '添加商品',
+			'_page_btn_link' => U('add'),
+		));
 		$this -> display();
 	}
 
@@ -38,6 +45,12 @@ class GoodsController extends Controller{
 			$this -> error($goodsModel -> getError());
 		}
 
+		//分配页头动态标题和链接
+		$this -> assign(array(
+			'_page_title' => '添加商品',
+			'_page_btn_name' => '商品列表',
+			'_page_btn_link' => U('lst'),
+		));
 		$this -> display();
 	}
 
@@ -62,6 +75,13 @@ class GoodsController extends Controller{
 
 		//分配数据到页码
 		$this -> assign('data',$data);
+
+		//分配页头动态标题和链接
+		$this -> assign(array(
+			'_page_title' => '编辑商品',
+			'_page_btn_name' => '商品列表',
+			'_page_btn_link' => U('lst'),
+		));
 		$this -> display();
 	}
 
@@ -70,7 +90,7 @@ class GoodsController extends Controller{
 	{
 		$id = I('get.id');
 
-		$goodsModel = M('goods');
+		$goodsModel = D('goods');
 
 		if($goodsModel -> delete($id) !== FALSE)
 		{

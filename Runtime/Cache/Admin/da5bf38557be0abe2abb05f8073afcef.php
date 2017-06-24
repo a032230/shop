@@ -5,14 +5,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="/Public/Admin/styles/general.css" rel="stylesheet" type="text/css" />
 <link href="/Public/Admin/styles/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/Public/umeditor1_2_2-utf8-php/third-party/jquery.min.js"></script>
+
 </head>
 <body>
+
 <h1>
-    <span class="action-span"><a href="__GROUP__/Goods/goodsAdd">添加新商品</a></span>
-    <span class="action-span1"><a href="__GROUP__">ECSHOP 管理中心</a></span>
-    <span id="search_id" class="action-span1"> - 商品列表 </span>
+	<?php if($_page_btn_name):?>
+    <span class="action-span"><a href="<?php echo ($_page_btn_link); ?>"><?php echo ($_page_btn_name); ?></a></span>
+    <?php endif?>
+    <span class="action-span1"><a href="<?php echo U('lst');?>">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - <?php echo ($_page_title); ?> </span>
     <div style="clear:both"></div>
 </h1>
+
+
 <div class="form-div">
     <form action="/index.php/Admin/Goods/lst" name="searchForm" method="get">
         <p>商品名称：<input type="text" name="gn" value="<?=I('get.gn')?>" /></p>
@@ -33,10 +40,17 @@
 
         <p>
             添加时间:
-            从 <input type="text" name="fa" value="<?=I('get.fa')?>"  />
-            到 <input type="text" name="ta" value="<?=I('get.ta')?>"  />
+            从 <input type="text" name="fa" value="<?=I('get.fa')?>" id='fa' />
+            到 <input type="text" name="ta" value="<?=I('get.ta')?>" id='ta' />
         </p>
-
+        <p>
+            排序方式：
+            <?php $odby = I('get.odby','id_desc');?>
+            <input onclick="this.parentNode.parentNode.submit();" type="radio" value="id_desc" name="odby" <?php echo $odby == 'id_desc' ? 'checked' : '' ?>  /> 以添加时间降序
+            <input onclick="this.parentNode.parentNode.submit();" type="radio" value="id_asc" name="odby" <?php echo $odby == 'id_asc' ? 'checked' : '' ?>  /> 以添加时间升序
+            <input onclick="this.parentNode.parentNode.submit();" type="radio" value="price_desc" name="odby" <?php echo $odby == 'price_desc' ? 'checked' : '' ?> /> 以价格降序
+            <input onclick="this.parentNode.parentNode.submit();" type="radio" value="price_asc" name="odby" <?php echo $odby == 'price_asc' ? 'checked' : '' ?> /> 以价格升序
+        </p>
         <input type="submit" value=" 搜索 " class="button" />
     </form>
 </div>
@@ -49,7 +63,7 @@
                 <th>编号</th>
                 <th>商品名称</th>
                 <th>市场价格</th>
-                <th>商品价格</th>
+                <th>本店价格</th>
                 <th>商品logo</th>
                 <th>是否上架</th>
                 <th>添加时间</th>
@@ -65,7 +79,7 @@
                 <td align="center"><span><?=date('Y-m-d',$val['addtime'])?></span></td>
                 <td align="center">
                 <a href="<?php echo U('edit',array('id' => $val['id']));?>" title="编辑"><img src="/Public/Admin/Images/icon_edit.gif" width="16" height="16" border="0" /></a>
-                <a href="<?php echo U('del',array('id' => $val['id']));?>" title="回收站"><img src="/Public/Admin/Images/icon_trash.gif" width="16" height="16" border="0" /></a>
+                <a onclick="return confirm('你确定要删除该商品吗？');" href="<?php echo U('del',array('id' => $val['id']));?>" title="回收站"><img src="/Public/Admin/Images/icon_trash.gif" width="16" height="16" border="0" /></a>
                 </td>
             </tr><?php endforeach; endif; ?>
         </table>
@@ -75,13 +89,29 @@
             <tr>
                 <td width="80%">&nbsp;</td>
                 <td align="center" nowrap="true">
-                    <?php echo ($showPage); ?>
+                    <?php echo ($page); ?>
                 </td>
             </tr>
         </table>
     <!-- 分页结束 -->
     </div>
 </form>
+
+
+<!-- 引入时间插件 -->
+<link href="/Public/datetimepicker/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="/Public/datetimepicker/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/Public/datetimepicker/datepicker-zh_cn.js"></script>
+<link rel="stylesheet" media="all" type="text/css" href="/Public/datetimepicker/time/jquery-ui-timepicker-addon.min.css" />
+<script type="text/javascript" src="/Public/datetimepicker/time/jquery-ui-timepicker-addon.min.js"></script>
+<script type="text/javascript" src="/Public/datetimepicker/time/i18n/jquery-ui-timepicker-addon-i18n.min.js"></script>
+<script>
+// 添加时间插件
+$.timepicker.setDefaults($.timepicker.regional['zh-CN']);  // 设置使用中文 
+
+$("#fa").datetimepicker();
+$("#ta").datetimepicker();
+</script>
 
 <div id="footer">
 共执行 7 个查询，用时 0.028849 秒，Gzip 已禁用，内存占用 3.219 MB<br />
