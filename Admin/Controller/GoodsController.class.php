@@ -31,7 +31,6 @@ class GoodsController extends Controller{
 	{
 		if(IS_POST){
 			$goodsModel = D('goods');
-
 			//验证表单并保存到模型
 			if($goodsModel -> create(I('post.'),1))
 			{	
@@ -45,11 +44,15 @@ class GoodsController extends Controller{
 			$this -> error($goodsModel -> getError());
 		}
 
+		//取出所有会员的等级
+		$mlModel = M('member_level');
+		$mldata = $mlModel -> getField('id,level_name');
 		//分配页头动态标题和链接
 		$this -> assign(array(
 			'_page_title' => '添加商品',
 			'_page_btn_name' => '商品列表',
 			'_page_btn_link' => U('lst'),
+			'data' => $mldata,
 		));
 		$this -> display();
 	}
@@ -73,7 +76,7 @@ class GoodsController extends Controller{
 		//根据id获得对应数据
 		$data = $goodsModel -> find($id);
 
-		//分配数据到页码
+		//分配数据到页面
 		$this -> assign('data',$data);
 
 		//分配页头动态标题和链接
@@ -85,7 +88,40 @@ class GoodsController extends Controller{
 		$this -> display();
 	}
 
+	//放入回收站
+	public function recycle()
+	{
 
+		$goodsModel = M('goods');
+		//IS_GET不行。。。
+		if(!$_GET){
+
+			//获取所有回收站的数据
+			$data = $goodsModel ->where("is_delete = '是'") -> select();
+
+			$this -> assign('data',$data);
+			$this -> display();
+			
+		}else{
+			$id = I('get.id');
+			//将字段is_delete设置为是
+			$goodsModel->where("id=$id")->setField('is_delete','是'); 
+			$this -> redirect('lst');
+		}
+
+		
+	}
+
+	//重新上架
+	public function ground()
+	{
+		$id = I('get.id');
+		$goodsModel = M('goods');
+		$goodsModel -> where("id = $id") -> setField('is_delete','否');
+		$this -> redirect('recycle');
+	}
+
+	//商品彻底删除
 	public function del()
 	{
 		$id = I('get.id');

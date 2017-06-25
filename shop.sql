@@ -19,9 +19,43 @@ create table goods
 	mbig_logo varchar(150) not null default '' comment '特大图',	
 	is_on_sale enum('是','否') not null default '是' comment '是否上架',
 	is_delete enum('是','否') not null default '否' comment '是否放入回收站',
+	brand_id mediumint unsigned not null default 0 comment '品牌id',
 	addtime int unsigned not null   comment '添加时间',
 	primary key (id),
 	key shop_price(shop_price),
 	key addtime(addtime),
-	key is_on_sale(is_on_sale)
+	key is_on_sale(is_on_sale),
+	key brand_id(brand_id)
 )engine=InnoDB default charset=utf8 comment '商品表';
+
+#品牌表
+create table brand(
+id mediumint unsigned not null auto_increment comment 'Id',
+brand_name varchar(30) not null comment '品牌名称',
+site_url varchar(150) not null default '' comment '品牌官方地址',
+logo varchar(150) not null comment '品牌logo',
+primary key (id)
+)engine=InnoDB default charset=utf8 comment '品牌';
+
+#会员等级表
+create table member_level(
+	id mediumint unsigned not null auto_increment comment 'Id',
+	level_name char(20) not null comment '级别名称',
+	jifen_bottom mediumint unsigned not null  comment '积分下限',
+	jifen_top mediumint unsigned not null  comment '积分上限',
+	primary key (id)
+)engine=InnoDB default charset=utf8 comment '会员等级';
+
+#会员价格表
+create table member_price(
+	price decimal(10,2) not null comment '会员价格',
+	level_id mediumint unsigned not null comment '会员等级id',
+	goods_id mediumint unsigned not null comment '商品id',
+	key level_id(level_id),
+	key goods_id(goods_id)
+
+)engine=InnoDB default charset=utf8 comment '会员价格';
+
+#外键约束
+#在删除商品的同时把对应商品的会员价格自动删除掉
+alter table member_price add foreign key (goods_id) references goods(id) on delete cascade; 

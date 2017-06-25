@@ -22,6 +22,10 @@
 
 <div class="form-div">
     <form action="/index.php/Admin/Goods/lst" name="searchForm" method="get">
+        <p>
+           品　　牌:
+           <?php buildSelect('brand','brand_id','id','brand_name',I('get.brand_id')) ?>
+        </p>
         <p>商品名称：<input type="text" name="gn" value="<?=I('get.gn')?>" /></p>
     
         <p>
@@ -62,6 +66,7 @@
             <tr>
                 <th>编号</th>
                 <th>商品名称</th>
+                <th>品牌</th>
                 <th>市场价格</th>
                 <th>本店价格</th>
                 <th>商品logo</th>
@@ -72,14 +77,15 @@
             <?php if(is_array($data)): foreach($data as $key=>$val): ?><tr>
                 <td align="center"><?php echo ($val["id"]); ?></td>
                 <td align="center" class="first-cell"><span><?php echo ($val["goods_name"]); ?></span></td>
+                <td align="center" ><span><?php echo ($val["brand_name"]); ?></span></td>
                 <td align="center"><span onclick=""><?php echo ($val["market_price"]); ?></span></td>
                 <td align="center"><span><?php echo ($val["shop_price"]); ?></span></td>
-                <td align="center"><span><img src="<?php echo ($val["sm_logo"]); ?>" alt="商品logo" /></span></td>
+                <td align="center"><span><?php showImage($val['sm_logo'],50,50)?> </span></td>
                 <td align="center"><span><?php echo ($val["is_on_sale"]); ?></span></td>
                 <td align="center"><span><?=date('Y-m-d',$val['addtime'])?></span></td>
                 <td align="center">
                 <a href="<?php echo U('edit',array('id' => $val['id']));?>" title="编辑"><img src="/Public/Admin/Images/icon_edit.gif" width="16" height="16" border="0" /></a>
-                <a onclick="return confirm('你确定要删除该商品吗？');" href="<?php echo U('del',array('id' => $val['id']));?>" title="回收站"><img src="/Public/Admin/Images/icon_trash.gif" width="16" height="16" border="0" /></a>
+                <a onclick="return confirm('你确定要放入回收站吗？');" href="<?php echo U('recycle',array('id' => $val['id']));?>" title="回收站"><img src="/Public/Admin/Images/icon_trash.gif" width="16" height="16" border="0" /></a>
                 </td>
             </tr><?php endforeach; endif; ?>
         </table>

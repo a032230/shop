@@ -1,0 +1,203 @@
+[ 2017-06-25T20:16:07+08:00 ] 127.0.0.1 /index.php/Gii
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000350s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000456s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000492s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000031s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000063s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004103s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004139s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000260s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000286s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000407s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000437s ]
+
+[ 2017-06-25T20:16:20+08:00 ] 127.0.0.1 /index.php/Gii
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000328s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000486s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000535s ]
+SQL: show table status WHERE Name LIKE 'member_level' [ RunTime:0.0010s ]
+SQL: SHOW FULL FIELDS FROM member_level [ RunTime:0.0129s ]
+NOTIC: [8] Undefined index: Comment D:\xampp\htdocs\shop\Gii\Code_templates\config.php 第 3 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000036s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000092s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004904s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004958s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000277s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000312s ]
+
+[ 2017-06-25T20:16:21+08:00 ] 127.0.0.1 /index.php/Gii
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000318s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000406s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000451s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000043s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000096s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004588s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004639s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000195s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000229s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000503s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000544s ]
+
+[ 2017-06-25T20:18:58+08:00 ] 127.0.0.1 /index.php/Gii
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000447s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000483s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000530s ]
+NOTIC: [8] Undefined index: _before_insert D:\xampp\htdocs\shop\Gii\Code_templates\Model.php 第 50 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\xampp\htdocs\shop\Gii\Code_templates\Model.php 第 50 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Field D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 41 行.
+NOTIC: [8] Undefined index: Field D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 41 行.
+NOTIC: [8] Undefined index: Field D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 41 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000027s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000062s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.003658s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.003705s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000234s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000259s ]
+
+[ 2017-06-25T20:19:00+08:00 ] 127.0.0.1 /index.php/Gii
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000534s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000663s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000735s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000037s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000080s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.006686s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006744s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000167s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000200s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000437s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000478s ]
+
+[ 2017-06-25T20:20:44+08:00 ] 127.0.0.1 /index.php/Gii
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000324s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000444s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000488s ]
+NOTIC: [8] Undefined index: search D:\xampp\htdocs\shop\Gii\Code_templates\Model.php 第 13 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\xampp\htdocs\shop\Gii\Code_templates\Model.php 第 13 行.
+NOTIC: [8] Undefined index: _before_insert D:\xampp\htdocs\shop\Gii\Code_templates\Model.php 第 50 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\xampp\htdocs\shop\Gii\Code_templates\Model.php 第 50 行.
+NOTIC: [8] Undefined index: search D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 3 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Type D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 34 行.
+NOTIC: [8] Undefined index: Field D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 41 行.
+NOTIC: [8] Undefined index: Field D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 41 行.
+NOTIC: [8] Undefined index: Field D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 41 行.
+NOTIC: [8] Undefined index: search D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 62 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 62 行.
+NOTIC: [8] Undefined index: search D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 80 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\xampp\htdocs\shop\Gii\Code_templates\lst.html 第 80 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000033s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000074s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004272s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004317s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000176s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000208s ]
+
+[ 2017-06-25T20:20:45+08:00 ] 127.0.0.1 /index.php/Gii
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000223s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000282s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000314s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000032s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000071s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.003529s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.003565s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000178s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000205s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000293s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000323s ]
+
+[ 2017-06-25T21:24:20+08:00 ] 127.0.0.1 /index.php/Gii/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000297s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000535s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000578s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000038s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000081s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004963s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005007s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000336s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000370s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000536s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000573s ]
+
+[ 2017-06-25T21:24:23+08:00 ] 127.0.0.1 /index.php/Gii/Index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000306s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000533s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000578s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000038s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000084s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004949s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004996s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000311s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000347s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000570s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000617s ]
+

@@ -1,0 +1,47 @@
+<layout name='layout' />
+<!-- 商品列表 -->
+<form method="post" action="__ACTION__" name="listForm" onsubmit="">
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>编号</th>
+                <th>商品名称</th>
+                <th>品牌</th>
+                <th>市场价格</th>
+                <th>本店价格</th>
+                <th>商品logo</th>
+                <th>是否上架</th>
+                <th>添加时间</th>
+                <th>操作</th>
+            </tr>
+            <foreach name="data" item="val">
+            <tr>
+                <td align="center">{$val.id}</td>
+                <td align="center" class="first-cell"><span>{$val.goods_name}</span></td>
+                <td align="center" ><span>{$val.brand_name}</span></td>
+                <td align="center"><span onclick="">{$val.market_price}</span></td>
+                <td align="center"><span>{$val.shop_price}</span></td>
+                <td align="center"><span><?php showImage($val['sm_logo'],50,50)?> </span></td>
+                <td align="center"><span>{$val.is_on_sale}</span></td>
+                <td align="center"><span><?=date('Y-m-d',$val['addtime'])?></span></td>
+                <td align="center">
+                <a href="{:U('ground',array('id' => $val['id']))}" title="上架">重新上架</a>
+
+                <a onclick="return confirm('你确定要删除该商品吗？');" href="{:U('del',array('id' => $val['id']))}" title="回收站">彻底删除</a>
+                </td>
+            </tr>
+            </foreach>
+        </table>
+
+    <!-- 分页开始 -->
+        <table id="page-table" cellspacing="0">
+            <tr>
+                <td width="80%">&nbsp;</td>
+                <td align="center" nowrap="true">
+                    {$page}
+                </td>
+            </tr>
+        </table>
+    <!-- 分页结束 -->
+    </div>
+</form>

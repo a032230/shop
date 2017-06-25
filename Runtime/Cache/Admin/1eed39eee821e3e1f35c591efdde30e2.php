@@ -24,16 +24,31 @@
 <div class="tab-div">
     <div id="tabbar-div">
         <p>
-            <span class="tab-front" id="general-tab">通用信息</span>
+            <span class="tab-front" >基本信息</span>
+            <span class="tab-back" >商品描述</span>
+            <span class="tab-back" >会员价格</span>
+            <span class="tab-back" >商品属性</span>
+            <span class="tab-back">商品相册</span>
         </p>
     </div>
     <div id="tabbody-div">
         <form enctype="multipart/form-data" action="/index.php/Admin/Goods/add.html" method="post">
-            <table width="90%" id="general-table" align="center">
+            <table width="90%" class="tab-table" align="center">
+                <tr>
+                    <td class="label">品　　牌：</td>
+                    <td>
+                        <!-- <select name="brand_id" id="">
+                            <option value="">请选择品牌</option>
+                            <?php if(is_array($list)): foreach($list as $k=>$v): ?><option value="<?php echo ($k); ?>"><?php echo ($v); ?></option><?php endforeach; endif; ?>
+                        </select> -->
+                        <?php buildSelect('brand','brand_id','id','brand_name') ?>
+                    <span class="require-field">*</span></td>
+                </tr>
                 <tr>
                     <td class="label">商品名称：</td>
                     <td><input type="text" name="goods_name" value=""size="30" />
                     <span class="require-field">*</span></td>
+                </tr>
                 <tr>
                     <td class="label">本店售价：</td>
                     <td>
@@ -48,6 +63,7 @@
                         <span class="require-field">*</span>
                     </td>
                 </tr>
+        
                 <tr>
                     <td class="label">商品logo：</td>
                     <td>
@@ -61,13 +77,24 @@
                         <input type="radio" name="is_on_sale" value="否"/> 否
                     </td>
                 </tr>
+            </table>
+            <table style="display: none;" width="90%" class="tab-table"  align="center">
                 <tr>
-                    <td class="label">商品描述：</td>
                     <td>
                         <textarea id="goods_desc" name="goods_desc" cols="40" rows="3"></textarea>
                     </td>
                 </tr>
             </table>
+            <table style="display: none;" width="90%" class="tab-table"  align="center">
+                <tr>
+                    <td class="label"></td>
+                    <td>
+                        <?php if(is_array($data)): foreach($data as $k=>$v): echo ($v); ?>：￥<input type="text" name="member_price[<?php echo ($k); ?>]" value="" size="10" /><br /><br /><?php endforeach; endif; ?>
+                    </td>
+                </tr>
+            </table>
+            <table style="display: none;" width="90%" class="tab-table"  align="center"></table>
+            <table style="display: none;" width="90%" class="tab-table"  align="center"></table>
             <div class="button-div">
                 <input type="submit" value=" 确定 " class="button"/>
                 <input type="reset" value=" 重置 " class="button" />
@@ -86,6 +113,13 @@ UM.getEditor('goods_desc', {
     initialFrameWidth : "100%",
     initialFrameHeight : 350
 });
+
+
+//tab切换
+$('#tabbar-div p span').on('click',function(){
+    var i = $(this).index();
+    $('.tab-table').eq(i).show().siblings('.tab-table').hide();
+})
 </script>
 
 <div id="footer">

@@ -129,8 +129,8 @@ body {
                     <li class="menu-item"><a href="<?php echo U('Goods/lst');?>" target="main-frame">商品列表</a></li>
                     <li class="menu-item"><a href="<?php echo U('Goods/add');?>" target="main-frame">添加新商品</a></li>
                     <li class="menu-item"><a href="categoryList.html" target="main-frame">商品分类</a></li>
-                    <li class="menu-item"><a href="brandList.html" target="main-frame">商品品牌</a></li>
-                    <li class="menu-item"><a href="goodsTrash.html" target="main-frame">商品回收站</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Brand/lst');?>" target="main-frame">商品品牌</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Goods/recycle');?>" target="main-frame">商品回收站</a></li>
                 </ul>
             </li>
 
@@ -147,9 +147,9 @@ body {
             <li class="explode" key="08_members" name="menu">
             会员管理
                 <ul>
-                    <li class="menu-item"><a href="userList.html" target="main-frame">会员列表</a></li>
+                    <li class="menu-item"><a href="<?php echo U('MemberLevel/lst');?>" target="main-frame">会员级别列表</a></li>
                     <li class="menu-item"><a href="userAdd.html" target="main-frame">添加会员</a></li>
-                    <li class="menu-item"><a href="userMessage.html" target="main-frame">会员留言</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Gii/Index/index');?>" target="main-frame">Gii</a></li>
                 </ul>
             </li>
         </ul>
