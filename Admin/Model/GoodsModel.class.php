@@ -8,10 +8,10 @@ use Think\Model;
 class GoodsModel extends Model{
 
 	//新增时允许接收的字段
-	protected $insertFields = "brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
+	protected $insertFields = "cat_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
 
 	//修改时允许接收的字段
-	protected $updateFields = "id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
+	protected $updateFields = "id,cat_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
 
 	//定义表单验证规则
 	protected $_validate = array(
@@ -19,6 +19,7 @@ class GoodsModel extends Model{
 		array('market_price','currency','市场价格必须为货币类型',1),
 		array('shop_price','currency','本店价格必须为货币类型',1),
 		array('brand_id','require','商品品牌不能为空',1),
+		array('cat_id','require','必须选择一个分类',1),
 	);
 
 	//自动完成
@@ -168,9 +169,10 @@ class GoodsModel extends Model{
 
 
 		/*******取数据******/
-		$data = $this -> field('a.*,b.brand_name')
+		$data = $this -> field('a.*,b.brand_name,c.cat_name')
 					  -> alias('a')
-		              -> join("LEFT JOIN __BRAND__ b ON a.brand_id = b.id")
+		              -> join("LEFT JOIN __BRAND__ b ON a.brand_id = b.id
+		              		   LEFT JOIN __CATEGORY__ c ON a.cat_id = c.id")
 		              -> where($where) 
 		              -> order("$orderby $orderway")
 		              -> limit($pageObj->firstRow . ',' . $pageObj ->listRows)

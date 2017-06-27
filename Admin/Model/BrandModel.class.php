@@ -1,6 +1,10 @@
 <?php
 namespace Admin\Model;
 use Think\Model;
+
+/*------------------------
+ |       品牌模型         |
+ ------------------------*/
 class BrandModel extends Model 
 {
 	protected $insertFields = array('brand_name','site_url');

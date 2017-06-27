@@ -10,6 +10,17 @@
             <table width="90%" id="general-table" align="center">
                 <input type="hidden" name='id' value="{$data.id}" />
                 <tr>
+                    <td class="label">分　　类：</td>
+                    <td>
+                        <select name="cat_id" id="">
+                            <option value="">请选择分类</option>
+                            <foreach name='cats' item = 'v'>
+                            <option <?=$v['id'] == $data['cat_id'] ? 'selected' :'' ?> value="{$v.id}"><?php echo str_repeat('-',4*$v['level']) . $v['cat_name'] ?></option>
+                            </foreach>
+                        </select>
+                    <span class="require-field">*</span></td>
+                </tr>
+                <tr>
                     <td class="label">商品品牌：</td>
                     <td>
 

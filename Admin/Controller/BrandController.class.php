@@ -1,6 +1,10 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
+
+/*------------------------
+ |       品牌控制器       |
+ ------------------------*/
 class BrandController extends Controller 
 {
     public function add()

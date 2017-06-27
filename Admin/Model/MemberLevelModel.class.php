@@ -1,6 +1,9 @@
 <?php
 namespace Admin\Model;
 use Think\Model;
+/*------------------------
+ |       会员等级模型     |
+ ------------------------*/
 class MemberLevelModel extends Model 
 {
 	protected $insertFields = array('level_name','jifen_bottom','jifen_top');

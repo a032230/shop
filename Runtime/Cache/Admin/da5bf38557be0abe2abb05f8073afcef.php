@@ -67,6 +67,7 @@
                 <th>编号</th>
                 <th>商品名称</th>
                 <th>品牌</th>
+                <th>分类</th>
                 <th>市场价格</th>
                 <th>本店价格</th>
                 <th>商品logo</th>
@@ -78,6 +79,7 @@
                 <td align="center"><?php echo ($val["id"]); ?></td>
                 <td align="center" class="first-cell"><span><?php echo ($val["goods_name"]); ?></span></td>
                 <td align="center" ><span><?php echo ($val["brand_name"]); ?></span></td>
+                <td align="center" ><span><?php echo ($val["cat_name"]); ?></span></td>
                 <td align="center"><span onclick=""><?php echo ($val["market_price"]); ?></span></td>
                 <td align="center"><span><?php echo ($val["shop_price"]); ?></span></td>
                 <td align="center"><span><?php showImage($val['sm_logo'],50,50)?> </span></td>

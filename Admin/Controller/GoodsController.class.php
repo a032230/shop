@@ -47,12 +47,17 @@ class GoodsController extends Controller{
 		//取出所有会员的等级
 		$mlModel = M('member_level');
 		$mldata = $mlModel -> getField('id,level_name');
+
+		//取出所有分类
+		$cateModel = D('category');
+		$cats = $cateModel -> getTree();
 		//分配页头动态标题和链接
 		$this -> assign(array(
 			'_page_title' => '添加商品',
 			'_page_btn_name' => '商品列表',
 			'_page_btn_link' => U('lst'),
 			'data' => $mldata,
+			'cats' => $cats,
 		));
 		$this -> display();
 	}
@@ -79,11 +84,15 @@ class GoodsController extends Controller{
 		//分配数据到页面
 		$this -> assign('data',$data);
 
+		//取出所有分类
+		$cateModel = D('category');
+		$cats = $cateModel -> getTree();
 		//分配页头动态标题和链接
 		$this -> assign(array(
 			'_page_title' => '编辑商品',
 			'_page_btn_name' => '商品列表',
 			'_page_btn_link' => U('lst'),
+			'cats' => $cats,
 		));
 		$this -> display();
 	}

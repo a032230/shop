@@ -28,6 +28,11 @@ create table goods
 	key brand_id(brand_id)
 )engine=InnoDB default charset=utf8 comment '商品表';
 
+#在商品表加入分类id，并添加外键
+alter table goods add cat_id mediumint unsigned not null comment '分类id' after brand_id;
+alter table goods add key cat_id(cat_id);
+
+
 #品牌表
 create table brand(
 id mediumint unsigned not null auto_increment comment 'Id',
@@ -59,3 +64,13 @@ create table member_price(
 #外键约束
 #在删除商品的同时把对应商品的会员价格自动删除掉
 alter table member_price add foreign key (goods_id) references goods(id) on delete cascade; 
+
+
+#商品分类表
+create table category(
+	id mediumint unsigned not null auto_increment comment 'Id',
+	cat_name char(30) not null  comment '分类名称',
+	parent_id mediumint unsigned not null default 0 comment '上级分类id,0:顶级分类',
+	primary key (id)
+)engine=InnoDB default charset=utf8 comment '商品分类';
+

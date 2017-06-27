@@ -1,0 +1,53 @@
+<layout name='layout' />
+<!-- 商品列表 -->
+<form method="post" action="__ACTION__" name="listForm" class="subform">
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>分类名称</th>
+                <th>操作</th>
+            </tr>
+            <foreach name="data" item="val">
+            <tr>
+                <td ><?php echo str_repeat('-',4*$val['level']);?>{$val.cat_name}</td>
+                <td align="center">
+                <a href="{:U('edit',array('id' => $val['id']))}" title="上架">编辑</a>
+				|
+                <a class="subs" onclick="return  confirm('你确定要删除该分类吗？');" name="{:U('del',array('id' => $val['id']))}">删除</a>
+                </td>
+            </tr>
+            </foreach>
+        </table>
+
+    <!-- 分页开始 -->
+        <table id="page-table" cellspacing="0">
+            <tr>
+                <td width="80%">&nbsp;</td>
+                <td align="center" nowrap="true">
+                    {$page}
+                </td>
+            </tr>
+        </table>
+    <!-- 分页结束 -->
+    </div>
+</form>
+<script type="text/javascript">
+//ajax删除
+$('.subs').click(function(){
+    $url = $(this).attr('name');
+    $.ajax({
+        type : 'GET',
+        url : $url,
+        dataType : "json",
+        success : function(data){
+            if(data.status == 1){
+                alert(data.info);
+                location.href = data.url;
+            }else{
+                alert(data.info);
+            }
+        }
+    });
+
+})
+</script>
