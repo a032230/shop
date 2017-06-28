@@ -95,8 +95,6 @@ function delImage($arr = array())
 function uploadOne($imgName, $dirName, $thumb = array())
 {
 	// 上传LOGO
-	if(isset($_FILES[$imgName]) && $_FILES[$imgName]['error'] == 0)
-	{
 		$ic = C('IMAGE_CONFIG');
 		$upload = new \Think\Upload(array(
 			'rootPath' => $ic['rootPath'],
@@ -133,7 +131,6 @@ function uploadOne($imgName, $dirName, $thumb = array())
 		    }
 		    return $ret;
 		}
-	}
 }
 
 

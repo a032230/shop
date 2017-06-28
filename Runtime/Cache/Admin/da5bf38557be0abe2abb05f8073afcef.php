@@ -23,6 +23,13 @@
 <div class="form-div">
     <form action="/index.php/Admin/Goods/lst" name="searchForm" method="get">
         <p>
+           分　　类：
+           <select name="cat_id" >
+               <option value="">请选择主分类</option>
+               <?php if(is_array($cats)): foreach($cats as $key=>$v): ?><option value="<?php echo ($v["id"]); ?>" <?php echo $v['id'] == I('get.cat_id') ? 'selected' : '' ?> ><?=str_repeat('-',4*$v['level']).$v['cat_name']; ?></option><?php endforeach; endif; ?>
+           </select>
+        </p>
+        <p>
            品　　牌:
            <?php buildSelect('brand','brand_id','id','brand_name',I('get.brand_id')) ?>
         </p>
@@ -67,7 +74,8 @@
                 <th>编号</th>
                 <th>商品名称</th>
                 <th>品牌</th>
-                <th>分类</th>
+                <th>主分类</th>
+                <th>扩展分类</th>
                 <th>市场价格</th>
                 <th>本店价格</th>
                 <th>商品logo</th>
@@ -80,6 +88,7 @@
                 <td align="center" class="first-cell"><span><?php echo ($val["goods_name"]); ?></span></td>
                 <td align="center" ><span><?php echo ($val["brand_name"]); ?></span></td>
                 <td align="center" ><span><?php echo ($val["cat_name"]); ?></span></td>
+                <td align="center" ><span><?php echo ($val["ext_name"]); ?></span></td>
                 <td align="center"><span onclick=""><?php echo ($val["market_price"]); ?></span></td>
                 <td align="center"><span><?php echo ($val["shop_price"]); ?></span></td>
                 <td align="center"><span><?php showImage($val['sm_logo'],50,50)?> </span></td>

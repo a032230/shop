@@ -17,11 +17,15 @@ class GoodsController extends Controller{
 		//将数据分配到前台
 		$this -> assign($data);
 
+		//取分类表的数据
+		$cateModel = D('category');
+		$cats = $cateModel -> getTree();
 		//分配页头动态标题和链接
 		$this -> assign(array(
 			'_page_title' => '商品列表',
 			'_page_btn_name' => '添加商品',
 			'_page_btn_link' => U('add'),
+			'cats' => $cats,
 		));
 		$this -> display();
 	}
@@ -30,6 +34,7 @@ class GoodsController extends Controller{
 	public function add()
 	{
 		if(IS_POST){
+			// p($_POST);exit;
 			$goodsModel = D('goods');
 			//验证表单并保存到模型
 			if($goodsModel -> create(I('post.'),1))
@@ -47,7 +52,7 @@ class GoodsController extends Controller{
 		//取出所有会员的等级
 		$mlModel = M('member_level');
 		$mldata = $mlModel -> getField('id,level_name');
-
+		// p($mldata);die;
 		//取出所有分类
 		$cateModel = D('category');
 		$cats = $cateModel -> getTree();
@@ -83,16 +88,37 @@ class GoodsController extends Controller{
 
 		//分配数据到页面
 		$this -> assign('data',$data);
-
 		//取出所有分类
 		$cateModel = D('category');
 		$cats = $cateModel -> getTree();
+
+		//取出会员等级
+		$mlModel = M('member_level');
+		$mldata = $mlModel -> getField('id,level_name');
+		// p($mldata);die;
+		//取出会员价格
+		$mpModel = M('member_price');
+		$mpdata = $mpModel ->where("goods_id=$id") -> select();
+		// p($mpdata);die
+		//把会员价格的二维数组转一维
+		$_mpdata = array();
+		foreach($mpdata as $v){
+			$_mpdata[$v['level_id']] = $v['price'];
+		}
+		// p($_mpdata);die;
+		//取出扩展分类
+		$gcModel = M('goods_cat');
+		$ext = $gcModel ->where("goods_id = $id") -> select();
+		// p($ext);die;
 		//分配页头动态标题和链接
 		$this -> assign(array(
 			'_page_title' => '编辑商品',
 			'_page_btn_name' => '商品列表',
 			'_page_btn_link' => U('lst'),
 			'cats' => $cats,
+			'ext'  => $ext,
+			'mldata' => $mldata,
+			'mpdata' => $_mpdata,
 		));
 		$this -> display();
 	}
@@ -139,7 +165,7 @@ class GoodsController extends Controller{
 
 		if($goodsModel -> delete($id) !== FALSE)
 		{
-			$this -> success('删除成功',U('lst'));
+			$this -> success('删除成功',U('recycle'));
 			exit;
 		}
 

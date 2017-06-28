@@ -74,3 +74,15 @@ create table category(
 	primary key (id)
 )engine=InnoDB default charset=utf8 comment '商品分类';
 
+
+#扩展分类表 ----商品表和分类表的中间表
+create table goods_cat(
+	cat_id mediumint unsigned not null comment '分类id',
+	goods_id mediumint unsigned not null comment '商品id',
+	key cat_id(cat_id),
+	key goods_id(goods_id)
+)engine=InnoDB default charset=utf8 comment '扩展分类';
+
+
+
+

@@ -1,7 +1,7 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
-    'DB_TYPE' =>  'mysql',  
+    'DB_TYPE' =>  'pdo',  
     'DB_DSN'    => 'mysql:host=localhost;dbname=shop;charset=utf8',
 	'DB_USER' => 'root',
 	'DB_PWD'  => '',

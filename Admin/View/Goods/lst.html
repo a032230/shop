@@ -2,6 +2,15 @@
 <div class="form-div">
     <form action="__ACTION__" name="searchForm" method="get">
         <p>
+           分　　类：
+           <select name="cat_id" >
+               <option value="">请选择主分类</option>
+               <foreach name='cats' item = 'v' >
+                <option value="{$v.id}" <?php echo $v['id'] == I('get.cat_id') ? 'selected' : '' ?> ><?=str_repeat('-',4*$v['level']).$v['cat_name']; ?></option>
+               </foreach>
+           </select>
+        </p>
+        <p>
            品　　牌:
            <?php buildSelect('brand','brand_id','id','brand_name',I('get.brand_id')) ?>
         </p>
@@ -46,7 +55,8 @@
                 <th>编号</th>
                 <th>商品名称</th>
                 <th>品牌</th>
-                <th>分类</th>
+                <th>主分类</th>
+                <th>扩展分类</th>
                 <th>市场价格</th>
                 <th>本店价格</th>
                 <th>商品logo</th>
@@ -60,6 +70,7 @@
                 <td align="center" class="first-cell"><span>{$val.goods_name}</span></td>
                 <td align="center" ><span>{$val.brand_name}</span></td>
                 <td align="center" ><span>{$val.cat_name}</span></td>
+                <td align="center" ><span>{$val.ext_name}</span></td>
                 <td align="center"><span onclick="">{$val.market_price}</span></td>
                 <td align="center"><span>{$val.shop_price}</span></td>
                 <td align="center"><span><?php showImage($val['sm_logo'],50,50)?> </span></td>

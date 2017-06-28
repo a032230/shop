@@ -21,6 +21,16 @@
 
 
 
+<style>
+    .cat_list{
+        padding: 0;
+        margin: 0;
+    }
+    .cat_list li{
+        margin: 5px 0;
+        list-style: none;
+    }
+</style>
 <div class="tab-div">
     <div id="tabbar-div">
         <p>
@@ -38,10 +48,23 @@
                     <td class="label">分　　类：</td>
                     <td>
                         <select name="cat_id" id="">
-                            <option value="">请选择分类</option>
+                            <option value="">请选择主分类</option>
                             <?php if(is_array($cats)): foreach($cats as $key=>$v): ?><option value="<?php echo ($v["id"]); ?>"><?php echo str_repeat('-',4*$v['level']) . $v['cat_name'] ?></option><?php endforeach; endif; ?>
                         </select>
                     <span class="require-field">*</span></td>
+                </tr>
+                <tr>
+                    <td class="label">扩展分类： <input class="add_cat" type="button" value="增加一个"></td>
+                    <td>
+                        <ul class="cat_list">
+                            <li>
+                                <select name="ext[]" id="">
+                                <option value="">请选择扩展分类</option>
+                                <?php if(is_array($cats)): foreach($cats as $key=>$v): ?><option value="<?php echo ($v["id"]); ?>"><?php echo str_repeat('-',4*$v['level']) . $v['cat_name'] ?></option><?php endforeach; endif; ?>
+                                </select>
+                            </li>
+                        </ul>
+                    </td>
                 </tr>
                 <tr>
                     <td class="label">品　　牌：</td>
@@ -128,6 +151,11 @@ UM.getEditor('goods_desc', {
 $('#tabbar-div p span').on('click',function(){
     var i = $(this).index();
     $('.tab-table').eq(i).show().siblings('.tab-table').hide();
+});
+
+//扩展分类复制
+$('.add_cat').on('click',function(){
+    $('.cat_list').append($('.cat_list').find('li').eq(0).clone());
 })
 </script>
 
