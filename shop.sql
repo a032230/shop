@@ -84,5 +84,16 @@ create table goods_cat(
 )engine=InnoDB default charset=utf8 comment '扩展分类';
 
 
+#商品相册表
+create table goods_pic(
+	id mediumint unsigned not null auto_increment comment 'ID',
+	pic varchar(100) not null  comment '原图',
+	big_pic varchar(100) not null  comment '大图',
+	mid_pic varchar(100) not null  comment '中图',
+	sm_pic varchar(100) not null  comment '小图',
+	goods_id mediumint unsigned not null comment '商品id',
+	primary key (id),
+	key goods_id(goods_id)
+)engine=InnoDB default charset=utf8 comment '商品相册';
 
 

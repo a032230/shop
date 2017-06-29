@@ -22,13 +22,19 @@
 
 
 <style>
-    .cat_list{
+    ul{
         padding: 0;
         margin: 0;
     }
     .cat_list li{
         margin: 5px 0;
+        
+    }
+    li{
         list-style: none;
+    }
+    .pic_list li{
+        margin: 5px 0;
     }
 </style>
 <div class="tab-div">
@@ -110,6 +116,7 @@
                     </td>
                 </tr>
             </table>
+            <!-- 商品描述 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center">
                 <tr>
                     <td>
@@ -117,6 +124,7 @@
                     </td>
                 </tr>
             </table>
+            <!-- 会员价格 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center">
                 <tr>
                     <td class="label"></td>
@@ -125,8 +133,19 @@
                     </td>
                 </tr>
             </table>
+            <!-- 商品属性 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center"></table>
-            <table style="display: none;" width="90%" class="tab-table"  align="center"></table>
+            <!-- 商品相册 -->
+            <table style="display: none;" width="90%" class="tab-table"  align="center">
+                <tr>
+                    <td class="label"></td>
+                    <td>
+                        <input class="add_pic" type="button" value="添加一张">
+                        <hr>
+                         <ul class="pic_list"></ul>
+                    </td>
+                </tr>
+            </table>
             <div class="button-div">
                 <input type="submit" value=" 确定 " class="button"/>
                 <input type="reset" value=" 重置 " class="button" />
@@ -151,7 +170,16 @@ UM.getEditor('goods_desc', {
 $('#tabbar-div p span').on('click',function(){
     var i = $(this).index();
     $('.tab-table').eq(i).show().siblings('.tab-table').hide();
+    $(this).addClass('tab-front').siblings().removeClass('tab-front');
 });
+
+//相册图片
+$('.add_pic').on('click',function(){
+    var file = "<li><input name='pic[]' type='file' /></li>";
+    $('.pic_list').append(file);
+});
+
+
 
 //扩展分类复制
 $('.add_cat').on('click',function(){

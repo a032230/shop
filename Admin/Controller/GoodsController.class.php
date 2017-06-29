@@ -6,6 +6,23 @@ use Think\Controller;
 --------------------------*/
 class GoodsController extends Controller{
 
+	//ajax删除相册图片
+	public function ajaxDelPic()
+	{
+		if(IS_AJAX){
+			$pid = I('get.pid');
+			//根据id删除数据库的数据和硬盘上的图片
+			$gpModel = M('goods_pic');
+			$pics = $gpModel ->field('pic,big_pic,sm_pic,mid_pic') -> find($pid);
+
+			//删除硬盘上的图片
+			delImage($pics);
+
+			//删除数据记录
+			$gpModel -> delete($pid);
+		}
+	}
+
 	//商品列表页
 	public function lst()
 	{
@@ -34,6 +51,8 @@ class GoodsController extends Controller{
 	public function add()
 	{
 		if(IS_POST){
+
+			// p($_FILES);die;
 			// p($_POST);exit;
 			$goodsModel = D('goods');
 			//验证表单并保存到模型
@@ -92,6 +111,10 @@ class GoodsController extends Controller{
 		$cateModel = D('category');
 		$cats = $cateModel -> getTree();
 
+		//取出相册图片
+		$gpModel = M('goods_pic');
+		$gpdata = $gpModel ->where("goods_id=$id") -> select();
+
 		//取出会员等级
 		$mlModel = M('member_level');
 		$mldata = $mlModel -> getField('id,level_name');
@@ -115,6 +138,7 @@ class GoodsController extends Controller{
 			'_page_title' => '编辑商品',
 			'_page_btn_name' => '商品列表',
 			'_page_btn_link' => U('lst'),
+			'gpdata' => $gpdata,
 			'cats' => $cats,
 			'ext'  => $ext,
 			'mldata' => $mldata,

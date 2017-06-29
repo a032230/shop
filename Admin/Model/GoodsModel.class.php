@@ -274,9 +274,59 @@ class GoodsModel extends Model{
 
 				//删除硬盘上存放的未修改之前的图片资源
 				$oldlogo = $this -> field('logo,mbig_logo,big_logo,mid_logo,sm_logo') -> find($id);
-
+				delImage($oldlogo);
 		}
 
+		/***********处理相册图**************/
+		if(isset($_FILES['pic']))
+		{
+			//将重组相册信息再调用uplodeOne循环添加
+			$pics = array();
+
+			//遍历图片，重组图片信息
+			foreach($_FILES['pic']['name'] as $k => $v)
+			{
+				$pics[] = array(
+					'name' => $v,
+					'type' => $_FILES['pic']['type'][$k],
+					'tmp_name' => $_FILES['pic']['tmp_name'][$k],
+					'error' => $_FILES['pic']['error'][$k],
+					'size' => $_FILES['pic']['size'][$k],
+
+				);
+
+			}
+
+			//把处理好的数组赋回给$_FILES,因为封装的uploadOne是再$_FILES中寻找图片
+			$_FILES = $pics;
+			// p($_FILES);die;
+			$gpModel = M('goods_pic');
+			//循环添加
+			foreach($pics as $k => $v)
+			{
+				// 如果图片错误代码为0才执行添加
+				if($v['error'] == 0)
+				{
+					$ret = uploadOne($k,'Pic',array(
+								array(650,650),
+								array(350,350),
+								array(50,50)
+							));
+
+					if($ret['ok'] == 1)
+					{
+						$gpModel -> add(array(
+							'pic' => $ret['images'][0],
+							'big_pic' => $ret['images'][1],
+							'mid_pic' => $ret['images'][2],
+							'sm_pic' => $ret['images'][3],
+							'goods_id' => $id,
+						));
+					}
+				}
+			}
+
+		}
 		/***********处理会员价格*************/
 		$mp = I('post.member_price');
 		//先删除该商品原先的会员价格
@@ -318,6 +368,7 @@ class GoodsModel extends Model{
 
 		}
 
+
 		//有选择性过滤XSS
 		$data['goods_desc'] = removeXss($_POST['goods_desc']);
 	}
@@ -344,6 +395,22 @@ class GoodsModel extends Model{
 		/************处理扩展分类***********/
 		$gcModel = M('goods_cat');
 		$gcModel -> where("goods_id = $id")	-> delete();
+
+		/***********处理相册图片***********/
+		$gpModel = M('goods_pic');
+		//取出路径
+		$pics = $gpModel -> field('pic,big_pic,mid_pic,sm_pic') -> where("goods_id=$id") -> select();
+		// p($pics);die;
+		//删除硬盘图片
+		//一件商品下有多个相片，所以此时获得的是个二维数组 ，delImage只能处理一维
+		foreach($pics as $v)
+		{
+			delImage($v);
+		}
+		
+		//从数据库中把记录删除
+		$gpModel -> where("goods_id = $id") -> delete();
+
 	}
 
 	//添加后执行操作
@@ -389,6 +456,57 @@ class GoodsModel extends Model{
 					));
 				}
 			}
+		}
+
+		/************处理相册图片**********/
+		if(isset($_FILES['pic']))
+		{
+			//将重组相册信息再调用uplodeOne循环添加
+			$pics = array();
+
+			//遍历图片，重组图片信息
+			foreach($_FILES['pic']['name'] as $k => $v)
+			{
+				$pics[] = array(
+					'name' => $v,
+					'type' => $_FILES['pic']['type'][$k],
+					'tmp_name' => $_FILES['pic']['tmp_name'][$k],
+					'error' => $_FILES['pic']['error'][$k],
+					'size' => $_FILES['pic']['size'][$k],
+
+				);
+
+			}
+
+			//把处理好的数组赋回给$_FILES,因为封装的uploadOne是再$_FILES中寻找图片
+			$_FILES = $pics;
+			// p($_FILES);die;
+			$gpModel = M('goods_pic');
+			//循环添加
+			foreach($pics as $k => $v)
+			{
+				// 如果图片错误代码为0才执行添加
+				if($v['error'] == 0)
+				{
+					$ret = uploadOne($k,'Pic',array(
+								array(650,650),
+								array(350,350),
+								array(50,50)
+							));
+
+					if($ret['ok'] == 1)
+					{
+						$gpModel -> add(array(
+							'pic' => $ret['images'][0],
+							'big_pic' => $ret['images'][1],
+							'mid_pic' => $ret['images'][2],
+							'sm_pic' => $ret['images'][3],
+							'goods_id' => $data['id'],
+						));
+					}
+				}
+			}
+
 		}
 	} 
 

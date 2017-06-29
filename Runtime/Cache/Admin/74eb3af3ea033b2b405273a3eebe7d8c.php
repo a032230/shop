@@ -22,13 +22,23 @@
 
 
 <style>
-    .cat_list{
+    ul{
         padding: 0;
         margin: 0;
     }
     .cat_list li{
         margin: 5px 0;
+        
+    }
+    li{
         list-style: none;
+    }
+    .pic_list li{
+        margin: 5px 0;
+    }
+    .old_list li{
+        margin-right: 10px;
+        float: left;
     }
 </style>
 <div class="tab-div">
@@ -42,7 +52,7 @@
         </p>
     </div>
     <div id="tabbody-div">
-        <form enctype="multipart/form-data" action="/index.php/Admin/Goods/edit/id/7.html" method="post">
+        <form enctype="multipart/form-data" action="/index.php/Admin/Goods/edit/id/12.html" method="post">
         	<input type="hidden" name='id' value="<?php echo ($data["id"]); ?>" />
 
             <table width="90%" class="tab-table" align="center">
@@ -128,6 +138,7 @@
                     </td>
                 </tr>
             </table>
+            <!-- 商品描述 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center">
                 <tr>
                     <td>
@@ -135,6 +146,7 @@
                     </td>
                 </tr>
             </table>
+            <!-- 会员价格 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center">
                 <tr>
                     <td class="label"></td>
@@ -143,8 +155,29 @@
                     </td>
                 </tr>
             </table>
+            <!-- 商品属性 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center"></table>
-            <table style="display: none;" width="90%" class="tab-table"  align="center"></table>
+            <!-- 商品相册 -->
+            <table style="display: none;" width="90%" class="tab-table"  align="center">
+                <tr>
+                    <td class="label" style="text-align: center">
+                        <input class="add_pic" type="button" value="添加一张">
+                        <hr>
+                         <ul class="pic_list">
+
+                         </ul>
+                    </td>
+                    <td>
+                        <ul class="old_list">
+                            <?php if(is_array($gpdata)): foreach($gpdata as $key=>$v): ?><li>
+                                 <?php showImage($v['mid_pic'],150) ?>
+                                 <br>
+                                 <button class="delpic" alt="<?php echo ($v["id"]); ?>" style="margin: 5px 0 0 60px">删除</button>
+                             </li><?php endforeach; endif; ?>
+                         </ul>
+                    </td>
+                </tr>
+            </table>
             <div class="button-div">
                 <input type="submit" value=" 确定 " class="button"/>
                 <input type="reset" value=" 重置 " class="button" />
@@ -169,11 +202,38 @@ UM.getEditor('goods_desc', {
 $('#tabbar-div p span').on('click',function(){
     var i = $(this).index();
     $('.tab-table').eq(i).show().siblings('.tab-table').hide();
+    $(this).addClass('tab-front').siblings().removeClass('tab-front');
+});
+
+//相册图片
+$('.add_pic').on('click',function(){
+    var file = "<li><input name='pic[]' type='file' /></li>";
+    $('.pic_list').append(file);
 });
 
 //扩展分类复制
 $('.add_cat').on('click',function(){
     $('.cat_list').append($('.cat_list').find('li').eq(0).clone());
+})
+
+//ajax删除相册图片
+$('.delpic').on('click',function(){
+    if(confirm('确定要删除吗？')){
+    //获取删除对象
+    var li = $(this).parent('li');
+    //获取商品id
+    var pid = $(this).attr('alt');
+    $.ajax({
+        type : 'GET',
+        url : "<?php echo U('ajaxDelPic','',FALSE);?>/pid/"+pid,
+        success: function(data)
+        {
+            li.remove();
+        }
+    });
+
+    }
+    return false;
 })
 </script>
 

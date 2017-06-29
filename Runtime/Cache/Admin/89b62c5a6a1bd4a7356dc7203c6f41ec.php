@@ -33,7 +33,7 @@
                 <td align="center">
                 <a href="<?php echo U('edit',array('id' => $val['id']));?>" title="上架">编辑</a>
 				|
-                <a class="subs" onclick="return  confirm('你确定要删除该分类吗？');" name="<?php echo U('del',array('id' => $val['id']));?>">删除</a>
+                <a class="subs" onclick="return  confirm('你确定要删除该分类吗？');" name="<?php echo U('del',array('id' => $val['id']),false);?>">删除</a>
                 </td>
             </tr><?php endforeach; endif; ?>
         </table>
@@ -67,7 +67,6 @@ $('.subs').click(function(){
             }
         }
     });
-
 })
 </script>
 
