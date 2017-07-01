@@ -40,6 +40,9 @@
         margin-right: 10px;
         float: left;
     }
+     #attr_list li{
+        margin-bottom: 5px;
+    }
 </style>
 <div class="tab-div">
     <div id="tabbar-div">
@@ -156,7 +159,37 @@
                 </tr>
             </table>
             <!-- 商品属性 -->
-            <table style="display: none;" width="90%" class="tab-table"  align="center"></table>
+            <table style="display: none;" width="90%" class="tab-table"  align="center">
+                <tr>
+                    <td class="label">商品属性:</td>
+                    <td> <?php buildSelect('type','type_id','id','type_name',$data['type_id']) ?></td>
+                </tr>   
+                <tr>
+                    <td class="label"></td>
+                    <td>
+                        <ul id="attr_list">
+                            <?php
+ $attrId = array(); foreach($gadata as $v){ if(in_array($v['id'],$attrId)){ $opt = '[-]'; }else{ $attrId[] = $v['id']; $opt = '[+]'; } ?>
+                            <li>
+                                <input type="hidden" name="goods_attr_id[]" value="<?php echo ($v["goods_attr_id"]); ?>">
+                                <?php if($v['attr_type'] == '可选'):?>
+                                    <a onclick="addNewAttr(this)" href="javascript:;"><?php echo ($opt); ?></a>
+                                <?php endif?>
+                                <?php echo ($v["attr_name"]); ?> :
+                                <?php  if($v['attr_option_values']): $attr = explode(',',$v['attr_option_values']); ?>
+                                    <select name="attr_value[<?php echo ($v["id"]); ?>][]" id="">
+                                        <option value="">请选择...</option>
+                                        <?php if(is_array($attr)): foreach($attr as $key=>$val): ?><option <?=$val == $v['attr_value'] ? 'selected' : ''?> value="<?php echo ($val); ?>"><?php echo ($val); ?></option><?php endforeach; endif; ?>
+                                    </select>
+                                <?php else:?>
+                                    <input name="attr_value[<?php echo ($v["id"]); ?>][]" type="text" value="<?php echo ($v["attr_value"]); ?>">
+                                <?php endif?>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
             <!-- 商品相册 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center">
                 <tr>
@@ -164,7 +197,6 @@
                         <input class="add_pic" type="button" value="添加一张">
                         <hr>
                          <ul class="pic_list">
-
                          </ul>
                     </td>
                     <td>
@@ -235,6 +267,104 @@ $('.delpic').on('click',function(){
     }
     return false;
 })
+//选择商品类型获取属性ajax
+$('select[name=type_id]').change(function(){
+    //获取类型id
+    var typeId = $(this).val();
+    //id大于0才执行ajax
+    if(typeId > 0){
+        $.ajax({
+            type : 'get',
+            url : "<?php echo U('ajaxGetAttr','',false);?>/type_id/"+typeId,
+            dataType : 'json',
+            success : function(data)
+            {
+                /******将服务器返回的属性循环遍历成一个li的字符串显示在页面******/
+                var li ='';
+                $(data).each(function(k,v){
+                    li += '<li>';
+                    //属性类型为可选时,前面加上'[+]'；
+                    if(v.attr_type == '可选')
+                    {
+                        li += "<a onclick='addNewAttr(this)' href='javascript:;'>[+]</a>";
+                    }
+                    //属性名
+                    li += v.attr_name +' : ';
+                    // 如何没有可选值就用文本框
+                    if(v.attr_option_values == '')
+                    {
+                        li += "<input name='attr_value["+v.id+"][]' type='text' name='' />"
+                    }else{
+                        //有可选值就用下拉框
+                        li += "<select name='attr_value["+v.id+"][]'><option value=''>请选择...</option>";
+                        //再将可选值以,分割成数组
+                        var _attr = v.attr_option_values.split(',');
+
+                        //循环每个值制作option
+                        for(var i = 0; i < _attr.length;i++)
+                        {
+                            li += '<option value="'+_attr[i]+'">'+_attr[i]+'</option>';
+                        }
+                        li += '</select>';
+                    }
+                    li += '</li>';
+                    // console.log(li);
+                })
+                //放到页面
+                $('#attr_list').html(li);
+            }
+        })
+    }else{
+        $('#attr_list').html('');
+    }
+
+})
+
+//可选属性有多个可以进行添加下拉框
+function addNewAttr(a)
+{
+    var li = $(a).parent('li');
+    if($(a).text() == '[+]')
+    {
+        //克隆一份
+        var newLi = li.clone();
+        //去掉选中状态
+        newLi.find('option').removeAttr('selected');
+        //情况隐藏域的值
+        newLi.find('input[type=hidden]').val('');
+        // 变-
+        newLi.find('a').text('[-]');
+        //放到li的后面
+        li.after(newLi);
+    }
+    else
+    {
+        //删除
+        //获取属性id
+        var gaid = li.find("input[type=hidden]").val();
+        //判断gaid是否存在以区别是新添加的还是存在的原属性
+        if(gaid == '')
+        {
+            //新添加的直接删除
+            li.remove();
+        }
+        else
+        {   //删除数据库对应的商品属性id的记录
+            if(confirm('如果删除这个属性,相关的库存量也会被删除，确定要删除吗？'))
+            {
+                $.ajax({
+                    type : 'get',
+                    url : "<?php echo U('ajaxDelAttr','',false);?>/gaid/" + gaid,
+                    success : function(data)
+                    {
+                        //同时删除dom节点
+                        li.remove()
+                    }
+                });
+            }  
+        }
+    }
+}
 </script>
 
 <div id="footer">

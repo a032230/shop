@@ -32,6 +32,10 @@ create table goods
 alter table goods add cat_id mediumint unsigned not null comment '分类id' after brand_id;
 alter table goods add key cat_id(cat_id);
 
+#在商品表添加类型id 并添加外键
+alter table goods add type_id mediumint unsigned not null comment '类型id' after cat_id;
+alter table goods add key type_id(type_id);
+
 
 #品牌表
 create table brand(
@@ -96,4 +100,48 @@ create table goods_pic(
 	key goods_id(goods_id)
 )engine=InnoDB default charset=utf8 comment '商品相册';
 
+/*********************属性相关表**********************/
+#	关系：  
+#		类型表关联商品表
+#		属性表关联类型表
+#		商品属性表关联 属性表和商品表
+#		库存量表关联商品属性表和商品表
 
+#类型表
+create table type(
+	id mediumint unsigned not null auto_increment comment 'id',
+	type_name varchar(100) not null comment '类型名称',
+	primary key (id)
+)engine=InnoDB default charset=utf8 comment '类型';
+
+#属性表
+create table attr(
+	id mediumint unsigned not null auto_increment comment 'id',
+	attr_name char(20) not null comment '属性名',
+	attr_type enum('唯一','可选') not null  comment '属性类型'
+	attr_option_values varchar(200) not null default '' comment '属性可选值',
+	type_id mediumint unsigned not null comment '所属类型id',
+	primary key (id),
+	key type_id(type_id)
+)engine=InnoDB default charset=utf8 comment '属性';
+
+#商品属性表
+create table goods_attr(
+	id mediumint unsigned not null auto_increment comment 'id',
+	attr_value varchar(150) not null default '' comment '属性值',
+	attr_id mediumint unsigned not null comment '属性id',
+	goods_id mediumint unsigned not null comment '商品id',
+	primary key (id),
+	key goods_id(goods_id),
+	key attr_id(attr_id)
+
+)engine=InnoDB default charset=utf8 comment '商品属性';
+
+#商品库存量表
+create table goods_number(
+	goods_id mediumint unsigned not null comment '商品id',
+	goods_number mediumint unsigned not null comment '库存量',
+	attr_id mediumint unsigned not null default '0' comment '属性id',
+	goods_attr_id varchar(150) not null comment '商品属性id,如果有多个以,分割到此字段',
+	key goods_id(goods_id)
+)engine=InnoDB default charset=utf8 comment '库存量';

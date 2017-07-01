@@ -11,7 +11,7 @@ class <?php echo $tpName; ?>Controller extends Controller
     		{
     			if($id = $model->add())
     			{
-    				$this->success('添加成功！', U('lst?p='.I('get.p')));
+    				$this->success('添加成功！', U('lst'));
     				exit;
     			}
     		}
@@ -41,7 +41,7 @@ class <?php echo $tpName; ?>Controller extends Controller
     		{
     			if($model->save() !== FALSE)
     			{
-    				$this->success('修改成功！', U('lst', array('p' => I('get.p', 1))));
+    				$this->success('修改成功！', U('lst'));
     				exit;
     			}
     		}
@@ -73,7 +73,7 @@ class <?php echo $tpName; ?>Controller extends Controller
     	$model = D('<?php echo $tpName; ?>');
     	if($model->delete(I('get.id', 0)) !== FALSE)
     	{
-    		$this->success('删除成功！', U('lst', array('p' => I('get.p', 1))));
+    		$this->success('删除成功！', U('lst'));
     		exit;
     	}
     	else 

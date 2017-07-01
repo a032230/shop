@@ -5151,3 +5151,334 @@ INFO: [ app_end ] --START--
 INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000419s ]
 INFO: [ app_end ] --END-- [ RunTime:0.000460s ]
 
+[ 2017-06-29T20:23:06+08:00 ] 127.0.0.1 /index.php/Admin/Goods/edit/id/12.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000345s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000592s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000637s ]
+SQL: DESCRIBE goods [ RunTime:0.002269s ]
+SQL: SELECT * FROM `goods` WHERE `id` = 12 LIMIT 1   [ RunTime:0.000294s ]
+NOTIC: [2048] Declaration of Admin\Model\CategoryModel::_before_delete() should be compatible with Think\Model::_before_delete($options) D:\xampp\htdocs\shop\Admin\Model\CategoryModel.class.php 第 109 行.
+SQL: DESCRIBE category [ RunTime:0.001534s ]
+SQL: SELECT * FROM `category`  [ RunTime:0.000184s ]
+SQL: DESCRIBE goods_pic [ RunTime:0.004050s ]
+SQL: SELECT * FROM `goods_pic` WHERE ( goods_id=12 )  [ RunTime:0.000208s ]
+SQL: DESCRIBE member_level [ RunTime:0.001728s ]
+SQL: SELECT `id`,`level_name` FROM `member_level`  [ RunTime:0.000176s ]
+SQL: DESCRIBE member_price [ RunTime:0.001750s ]
+SQL: SELECT * FROM `member_price` WHERE ( goods_id=12 )  [ RunTime:0.000271s ]
+SQL: DESCRIBE goods_cat [ RunTime:0.001863s ]
+SQL: SELECT * FROM `goods_cat` WHERE ( goods_id = 12 )  [ RunTime:0.000213s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000070s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000109s ]
+NOTIC: [8] Undefined variable: list D:\xampp\htdocs\shop\Runtime\Cache\Admin\74eb3af3ea033b2b405273a3eebe7d8c.php 第 103 行.
+SQL: DESCRIBE brand [ RunTime:0.001695s ]
+SQL: SELECT `id`,`brand_name` FROM `brand`  [ RunTime:0.000176s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.012716s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012756s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000353s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000382s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000532s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000570s ]
+
+[ 2017-06-29T20:23:17+08:00 ] 127.0.0.1 /index.php/Admin/Goods/edit/id/12.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000266s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000502s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000539s ]
+SQL: DESCRIBE goods [ RunTime:0.001779s ]
+SQL: DESCRIBE goods_pic [ RunTime:0.001445s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\xampp\htdocs\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+SQL: INSERT INTO `goods_pic` (`pic`,`big_pic`,`mid_pic`,`sm_pic`,`goods_id`) VALUES ('Pic/2017-06-29/5954f1348372a.jpg','Pic/2017-06-29/thumb_0_5954f1348372a.jpg','Pic/2017-06-29/thumb_1_5954f1348372a.jpg','Pic/2017-06-29/thumb_2_5954f1348372a.jpg',12) [ RunTime:0.035500s ]
+SQL: DESCRIBE member_price [ RunTime:0.001721s ]
+SQL: DELETE FROM `member_price` WHERE ( goods_id=12 ) [ RunTime:0.050729s ]
+SQL: INSERT INTO `member_price` (`level_id`,`price`,`goods_id`) VALUES (1,2680,12) [ RunTime:0.106613s ]
+SQL: INSERT INTO `member_price` (`level_id`,`price`,`goods_id`) VALUES (2,2650,12) [ RunTime:0.099236s ]
+SQL: INSERT INTO `member_price` (`level_id`,`price`,`goods_id`) VALUES (3,2600,12) [ RunTime:0.131693s ]
+SQL: INSERT INTO `member_price` (`level_id`,`price`,`goods_id`) VALUES (4,2550,12) [ RunTime:0.070149s ]
+SQL: DESCRIBE goods_cat [ RunTime:0.015714s ]
+SQL: DELETE FROM `goods_cat` WHERE ( goods_id=12 ) [ RunTime:0.082323s ]
+SQL: INSERT INTO `goods_cat` (`cat_id`,`goods_id`) VALUES (19,12) [ RunTime:0.022285s ]
+SQL: INSERT INTO `goods_cat` (`cat_id`,`goods_id`) VALUES (17,12) [ RunTime:0.047015s ]
+SQL: INSERT INTO `goods_cat` (`cat_id`,`goods_id`) VALUES (2,12) [ RunTime:0.027295s ]
+SQL: UPDATE `goods` SET `cat_id`=1,`brand_id`=7,`goods_name`='opppR9',`shop_price`='2699.00',`market_price`='2799.00',`is_on_sale`='是',`goods_desc`='<p>aassdadasd</p>' WHERE `id` = 12 [ RunTime:0.050088s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000095s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000222s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.017483s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.017590s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000851s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000915s ]
+
+[ 2017-06-29T20:23:18+08:00 ] 127.0.0.1 /index.php/Admin/Goods/lst.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000340s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000530s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000564s ]
+SQL: DESCRIBE goods [ RunTime:0.002395s ]
+NOTIC: [8] Undefined variable: pageObj D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Trying to get property of non-object D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Undefined variable: pageObj D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Trying to get property of non-object D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+SQL: SELECT a.*,b.brand_name,c.cat_name,GROUP_CONCAT(e.cat_name SEPARATOR "<br />") AS ext_name FROM goods a LEFT JOIN brand b ON a.brand_id = b.id
+		              		   LEFT JOIN category c ON a.cat_id = c.id
+		              		   LEFT JOIN goods_cat d ON a.id = d.goods_id
+		              		   LEFT JOIN category e ON d.cat_id = e.id  WHERE `is_delete` = '否' GROUP BY a.id ORDER BY a.id desc  [ RunTime:0.021785s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `goods` WHERE `is_delete` = '否' LIMIT 1   [ RunTime:0.000226s ]
+NOTIC: [2048] Declaration of Admin\Model\CategoryModel::_before_delete() should be compatible with Think\Model::_before_delete($options) D:\xampp\htdocs\shop\Admin\Model\CategoryModel.class.php 第 109 行.
+SQL: DESCRIBE category [ RunTime:0.001792s ]
+SQL: SELECT * FROM `category`  [ RunTime:0.000201s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000057s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000098s ]
+SQL: DESCRIBE brand [ RunTime:0.001681s ]
+SQL: SELECT `id`,`brand_name` FROM `brand`  [ RunTime:0.000192s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011026s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011062s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000403s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000431s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000485s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000524s ]
+
+[ 2017-06-29T20:23:20+08:00 ] 127.0.0.1 /index.php/Admin/Goods/edit/id/12.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000337s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000532s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000576s ]
+SQL: DESCRIBE goods [ RunTime:0.002144s ]
+SQL: SELECT * FROM `goods` WHERE `id` = 12 LIMIT 1   [ RunTime:0.000245s ]
+NOTIC: [2048] Declaration of Admin\Model\CategoryModel::_before_delete() should be compatible with Think\Model::_before_delete($options) D:\xampp\htdocs\shop\Admin\Model\CategoryModel.class.php 第 109 行.
+SQL: DESCRIBE category [ RunTime:0.001800s ]
+SQL: SELECT * FROM `category`  [ RunTime:0.000219s ]
+SQL: DESCRIBE goods_pic [ RunTime:0.001437s ]
+SQL: SELECT * FROM `goods_pic` WHERE ( goods_id=12 )  [ RunTime:0.014351s ]
+SQL: DESCRIBE member_level [ RunTime:0.001861s ]
+SQL: SELECT `id`,`level_name` FROM `member_level`  [ RunTime:0.008769s ]
+SQL: DESCRIBE member_price [ RunTime:0.002182s ]
+SQL: SELECT * FROM `member_price` WHERE ( goods_id=12 )  [ RunTime:0.000265s ]
+SQL: DESCRIBE goods_cat [ RunTime:0.001786s ]
+SQL: SELECT * FROM `goods_cat` WHERE ( goods_id = 12 )  [ RunTime:0.000211s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000068s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000099s ]
+NOTIC: [8] Undefined variable: list D:\xampp\htdocs\shop\Runtime\Cache\Admin\74eb3af3ea033b2b405273a3eebe7d8c.php 第 103 行.
+SQL: DESCRIBE brand [ RunTime:0.001562s ]
+SQL: SELECT `id`,`brand_name` FROM `brand`  [ RunTime:0.000163s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011452s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011488s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000419s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000450s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000554s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000594s ]
+
+[ 2017-06-29T20:23:31+08:00 ] 127.0.0.1 /index.php/Admin/Goods/ajaxDelPic/pid/12
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000344s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000536s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000577s ]
+SQL: DESCRIBE goods_pic [ RunTime:0.002049s ]
+SQL: SELECT `pic`,`big_pic`,`sm_pic`,`mid_pic` FROM `goods_pic` WHERE `id` = 12 LIMIT 1   [ RunTime:0.000216s ]
+SQL: DELETE FROM `goods_pic` WHERE `id` = 12 [ RunTime:0.086010s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000866s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000918s ]
+
+[ 2017-06-29T20:23:37+08:00 ] 127.0.0.1 /index.php/Admin/Goods/lst.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000277s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000365s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000399s ]
+SQL: DESCRIBE goods [ RunTime:0.002210s ]
+NOTIC: [8] Undefined variable: pageObj D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Trying to get property of non-object D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Undefined variable: pageObj D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Trying to get property of non-object D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+SQL: SELECT a.*,b.brand_name,c.cat_name,GROUP_CONCAT(e.cat_name SEPARATOR "<br />") AS ext_name FROM goods a LEFT JOIN brand b ON a.brand_id = b.id
+		              		   LEFT JOIN category c ON a.cat_id = c.id
+		              		   LEFT JOIN goods_cat d ON a.id = d.goods_id
+		              		   LEFT JOIN category e ON d.cat_id = e.id  WHERE `is_delete` = '否' GROUP BY a.id ORDER BY a.id desc  [ RunTime:0.000538s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `goods` WHERE `is_delete` = '否' LIMIT 1   [ RunTime:0.000193s ]
+NOTIC: [2048] Declaration of Admin\Model\CategoryModel::_before_delete() should be compatible with Think\Model::_before_delete($options) D:\xampp\htdocs\shop\Admin\Model\CategoryModel.class.php 第 109 行.
+SQL: DESCRIBE category [ RunTime:0.001764s ]
+SQL: SELECT * FROM `category`  [ RunTime:0.000153s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000052s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000086s ]
+SQL: DESCRIBE brand [ RunTime:0.001812s ]
+SQL: SELECT `id`,`brand_name` FROM `brand`  [ RunTime:0.000174s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009305s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009338s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000269s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000294s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000299s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000329s ]
+
+[ 2017-06-29T20:23:38+08:00 ] 127.0.0.1 /index.php/Admin/Goods/edit/id/12.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000239s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000298s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000332s ]
+SQL: DESCRIBE goods [ RunTime:0.080347s ]
+SQL: SELECT * FROM `goods` WHERE `id` = 12 LIMIT 1   [ RunTime:0.000230s ]
+NOTIC: [2048] Declaration of Admin\Model\CategoryModel::_before_delete() should be compatible with Think\Model::_before_delete($options) D:\xampp\htdocs\shop\Admin\Model\CategoryModel.class.php 第 109 行.
+SQL: DESCRIBE category [ RunTime:0.001400s ]
+SQL: SELECT * FROM `category`  [ RunTime:0.000184s ]
+SQL: DESCRIBE goods_pic [ RunTime:0.001377s ]
+SQL: SELECT * FROM `goods_pic` WHERE ( goods_id=12 )  [ RunTime:0.000199s ]
+SQL: DESCRIBE member_level [ RunTime:0.001448s ]
+SQL: SELECT `id`,`level_name` FROM `member_level`  [ RunTime:0.000149s ]
+SQL: DESCRIBE member_price [ RunTime:0.001353s ]
+SQL: SELECT * FROM `member_price` WHERE ( goods_id=12 )  [ RunTime:0.000188s ]
+SQL: DESCRIBE goods_cat [ RunTime:0.001331s ]
+SQL: SELECT * FROM `goods_cat` WHERE ( goods_id = 12 )  [ RunTime:0.000161s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000070s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000109s ]
+NOTIC: [8] Undefined variable: list D:\xampp\htdocs\shop\Runtime\Cache\Admin\74eb3af3ea033b2b405273a3eebe7d8c.php 第 103 行.
+SQL: DESCRIBE brand [ RunTime:0.001642s ]
+SQL: SELECT `id`,`brand_name` FROM `brand`  [ RunTime:0.000161s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.010862s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010896s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000206s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000230s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000320s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000353s ]
+
+[ 2017-06-29T20:23:40+08:00 ] 127.0.0.1 /index.php/Admin/Goods/lst.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000296s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000395s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000439s ]
+SQL: DESCRIBE goods [ RunTime:0.002194s ]
+NOTIC: [8] Undefined variable: pageObj D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Trying to get property of non-object D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Undefined variable: pageObj D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Trying to get property of non-object D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+SQL: SELECT a.*,b.brand_name,c.cat_name,GROUP_CONCAT(e.cat_name SEPARATOR "<br />") AS ext_name FROM goods a LEFT JOIN brand b ON a.brand_id = b.id
+		              		   LEFT JOIN category c ON a.cat_id = c.id
+		              		   LEFT JOIN goods_cat d ON a.id = d.goods_id
+		              		   LEFT JOIN category e ON d.cat_id = e.id  WHERE `is_delete` = '否' GROUP BY a.id ORDER BY a.id desc  [ RunTime:0.000445s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `goods` WHERE `is_delete` = '否' LIMIT 1   [ RunTime:0.000197s ]
+NOTIC: [2048] Declaration of Admin\Model\CategoryModel::_before_delete() should be compatible with Think\Model::_before_delete($options) D:\xampp\htdocs\shop\Admin\Model\CategoryModel.class.php 第 109 行.
+SQL: DESCRIBE category [ RunTime:0.001897s ]
+SQL: SELECT * FROM `category`  [ RunTime:0.000219s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000051s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000081s ]
+SQL: DESCRIBE brand [ RunTime:0.001808s ]
+SQL: SELECT `id`,`brand_name` FROM `brand`  [ RunTime:0.000174s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008863s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008900s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000180s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000205s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000302s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000332s ]
+
+[ 2017-06-29T20:23:42+08:00 ] 127.0.0.1 /index.php/Admin/Goods/edit/id/11.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000235s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000293s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000326s ]
+SQL: DESCRIBE goods [ RunTime:0.001672s ]
+SQL: SELECT * FROM `goods` WHERE `id` = 11 LIMIT 1   [ RunTime:0.000226s ]
+NOTIC: [2048] Declaration of Admin\Model\CategoryModel::_before_delete() should be compatible with Think\Model::_before_delete($options) D:\xampp\htdocs\shop\Admin\Model\CategoryModel.class.php 第 109 行.
+SQL: DESCRIBE category [ RunTime:0.001641s ]
+SQL: SELECT * FROM `category`  [ RunTime:0.000212s ]
+SQL: DESCRIBE goods_pic [ RunTime:0.001655s ]
+SQL: SELECT * FROM `goods_pic` WHERE ( goods_id=11 )  [ RunTime:0.000202s ]
+SQL: DESCRIBE member_level [ RunTime:0.001869s ]
+SQL: SELECT `id`,`level_name` FROM `member_level`  [ RunTime:0.000176s ]
+SQL: DESCRIBE member_price [ RunTime:0.001394s ]
+SQL: SELECT * FROM `member_price` WHERE ( goods_id=11 )  [ RunTime:0.000190s ]
+SQL: DESCRIBE goods_cat [ RunTime:0.001745s ]
+SQL: SELECT * FROM `goods_cat` WHERE ( goods_id = 11 )  [ RunTime:0.000182s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000076s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000115s ]
+NOTIC: [8] Undefined variable: list D:\xampp\htdocs\shop\Runtime\Cache\Admin\74eb3af3ea033b2b405273a3eebe7d8c.php 第 103 行.
+SQL: DESCRIBE brand [ RunTime:0.001583s ]
+SQL: SELECT `id`,`brand_name` FROM `brand`  [ RunTime:0.000175s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.010678s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.010713s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000170s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000196s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000301s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000334s ]
+
+[ 2017-06-29T20:23:44+08:00 ] 127.0.0.1 /index.php/Admin/Goods/lst.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000229s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000291s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000324s ]
+SQL: DESCRIBE goods [ RunTime:0.002230s ]
+NOTIC: [8] Undefined variable: pageObj D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Trying to get property of non-object D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Undefined variable: pageObj D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+NOTIC: [8] Trying to get property of non-object D:\xampp\htdocs\shop\Admin\Model\GoodsModel.class.php 第 220 行.
+SQL: SELECT a.*,b.brand_name,c.cat_name,GROUP_CONCAT(e.cat_name SEPARATOR "<br />") AS ext_name FROM goods a LEFT JOIN brand b ON a.brand_id = b.id
+		              		   LEFT JOIN category c ON a.cat_id = c.id
+		              		   LEFT JOIN goods_cat d ON a.id = d.goods_id
+		              		   LEFT JOIN category e ON d.cat_id = e.id  WHERE `is_delete` = '否' GROUP BY a.id ORDER BY a.id desc  [ RunTime:0.000589s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `goods` WHERE `is_delete` = '否' LIMIT 1   [ RunTime:0.000240s ]
+NOTIC: [2048] Declaration of Admin\Model\CategoryModel::_before_delete() should be compatible with Think\Model::_before_delete($options) D:\xampp\htdocs\shop\Admin\Model\CategoryModel.class.php 第 109 行.
+SQL: DESCRIBE category [ RunTime:0.004998s ]
+SQL: SELECT * FROM `category`  [ RunTime:0.000231s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000069s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000110s ]
+SQL: DESCRIBE brand [ RunTime:0.002083s ]
+SQL: SELECT `id`,`brand_name` FROM `brand`  [ RunTime:0.000224s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011249s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011291s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000231s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000263s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000389s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000429s ]
+

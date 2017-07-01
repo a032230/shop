@@ -6,6 +6,29 @@ use Think\Controller;
 --------------------------*/
 class GoodsController extends Controller{
 
+	//ajax删除商品属性
+	public function ajaxDelAttr()
+	{
+		if(IS_AJAX){
+			$gaid = I('get.gaid');
+			$gaModel = M('goods_attr');
+
+			//执行删除
+			$gaModel -> delete($gaid);
+		}
+	}
+
+	//ajax获取类型属性
+	public function ajaxGetAttr()
+	{
+		if(IS_AJAX){
+			$typeId = I('get.type_id');
+			$attrModel = M('attr');
+			$data = $attrModel -> where("type_id=$typeId") -> select();
+			echo json_encode($data);
+		}
+	}
+
 	//ajax删除相册图片
 	public function ajaxDelPic()
 	{
@@ -92,6 +115,7 @@ class GoodsController extends Controller{
 		$id = I('get.id');
 		$goodsModel  = D('goods');
 		if(IS_POST){
+			// p($_POST);die;
 			//验证表单并保存到模型
 			if($goodsModel -> create(I('post.'),2)){
 				if($goodsModel -> save() !== FALSE){
@@ -133,6 +157,24 @@ class GoodsController extends Controller{
 		$gcModel = M('goods_cat');
 		$ext = $gcModel ->where("goods_id = $id") -> select();
 		// p($ext);die;
+		
+		//获取当前类型下所有的属性,
+		/**
+		 *  注：此处以属性表为主关联商品属性表
+		 *  如果以商品属性表关联属性表的话，修改页面只显示在商品属性表里保存的属性，
+		 *  而当再该类型新添加一个属性，修改页面不会显示新添加的属性
+		 *  如：我在手机的类型里新添加了个X属性,而某品牌的手机是属于手机这个类型，我在添加该商品时还没有这个X属性
+		 * 
+		 **/
+		$attrModel = M('attr');
+		$gadata = $attrModel -> alias('a')
+						   -> field('a.*,b.id as goods_attr_id,b.attr_value')
+						   -> join("LEFT JOIN __GOODS_ATTR__ b ON (a.id=b.attr_id AND b.goods_id=$id )")
+						   -> where(array('a.type_id' => array('eq',$data['type_id'])))
+						   -> select();
+		// p($gadata);die;
+		// echo $attrModel->getLastSql();
+
 		//分配页头动态标题和链接
 		$this -> assign(array(
 			'_page_title' => '编辑商品',
@@ -143,6 +185,7 @@ class GoodsController extends Controller{
 			'ext'  => $ext,
 			'mldata' => $mldata,
 			'mpdata' => $_mpdata,
+			'gadata' => $gadata,
 		));
 		$this -> display();
 	}

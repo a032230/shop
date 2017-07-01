@@ -8,10 +8,10 @@ use Think\Model;
 class GoodsModel extends Model{
 
 	//新增时允许接收的字段
-	protected $insertFields = "cat_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
+	protected $insertFields = "cat_id,type_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
 
 	//修改时允许接收的字段
-	protected $updateFields = "id,cat_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
+	protected $updateFields = "id,cat_id,type_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
 
 	//定义表单验证规则
 	protected $_validate = array(
@@ -225,7 +225,7 @@ class GoodsModel extends Model{
 		 
 
 		 /*********分页*********/
-		$count = $this -> where($where)->count();//取出总记录数
+		$count = $this ->alias('a') -> where($where)->count();//取出总记录数
 
 		//生成分页类对象
 		$pageObj = new \Think\Page($count,$perPage);
@@ -368,6 +368,38 @@ class GoodsModel extends Model{
 
 		}
 
+		/**************处理商品属性**************/
+		
+		$gaid = I('post.goods_attr_id'); //接收商品属性id
+		$attrValue = I('post.attr_value'); //商品属性值
+		$gaModel = M('goods_attr');
+		$_i = 0; //循环次数
+
+		//遍历商品属性，根据商品属性的id来判断是添加还是修改
+		foreach($attrValue as $k => $v)
+		{	
+			foreach($v as $k1 => $v1)
+			{	
+				//replace into ： 如果记录存在就修改，不存在则添加,以主键判断一条记录是否存在
+				$gaModel -> execute("REPLACE INTO goods_attr VALUES('$gaid[$_i]','$v1','$k','$id')");
+				/**
+				//没有商品属性ID就执行添加
+				if($gaid[$_i] == ''){
+					$gaModel -> add(array(
+						'attr_value' => $v1,
+						'attr_id' => $k,
+						'goods_id' => $id,
+					));
+				}else{
+					//有id则执行修改
+					$gaModel -> where("id = $gaid[$_i]") -> setField('attr_value',$v1);
+				}
+				**/
+				//记录循环次数
+				$_i++;
+			}
+		}
+
 
 		//有选择性过滤XSS
 		$data['goods_desc'] = removeXss($_POST['goods_desc']);
@@ -407,15 +439,38 @@ class GoodsModel extends Model{
 		{
 			delImage($v);
 		}
-		
 		//从数据库中把记录删除
 		$gpModel -> where("goods_id = $id") -> delete();
 
+		/************处理商品属性*************/
+		$gaModel = M('goods_attr');
+		$gaModel -> where("goods_id=$id") -> delete();
 	}
 
 	//添加后执行操作
 	protected function _after_insert($data,$option)
 	{	
+
+		/************处理商品属性**********/
+		//接收属性
+		$attrValues = I('post.attr_value');
+		$gaModel = M('goods_attr');
+
+		// 循环添加
+		foreach($attrValues as $k => $v)
+		{
+			//属性值去重,防止重复属性添加
+			$v = array_unique($v);
+
+			foreach($v as $k1 => $v1)
+			{
+				$gaModel -> add(array(
+					'attr_id' => $k,
+					'attr_value' => $v1,
+					'goods_id' => $data['id'],
+				));
+			}
+		}
 
 		/************处理扩展分类**********/
 		//接收扩展分类id
@@ -461,7 +516,7 @@ class GoodsModel extends Model{
 		/************处理相册图片**********/
 		if(isset($_FILES['pic']))
 		{
-			//将重组相册信息再调用uplodeOne循环添加
+			//重组相册信息再调用uplodeOne循环添加
 			$pics = array();
 
 			//遍历图片，重组图片信息

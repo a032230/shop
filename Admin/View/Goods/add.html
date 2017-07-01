@@ -15,6 +15,9 @@
     .pic_list li{
         margin: 5px 0;
     }
+    #attr_list li{
+        margin-bottom: 5px;
+    }
 </style>
 <div class="tab-div">
     <div id="tabbar-div">
@@ -120,8 +123,18 @@
                     </td>
                 </tr>
             </table>
-            <!-- 商品属性 -->
-            <table style="display: none;" width="90%" class="tab-table"  align="center"></table>
+            <table style="display: none;" width="90%" class="tab-table"  align="center">
+                <tr>
+                    <td class="label">商品属性:</td>
+                    <td> <?php buildSelect('type','type_id','id','type_name') ?></td>
+                </tr>   
+                <tr>
+                    <td class="label"></td>
+                    <td>
+                        <ul id="attr_list"></ul>
+                    </td>
+                </tr>
+            </table>
             <!-- 商品相册 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center">
                 <tr>
@@ -166,10 +179,79 @@ $('.add_pic').on('click',function(){
     $('.pic_list').append(file);
 });
 
-
-
 //扩展分类复制
 $('.add_cat').on('click',function(){
     $('.cat_list').append($('.cat_list').find('li').eq(0).clone());
 })
+
+//选择商品类型获取属性ajax
+$('select[name=type_id]').change(function(){
+    //获取类型id
+    var typeId = $(this).val();
+    //id大于0才执行ajax
+    if(typeId > 0){
+        $.ajax({
+            type : 'get',
+            url : "{:U('ajaxGetAttr','',false)}/type_id/"+typeId,
+            dataType : 'json',
+            success : function(data)
+            {
+                /******将服务器返回的属性循环遍历成一个li的字符串显示在页面******/
+                var li ='';
+                $(data).each(function(k,v){
+                    li += '<li>';
+                    //属性类型为可选时,前面加上'[+]'；
+                    if(v.attr_type == '可选')
+                    {
+                        li += "<a onclick='addNewAttr(this)' href='javascript:;'>[+]</a>";
+                    }
+                    //属性名
+                    li += v.attr_name +' : ';
+                    // 如何没有可选值就用文本框
+                    if(v.attr_option_values == '')
+                    {
+                        li += "<input name='attr_value["+v.id+"][]' type='text' name='' />"
+                    }else{
+                        //有可选值就用下拉框
+                        li += "<select name='attr_value["+v.id+"][]'><option value=''>请选择...</option>";
+                        //再将可选值以,分割成数组
+                        var _attr = v.attr_option_values.split(',');
+
+                        //循环每个值制作option
+                        for(var i = 0; i < _attr.length;i++)
+                        {
+                            li += '<option value="'+_attr[i]+'">'+_attr[i]+'</option>';
+                        }
+                        li += '</select>';
+                    }
+                    li += '</li>';
+                    // console.log(li);
+                })
+                //放到页面
+                $('#attr_list').html(li);
+            }
+        })
+    }else{
+        $('#attr_list').html('');
+    }
+
+})
+
+//可选属性有多个可以进行添加下拉框
+function addNewAttr(a)
+{
+    var li = $(a).parent('li');
+    if($(a).text() == '[+]'){
+        //克隆一份
+        var newLi = li.clone();
+        // 变-
+        newLi.find('a').text('[-]');
+
+        //放到li的后面
+        li.after(newLi);
+    }else{
+        // 不是克隆就是删除
+        li.remove();
+    }
+}
 </script>
