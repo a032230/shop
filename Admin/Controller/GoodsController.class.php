@@ -6,15 +6,100 @@ use Think\Controller;
 --------------------------*/
 class GoodsController extends Controller{
 
+	//商品库存量列表
+	public function goods_number()
+	{	
+		//接收商品id
+		$goods_id = I('get.id');
+		$gnModel = M('goods_number');
+		//表单处理 -> CURD都在一个页面
+		if(IS_POST)
+		{
+			//删除原库存
+			$gnModel -> where("goods_id = $goods_id") -> delete();
+
+			// P($_POST);die;
+			//接收库存量和商品属性id
+			$gaids = I('post.goods_attr_id');
+			$gn = I('post.goods_number');
+			// p($gaids);
+			//计算商品属性id和库存量的比例，按比例存入数据库
+			$rate = count($gaids) / count($gn);
+			$n = 0; //取第几个商品属性id
+			//循环添加
+			foreach($gn as $k => $v)
+			{	
+				//存放取出来的id
+				$goodsAttrID = array();
+				for($i=0;$i<$rate;$i++)
+				{	
+					// p($n);
+					$goodsAttrID[] = $gaids[$n];
+					$n++;
+				}
+				// p($goodsAttrID);
+				//将以数字升序排列的字符串存入数据库
+				sort($goodsAttrID,SORT_NUMERIC);
+				$goods_attr_id = implode(',',$goodsAttrID);
+				// p($goods_attr_id);
+				//执行添加或修改
+				$gnModel -> add(array(
+					'goods_id' => $goods_id,
+					'goods_number' => $v,
+					'goods_attr_id' => $goods_attr_id,
+				));
+			}
+			// echo $gnModel -> getLastSql();die;
+		}
+
+
+
+
+
+		//根据商品id获得商品属性
+		$gaModel = M('goods_attr');
+		$gadata = $gaModel -> alias('a') 
+						   -> field('a.*,b.attr_name')
+						   -> join("LEFT JOIN __ATTR__ b ON a.attr_id=b.id")
+						   -> where(array('a.goods_id'=>array('eq',$goods_id),'b.attr_type'=>array('eq','可选')))
+						   -> select();
+
+		// p($gadata);die;
+		//重组数组，将属性类型相同的放到一起
+		$_gadata = array();
+		foreach($gadata as $k => $v)
+		{
+			$_gadata[$v['attr_name']][] = $v;
+		}
+		// P($_gadata);die;
+		
+		//取出这件商品已经设置号的库存量
+		$gndata = $gnModel -> where("goods_id=$goods_id") -> select();
+		//分配到前台
+		$this -> assign(array(
+				'gadata' => $_gadata,
+				'gndata' => $gndata,
+			));
+		$this -> display();
+	}
+
+
 	//ajax删除商品属性
 	public function ajaxDelAttr()
 	{
 		if(IS_AJAX){
-			$gaid = I('get.gaid');
+			$gaid = addslashes(I('get.gaid'));
+			$goodsid = addslashes(I('get.goods_id'));
 			$gaModel = M('goods_attr');
-
 			//执行删除
 			$gaModel -> delete($gaid);
+
+			//删除相关库存量
+			//find in set() : 查询一个字段是否存在某个字符 ->[要以,号分割的字符]
+			//由于TP模型中没有现成的函数所以通过tp的EXP表达式查询,由于是自己写的表达式，所以要手动防止SQL注入
+			//在该商品id下的库存量找商品属性id，优化查询性能
+			$gnModel = M('goods_number');
+			$gnModel -> where(array('goods_id' => array('EXP',"=$goodsid AND FIND IN SET($gaid,'goods_attr_id')"))) -> delete();
 		}
 	}
 

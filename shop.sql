@@ -141,7 +141,6 @@ create table goods_attr(
 create table goods_number(
 	goods_id mediumint unsigned not null comment '商品id',
 	goods_number mediumint unsigned not null comment '库存量',
-	attr_id mediumint unsigned not null default '0' comment '属性id',
 	goods_attr_id varchar(150) not null comment '商品属性id,如果有多个以,分割到此字段',
 	key goods_id(goods_id)
 )engine=InnoDB default charset=utf8 comment '库存量';

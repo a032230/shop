@@ -27,6 +27,7 @@ class GoodsModel extends Model{
 		array('addtime','time',1,'function'),
 	);
 
+	/*-------------------------------分割线---------------------------------*/
 	//添加之前执行操作
 	protected function _before_insert(&$data,$option)
 	{	
@@ -92,6 +93,8 @@ class GoodsModel extends Model{
 		//选择性过滤Xss
 		$data['goods_desc'] = removeXss($_POST['goods_desc']);
 	}
+
+		/*-------------------------------分割线---------------------------------*/
 		/**
 		 * getGoodsIdByCatId 取出分类下所以的商品ID[分类及其子类和扩展分类]
 		 * @param  [int] $catId [被搜索的分类]
@@ -137,6 +140,7 @@ class GoodsModel extends Model{
 			return $ids;
 		}
 
+	/*-------------------------------分割线---------------------------------*/
 	//搜索，分页，排序，获取数据
 	public function search($perPage = 10)
 	{	
@@ -241,6 +245,7 @@ class GoodsModel extends Model{
 	}
 
 
+	/*-------------------------------分割线---------------------------------*/
 
 	//修改前执行操作
 	protected function _before_update(&$data,$option)
@@ -405,6 +410,7 @@ class GoodsModel extends Model{
 		$data['goods_desc'] = removeXss($_POST['goods_desc']);
 	}
 
+	/*-------------------------------分割线---------------------------------*/
 	//删除前执行操作
 	protected function _before_delete($option)
 	{
@@ -428,6 +434,10 @@ class GoodsModel extends Model{
 		$gcModel = M('goods_cat');
 		$gcModel -> where("goods_id = $id")	-> delete();
 
+		/************处理商品库存***********/
+		$gnModel = M('goods_number');
+		$gcModel -> where("goods_id = $id")	-> delete();
+		
 		/***********处理相册图片***********/
 		$gpModel = M('goods_pic');
 		//取出路径
@@ -447,6 +457,7 @@ class GoodsModel extends Model{
 		$gaModel -> where("goods_id=$id") -> delete();
 	}
 
+	/*-------------------------------分割线---------------------------------*/
 	//添加后执行操作
 	protected function _after_insert($data,$option)
 	{	
@@ -565,7 +576,7 @@ class GoodsModel extends Model{
 		}
 	} 
 
-
+	/*-------------------------------分割线---------------------------------*/
 	//修改后
 	protected function _after_update($data,$option)
 	{

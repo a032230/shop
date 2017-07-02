@@ -362,7 +362,7 @@ function addNewAttr(a)
             {
                 $.ajax({
                     type : 'get',
-                    url : "{:U('ajaxDelAttr','',false)}/gaid/" + gaid,
+                    url : "{:U('ajaxDelAttr','',false)}/gaid/" + gaid + '/goods_id/'+ '{$data['id']}',
                     success : function(data)
                     {
                         //同时删除dom节点

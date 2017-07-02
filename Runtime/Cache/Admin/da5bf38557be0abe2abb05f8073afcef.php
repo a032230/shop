@@ -20,6 +20,11 @@
 </h1>
 
 
+<style>
+    a{
+        text-decoration: none !important;
+    }
+</style>
 <div class="form-div">
     <form action="/index.php/Admin/Goods/lst" name="searchForm" method="get">
         <p>
@@ -95,7 +100,10 @@
                 <td align="center"><span><?php echo ($val["is_on_sale"]); ?></span></td>
                 <td align="center"><span><?=date('Y-m-d',$val['addtime'])?></span></td>
                 <td align="center">
+                <a href="<?php echo U('goods_number',array('id' => $val['id']));?>" >库存量</a>
+                |
                 <a href="<?php echo U('edit',array('id' => $val['id']));?>" title="编辑"><img src="/Public/Admin/Images/icon_edit.gif" width="16" height="16" border="0" /></a>
+                |
                 <a onclick="return confirm('你确定要放入回收站吗？');" href="<?php echo U('recycle',array('id' => $val['id']));?>" title="回收站"><img src="/Public/Admin/Images/icon_trash.gif" width="16" height="16" border="0" /></a>
                 </td>
             </tr><?php endforeach; endif; ?>
