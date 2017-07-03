@@ -1,10 +1,17 @@
 <?php
 namespace Admin\Model;
 use Think\Model;
+/*--------------------------
+|         属性模型          |
+--------------------------*/
 class AttrModel extends Model 
-{
+{	
+	//添加时允许接收的字段
 	protected $insertFields = array('attr_name','attr_type','attr_option_values','type_id');
+	//修改时允许接收的字段
 	protected $updateFields = array('id','attr_name','attr_type','attr_option_values','type_id');
+
+	//验证规则
 	protected $_validate = array(
 		array('attr_name', 'require', '属性名不能为空！', 1, 'regex', 3),
 		array('attr_name', '1,20', '属性名的值最长不能超过 20 个字符！', 1, 'length', 3),
@@ -64,5 +71,4 @@ class AttrModel extends Model
 			return FALSE;
 		}
 	}
-	/************************************ 其他方法 ********************************************/
 }

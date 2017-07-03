@@ -4,7 +4,7 @@ use Think\Controller;
 /*--------------------------
 |        商品控制器         |
 --------------------------*/
-class GoodsController extends Controller{
+class GoodsController extends InitController{
 
 	//商品库存量列表
 	public function goods_number()
@@ -287,13 +287,18 @@ class GoodsController extends Controller{
 			$data = $goodsModel ->where("is_delete = '是'") -> select();
 
 			$this -> assign('data',$data);
+			$this -> assign(array(
+			'_page_title' => '商品回收站',
+			'_page_btn_name' => '商品列表',
+			'_page_btn_link' => U('lst'),
+		));
 			$this -> display();
 			
 		}else{
 			$id = I('get.id');
 			//将字段is_delete设置为是
 			$goodsModel->where("id=$id")->setField('is_delete','是'); 
-			$this -> redirect('lst');
+			$this -> redirect();
 		}
 
 		

@@ -4,7 +4,7 @@ use Think\Controller;
 /*------------------------
  |       首页控制器       |
  ------------------------*/
-class IndexController extends Controller {
+class IndexController extends InitController {
     public function index(){
         $this->display();
     }

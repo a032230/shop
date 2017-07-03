@@ -6,7 +6,7 @@ use Think\Controller;
  |       分类控制器       |
  ------------------------*/
 
-class CategoryController extends Controller{
+class CategoryController extends InitController{
 
 	// 显示分类
 	public function lst()

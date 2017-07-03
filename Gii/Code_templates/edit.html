@@ -17,7 +17,7 @@
 						<option value="0">顶级权限</option>
 						<?php echo "<?php foreach (\$parentData as \$k => \$v): ?>"; ?> 
 						<?php echo "<?php if(\$v['{$config['pk']}'] == \$data['{$config['pk']}'] || in_array(\$v['{$config['pk']}'], \$children)) continue ; ?>"; ?> 
-						<option <?php echo "<?php if(\$v['{$config['pk']}'] == \$data['parent_id']): ?>"; ?>selected="selected"<?php echo "<?php endif; ?>"; ?> value="<?php echo "<?php echo \$v['{$config['pk']}']; ?>"; ?>"><?php echo "<?php echo str_repeat('-', 8*\$v['level']).\$v['{$config['diguiName']}']; ?>"; ?></option>
+						<option <?php echo "<?php if(\$v['{$config['pk']}'] == \$data['parent_id']): ?>"; ?>selected="selected"<?php echo "<?php endif; ?>"; ?> value="<?php echo "<?php echo \$v['{$config['pk']}']; ?>"; ?>"><?php echo "<?php echo str_repeat('-', 4*\$v['level']).\$v['{$config['diguiName']}']; ?>"; ?></option>
 						<?php echo "<?php endforeach; ?>"; ?>
 					</select>
 				</td>

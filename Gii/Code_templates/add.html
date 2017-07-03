@@ -9,7 +9,7 @@
 					<select name="parent_id">
 						<option value="0">顶级权限</option>
 						<?php echo "<?php foreach (\$parentData as \$k => \$v): ?>"; ?>
-						<option value="<?php echo "<?php echo \$v['{$config['pk']}']; ?>"; ?>"><?php echo "<?php echo str_repeat('-', 8*\$v['level']).\$v['{$config['diguiName']}']; ?>"; ?></option>
+						<option value="<?php echo "<?php echo \$v['{$config['pk']}']; ?>"; ?>"><?php echo "<?php echo str_repeat('-', 4*\$v['level']).\$v['{$config['diguiName']}']; ?>"; ?></option>
 						<?php echo "<?php endforeach; ?>"; ?>
 					</select>
 				</td>

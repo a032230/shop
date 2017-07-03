@@ -41,7 +41,7 @@ foreach ($_arr as $v1): $_v2 = explode('-', $v1); ?>
 <?php if(preg_match('/(image|logo|face|img|pic)/', $v['Field'])): ?>
 				<td align="center"><?php echo "<?php showImage(\$v['$k']); ?>"; ?></td>
 <?php else: ?>
-				<td align="center"><?php if($config['digui']==1 && $config['diguiName']==$k) echo "<?php echo str_repeat('-', 8*\$v['level']); ?>"; ?><?php echo "<?php echo \$v['$k']; ?>"; ?></td>
+				<td align="center"><?php if($config['digui']==1 && $config['diguiName']==$k) echo "<?php echo str_repeat('-', 4*\$v['level']); ?>"; ?><?php echo "<?php echo \$v['$k']; ?>"; ?></td>
 <?php endif; ?>
 <?php endforeach; ?>
 		        <td align="center">

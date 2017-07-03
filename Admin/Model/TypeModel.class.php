@@ -1,10 +1,17 @@
 <?php
 namespace Admin\Model;
 use Think\Model;
+
+/*--------------------------
+|         类型模型          |
+--------------------------*/
+
 class TypeModel extends Model 
-{
+{	
 	protected $insertFields = array('type_name');
 	protected $updateFields = array('id','type_name');
+
+	//定义表单验证
 	protected $_validate = array(
 		array('type_name', 'require', '类型名称不能为空！', 1, 'regex', 3),
 		array('type_name', '1,100', '类型名称的值最长不能超过 100 个字符！', 1, 'length', 3),

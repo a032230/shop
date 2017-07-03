@@ -2,6 +2,7 @@ namespace <?php echo $config['moduleName']; ?>\Controller;
 use Think\Controller;
 class <?php echo $tpName; ?>Controller extends Controller 
 {
+    //添加
     public function add()
     {
     	if(IS_POST)
@@ -31,6 +32,8 @@ class <?php echo $tpName; ?>Controller extends Controller
 		));
 		$this->display();
     }
+
+    //修改
     public function edit()
     {
     	$<?php echo $config['pk']; ?> = I('get.<?php echo $config['pk']; ?>');
@@ -68,6 +71,8 @@ class <?php echo $tpName; ?>Controller extends Controller
 		));
 		$this->display();
     }
+
+    //删除
     public function delete()
     {
     	$model = D('<?php echo $tpName; ?>');
@@ -81,6 +86,8 @@ class <?php echo $tpName; ?>Controller extends Controller
     		$this->error($model->getError());
     	}
     }
+
+    //显示
     public function lst()
     {
     	$model = D('<?php echo $tpName; ?>');

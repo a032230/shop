@@ -144,3 +144,50 @@ create table goods_number(
 	goods_attr_id varchar(150) not null comment '商品属性id,如果有多个以,分割到此字段',
 	key goods_id(goods_id)
 )engine=InnoDB default charset=utf8 comment '库存量';
+
+
+/*********************RBAC相关表**************************/
+
+#权限表
+create table auth(
+	id mediumint unsigned not null auto_increment comment '主键id',
+	auth_name char(30) not null default '' comment '权限名称',
+	module_name char(30) not null default '' comment '模块名',
+	controller_name char(30) not null default '' comment '控制器名',
+	action_name char(30) not null default '' comment '方法名',
+	parent_id mediumint unsigned not null default '0' comment '上级权限id',
+	primary key (id)
+)engine=InnoDB default charset=utf8 comment '权限';
+
+#角色表
+create table role(
+	id mediumint unsigned not null auto_increment comment '主键id',
+	role_name char(30) not null comment '角色名称',
+	primary key (id)
+)engine=InnoDB default charset=utf8 comment '角色';
+
+#管理员表
+create table admin(
+	id mediumint unsigned not null auto_increment comment '主键id',
+	username char(20) not null comment '用户名',
+	password char(32) not null comment '密码',
+	primary key (id)
+)engine=InnoDB default charset=utf8 comment '管理员';
+
+#管理员表默认有超级管理[不能删除,拥有所有权限]
+insert into admin (id,username,password) values(1,'root','6d7983710a288289c27687b91e9d706f')
+#角色和权限中间表 --> 角色权限表
+create table role_auth(
+	auth_id mediumint unsigned not null comment '权限id',
+	role_id mediumint unsigned not null comment '角色id',
+	key auth_id(auth_id),
+	key role_id(role_id)
+)engine=InnoDB default charset=utf8 comment '角色权限';
+
+#角色和管理员中级表 --> 管理员角色表
+create table admin_role(
+	admin_id mediumint unsigned not null comment '管理员id',
+	role_id mediumint unsigned not null comment '角色id',
+	key admin_id(admin_id),
+	key role_id(role_id)
+)engine=InnoDB default charset=utf8 comment '管理员角色';

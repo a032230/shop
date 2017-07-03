@@ -1,0 +1,92 @@
+<layout name="layout" />
+
+<div class="main-div">
+    <form name="main_form" method="POST" action="__SELF__" enctype="multipart/form-data" >
+    	<input type="hidden" name="id" value="<?php echo $data['id']; ?>" />
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">角色名称：</td>
+                <td>
+                    <input  type="text" name="role_name" value="<?php echo $data['role_name']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">权限列表：</td>
+                <td>
+                    <?php 
+                    $auth = explode(',',$data['auth_id']);
+                    foreach($authData as $v): 
+                        if(in_array($v['id'],$auth)){
+                            $checked = "checked='checked'";
+                        }
+                        else{
+                            $checked = '';
+                        }
+                    ?>
+                    <?=str_repeat('-',8*$v['level'])?>
+                    <input {$checked}  type="checkbox" name="auth_id[]" value="{$v.id}" /> {$v.auth_name}<br/>
+                   <?php endforeach?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="99" align="center">
+                    <input type="submit" class="button" value=" 确定 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<script>
+    /*
+     * 选择一个权限时它的上级和下级权限也被选中
+     * 当取消一个权限时子权限也被取消
+     */
+    //为所有checkbox绑定点击事件
+    $(":checkbox").on('click',function(){
+        //获取等级
+        var tmp_level=level = $(this).attr('level_id');
+        //判断选中还是取消
+        if($(this).prop("checked"))
+        {   
+            //选所有子权限
+            //nextAll:找后面所有相邻元素，直到后面有元素不符合条件，那么从它开始停止匹配
+            //循环被选中的checkbox后面所有的checkbox
+            $(this).nextAll(":checkbox").each(function(k,v){
+                //选中所有等级大于它的
+                if($(v).attr("level_id") > level)
+                {
+                    $(v).prop("checked",true);
+                }
+                else{
+                    return false;
+                }
+            })
+
+            //选取所有的上级权限
+            $(this).prevAll(":checkbox").each(function(k,v){
+                if($(v).attr('level_id') < level)
+                {
+                    $(v).prop('checked',true);
+                    //再找更上一级的
+                    tmp_level--;
+                }
+            })
+        }
+        else
+        {
+            //所有的子权限也取消
+            $(this).nextAll(":checkbox").each(function(k,v){
+                if($(v).attr('level_id') > level)
+                {
+                    $(v).prop('checked',false)
+                }
+                else
+                {
+                    return false;
+                }
+            })
+        }
+    })
+</script>

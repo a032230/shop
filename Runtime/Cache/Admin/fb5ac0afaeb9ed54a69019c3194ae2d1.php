@@ -21,26 +21,36 @@
 
 
 <div class="main-div">
-    <form name="main_form" method="POST" action="/index.php/Admin/Category/add.html" enctype="multipart/form-data">
+    <form name="main_form" method="POST" action="/index.php/Admin/Admin/add.html" enctype="multipart/form-data">
         <table cellspacing="1" cellpadding="3" width="100%">
-                        <tr>
-                <td class="label">请选择上级分类：</td>
+            <tr>
+                <td class="label">角色：</td>
                 <td>
-                    <select name="parent_id">
-                        <option value="0">顶级分类</option>
-                        <?php if(is_array($data)): foreach($data as $key=>$v): ?><option value="<?php echo ($v["id"]); ?>"><?=str_repeat('-',4*$v['level']); echo ($v["cat_name"]); ?></option><?php endforeach; endif; ?>
-                    </select>
+                    <?php if(is_array($roleData)): foreach($roleData as $key=>$v): ?><input  type="checkbox" name="role_id[]" value="<?php echo ($v["id"]); ?>" /> <?php echo ($v["role_name"]); endforeach; endif; ?>
                 </td>
             </tr>
             <tr>
-                <td class="label">品牌名称：</td>
+                <td class="label">用户名：</td>
                 <td>
-                    <input  type="text" name="cat_name" value="" />
+                    <input  type="text" name="username" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">密码：</td>
+                <td>
+                    <input type="password"  name="password" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">确认密码：</td>
+                <td>
+                    <input type="password"  name="cpassword" />
                 </td>
             </tr>
             <tr>
                 <td colspan="99" align="center">
                     <input type="submit" class="button" value=" 确定 " />
+                    <input type="reset" class="button" value=" 重置 " />
                 </td>
             </tr>
         </table>

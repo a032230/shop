@@ -83,5 +83,4 @@ class BrandModel extends Model
 		$images = $this->field('logo')->find($option['where']['id']);
 		delImage($images);
 	}
-	/************************************ 其他方法 ********************************************/
 }

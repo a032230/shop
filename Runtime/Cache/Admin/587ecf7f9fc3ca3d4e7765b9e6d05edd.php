@@ -20,40 +20,34 @@
 </h1>
 
 
-<div class="main-div">
-    <form name="main_form" method="POST" action="/index.php/Admin/MemberLevel/add.html" enctype="multipart/form-data">
-        <table cellspacing="1" cellpadding="3" width="100%">
-            <tr>
-                <td class="label">级别名称：</td>
-                <td>
-                    <input  type="text" name="level_name" value="" />
-                </td>
-            </tr>
-            <tr>
-                <td class="label">积分下限：</td>
-                <td>
-                    <input  type="text" name="jifen_bottom" value="" />
-                </td>
-            </tr>
-            <tr>
-                <td class="label">积分上限：</td>
-                <td>
-                    <input  type="text" name="jifen_top" value="" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="99" align="center">
-                    <input type="submit" class="button" value=" 确定 " />
-                    <input type="reset" class="button" value=" 重置 " />
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
 
+<!-- 列表 -->
+<div class="list-div" id="listDiv">
+	<table cellpadding="3" cellspacing="1">
+    	<tr>
+            <th >角色名称</th>
+            <th >拥有权限</th>
+			<th width="200">操作</th>
+        </tr>
+		<?php foreach ($data as $k => $v): ?>            
+			<tr class="tron">
+				<td align="center"><?php echo $v['role_name']; ?></td>
+				<td align="center"><?php echo $v['auth_name']; ?></td>
+		        <td align="center">
+		        	<a href="<?php echo U('edit?id='.$v['id'].'&p='.I('get.p')); ?>" title="编辑">编辑</a> |
+	                <a href="<?php echo U('delete?id='.$v['id'].'&p='.I('get.p')); ?>" onclick="return confirm('确定要删除吗？');" title="移除">移除</a> 
+		        </td>
+	        </tr>
+        <?php endforeach; ?> 
+		<?php if(preg_match('/\d/', $page)): ?>  
+        <tr><td align="center" nowrap="true" colspan="99" height="30"><?php echo $page; ?></td></tr> 
+        <?php endif; ?> 
+	</table>
+</div>
 
 <script>
 </script>
+
 
 <div id="footer">
 共执行 7 个查询，用时 0.028849 秒，Gzip 已禁用，内存占用 3.219 MB<br />

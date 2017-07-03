@@ -1,33 +1,37 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
+
 /*--------------------------
-|         属性控制器        |
+|         权限控制器        |
 --------------------------*/
-class AttrController extends InitController
+class AuthController extends InitController
 {
     //添加
     public function add()
     {
     	if(IS_POST)
     	{
-    		$model = D('Attr');
+    		$model = D('Auth');
     		if($model->create(I('post.'), 1))
     		{
     			if($id = $model->add())
     			{
-    				$this->success('添加成功！', U('lst', array('p' => I('get.p', 1),'type_id'=>I('get.type_id'))));
+    				$this->success('添加成功！', U('lst'));
     				exit;
     			}
     		}
     		$this->error($model->getError());
     	}
+		$parentModel = D('Auth');
+		$parentData = $parentModel->getTree();
+		$this->assign('parentData', $parentData);
 
 		// 设置页面中的信息
 		$this->assign(array(
-			'_page_title' => '添加属性',
-			'_page_btn_name' => '属性列表',
-			'_page_btn_link' => U('lst',array('type_id'=>I('get.type_id'))),
+			'_page_title' => '添加权限',
+			'_page_btn_name' => '权限列表',
+			'_page_btn_link' => U('lst'),
 		));
 		$this->display();
     }
@@ -38,35 +42,44 @@ class AttrController extends InitController
     	$id = I('get.id');
     	if(IS_POST)
     	{
-    		$model = D('Attr');
+    		$model = D('Auth');
     		if($model->create(I('post.'), 2))
     		{
     			if($model->save() !== FALSE)
     			{
-    				$this->success('修改成功！', U('lst', array('p' => I('get.p', 1),'type_id'=>I('get.type_id'))));
+    				$this->success('修改成功！', U('lst'));
     				exit;
     			}
     		}
     		$this->error($model->getError());
     	}
-    	$model = M('Attr');
+    	$model = M('Auth');
     	$data = $model->find($id);
     	$this->assign('data', $data);
+		$parentModel = D('Auth');
+		$parentData = $parentModel->getTree();
+		$children = $parentModel->getChildren($id);
+		$this->assign(array(
+			'parentData' => $parentData,
+			'children' => $children,
+		));
 
 		// 设置页面中的信息
 		$this->assign(array(
-			'_page_title' => '修改属性',
-			'_page_btn_name' => '属性列表',
-			'_page_btn_link' => U('lst',array('type_id'=>I('get.type_id'))),
+			'_page_title' => '修改权限',
+			'_page_btn_name' => '权限列表',
+			'_page_btn_link' => U('lst'),
 		));
 		$this->display();
     }
+
+    //删除
     public function delete()
     {
-    	$model = D('Attr');
+    	$model = D('Auth');
     	if($model->delete(I('get.id', 0)) !== FALSE)
     	{
-    		$this->success('删除成功！', U('lst', array('p' => I('get.p', 1),'type_id'=>I('get.type_id'))));
+    		$this->success('删除成功！', U('lst'));
     		exit;
     	}
     	else 
@@ -74,21 +87,21 @@ class AttrController extends InitController
     		$this->error($model->getError());
     	}
     }
-    //列表
+
+    //显示
     public function lst()
     {
-    	$model = D('Attr');
-    	$data = $model->search();
+    	$model = D('Auth');
+		$data = $model->getTree();
     	$this->assign(array(
-    		'data' => $data['data'],
-    		'page' => $data['page'],
+    		'data' => $data,
     	));
 
 		// 设置页面中的信息
 		$this->assign(array(
-			'_page_title' => '属性列表',
-			'_page_btn_name' => '添加属性',
-			'_page_btn_link' => U('add',array('type_id'=>I('get.type_id'))),
+			'_page_title' => '权限列表',
+			'_page_btn_name' => '添加权限',
+			'_page_btn_link' => U('add'),
 		));
     	$this->display();
     }

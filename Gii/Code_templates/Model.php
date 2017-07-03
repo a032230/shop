@@ -1,9 +1,14 @@
 namespace <?php echo $config['moduleName']; ?>\Model;
 use Think\Model;
 class <?php echo $tpName; ?>Model extends Model 
-{
+{	
+	//添加时允许接收的字段
 	protected $insertFields = <?php echo $config['insertFields']; ?>;
+
+	//修改时允许接收的字段
 	protected $updateFields = <?php echo $config['updateFields']; ?>;
+
+	//定义表单验证规则
 	protected $_validate = array(<?php echo $config['validate']; ?>);
 <?php if($config['digui'] == 0): ?>
 	public function search($pageSize = 20)

@@ -5,8 +5,9 @@ use Think\Controller;
 /*------------------------
  |       品牌控制器       |
  ------------------------*/
-class BrandController extends Controller 
-{
+class BrandController extends InitController 
+{   
+    //添加
     public function add()
     {
     	if(IS_POST)
@@ -31,6 +32,7 @@ class BrandController extends Controller
 		));
 		$this->display();
     }
+    //修改
     public function edit()
     {
     	$id = I('get.id');
@@ -59,6 +61,8 @@ class BrandController extends Controller
 		));
 		$this->display();
     }
+
+    //删除
     public function delete()
     {
     	$model = D('Brand');
@@ -72,6 +76,8 @@ class BrandController extends Controller
     		$this->error($model->getError());
     	}
     }
+
+    //显示
     public function lst()
     {
     	$model = D('Brand');

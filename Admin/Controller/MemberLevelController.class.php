@@ -5,8 +5,9 @@ use Think\Controller;
 /*------------------------
  |      会员等级控制器    |
  ------------------------*/
-class MemberLevelController extends Controller 
+class MemberLevelController extends InitController 
 {
+    //添加
     public function add()
     {
     	if(IS_POST)
@@ -31,6 +32,8 @@ class MemberLevelController extends Controller
 		));
 		$this->display();
     }
+
+    //修改
     public function edit()
     {
     	$id = I('get.id');
@@ -59,6 +62,8 @@ class MemberLevelController extends Controller
 		));
 		$this->display();
     }
+
+    //删除
     public function delete()
     {
     	$model = D('MemberLevel');
@@ -72,6 +77,8 @@ class MemberLevelController extends Controller
     		$this->error($model->getError());
     	}
     }
+
+    //显示
     public function lst()
     {
     	$model = M('MemberLevel');
