@@ -20,7 +20,14 @@ class IndexController extends InitController {
     }
 
     public function menu()
-    {
+    {   
+
+        //返回该管理员的前两级权限
+        $authModel = D('auth');
+        $btns = $authModel -> getBtns();
+
+        $this -> assign('btns',$btns);
+
     	$this -> display();
     }
 }

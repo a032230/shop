@@ -65,6 +65,7 @@ class AdminModel extends Model
 	}
 
 
+	//分页、搜索
 	public function search($pageSize = 20)
 	{
 		/**************************************** 搜索 ****************************************/

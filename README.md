@@ -33,3 +33,26 @@
 ```
 
 ###### 第十次更新：在数据库新增权限表,角色表，管理员表，角色权限中间表，管理员角色表，完成RBAC权限控制功能！ 
+
+
+###### 第十一次更新 ：让登陆的管理员只能看到属于自己的权限模块，实现动态加载
+```
+效果如下:
+
+<foreach name='btns' item='val' >
+<li class="explode" key="02_cat_and_goods" name="menu">
+{$val.auth_name}
+	<ul>
+	    <?php foreach($val['children'] as $k=>$v):?>
+	    <li class="menu-item">
+	      <a href="{:U($v['module_name'] . '/' . $v['controller_name']. '/' .$v['action_name'])}" target="main-frame">
+	        <?php echo $v['auth_name']?>
+	        
+	      </a>
+	    </li>
+	  <?php endforeach?>
+	</ul>
+</li>
+</foreach>
+
+```
