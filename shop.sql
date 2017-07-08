@@ -19,15 +19,33 @@ create table goods
 	mbig_logo varchar(150) not null default '' comment '特大图',	
 	is_on_sale enum('是','否') not null default '是' comment '是否上架',
 	is_delete enum('是','否') not null default '否' comment '是否放入回收站',
+	promote_price decimal(10,2) not null default 0 comment '促销价格',
+	promote_start_date datetime not null  comment '促销开始时间',
+	promote_end_date datetime not null  comment '促销结束时间',
+	is_new enum('是','否') not null default '否' comment '是否新品',	
+	is_hot enum('是','否') not null default '否' comment '是否热卖',	
+	is_best enum('是','否') not null default '否' comment '是否精品',	
+	is_floor enum('是','否') not null default '否' comment '是否推荐到楼层',	
 	brand_id mediumint unsigned not null default 0 comment '品牌id',
+	cat_id mediumint unsigned not null comment '分类id',
+	type_id mediumint unsigned not null comment '类型id',
 	addtime int unsigned not null   comment '添加时间',
+	sort_num tinyint unsigned not null default 100 comment '排序权重',
 	primary key (id),
 	key shop_price(shop_price),
 	key addtime(addtime),
 	key is_on_sale(is_on_sale),
-	key brand_id(brand_id)
+	key brand_id(brand_id),
+	key promote_price(promote_price),
+	key promote_start_date(promote_start_date),
+	key promote_end_date(promote_end_date),
+	key is_new(is_new),
+	key is_hot(is_hot),
+	key is_best(is_best),
+	kye sort_num(sort_num)
 )engine=InnoDB default charset=utf8 comment '商品表';
 
+alter table goods add is_floor enum('是','否') not null default '否' comment '是否推荐到楼层' after is_best;
 #在商品表加入分类id，并添加外键
 alter table goods add cat_id mediumint unsigned not null comment '分类id' after brand_id;
 alter table goods add key cat_id(cat_id);
@@ -35,7 +53,24 @@ alter table goods add key cat_id(cat_id);
 #在商品表添加类型id 并添加外键
 alter table goods add type_id mediumint unsigned not null comment '类型id' after cat_id;
 alter table goods add key type_id(type_id);
-
+#在商品表添加促销价格 并添加外键
+alter table goods add promote_price decimal(10,2) not null default 0 comment '促销价格' after is_delete;
+alter table goods add key promote_price(promote_price);
+#在商品表添加促销开始时间 并添加外键
+alter table goods add promote_start_date datetime not null  comment '促销开始时间' after promote_price;
+alter table goods add key promote_start_date(promote_start_date)
+#在商品表添加促销结束时间并添加外键
+alter table goods add promote_end_date datetime not null  comment '促销结束时间' after promote_start_date;
+alter table goods add key promote_end_date(promote_end_date);
+#在商品表添加是否新品并添加外键
+alter table goods add is_new enum('是','否') not null default '否' comment '是否新品' after promote_end_date;
+alter table goods add key is_new(is_new);
+#在商品表添加是否热卖并添加外键
+alter table goods add is_hot enum('是','否') not null default '否' comment '是否热卖' after is_new;
+alter table goods add key is_hot(is_hot);
+#在商品表添加是否精品并添加外键
+alter table goods add is_best enum('是','否') not null default '否' comment '是否精品' after is_hot;
+alter table goods add key is_best(is_best);
 
 #品牌表
 create table brand(
@@ -75,6 +110,7 @@ create table category(
 	id mediumint unsigned not null auto_increment comment 'Id',
 	cat_name char(30) not null  comment '分类名称',
 	parent_id mediumint unsigned not null default 0 comment '上级分类id,0:顶级分类',
+	is_floor enum('是','否') not null default '否' comment '是否推荐到楼层',	
 	primary key (id)
 )engine=InnoDB default charset=utf8 comment '商品分类';
 

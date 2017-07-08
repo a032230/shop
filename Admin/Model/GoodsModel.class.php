@@ -8,10 +8,10 @@ use Think\Model;
 class GoodsModel extends Model{
 
 	//新增时允许接收的字段
-	protected $insertFields = "cat_id,type_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
+	protected $insertFields = "cat_id,type_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc,promote_price,promote_start_date,promote_end_date,is_hot,is_new,is_best,sort_num,is_floor";
 
 	//修改时允许接收的字段
-	protected $updateFields = "id,cat_id,type_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc";
+	protected $updateFields = "id,cat_id,type_id,brand_id,goods_name,shop_price,market_price,is_on_sale,goods_desc,promote_price,promote_start_date,promote_end_date,is_hot,is_new,is_best,sort_num,is_floor";
 
 	//定义表单验证规则
 	protected $_validate = array(
@@ -103,7 +103,7 @@ class GoodsModel extends Model{
 		public function getGoodsIdByCatId($catId)
 		{
 			//取出该分类所有子类的id
-			$cateModel = D('category');
+			$cateModel = D('Admin/category');
 			$childrens = $cateModel -> getChildren($catId);
 			//ba搜索的分类id和其子类id放在一起
 			$childrens[] = $catId;
@@ -472,14 +472,15 @@ class GoodsModel extends Model{
 		{
 			//属性值去重,防止重复属性添加
 			$v = array_unique($v);
-
-			foreach($v as $k1 => $v1)
-			{
-				$gaModel -> add(array(
-					'attr_id' => $k,
-					'attr_value' => $v1,
-					'goods_id' => $data['id'],
-				));
+			if($v){
+				foreach($v as $k1 => $v1)
+				{
+					$gaModel -> add(array(
+						'attr_id' => $k,
+						'attr_value' => $v1,
+						'goods_id' => $data['id'],
+					));
+				}
 			}
 		}
 
@@ -584,4 +585,47 @@ class GoodsModel extends Model{
 		
 	}
 
+
+
+	/********************前台代码*********************/
+	/**
+	 * [getPromoteGoods 取出当前正在促销的商品
+	 * @param  integer $limit [取几条]
+	 * @return [type]         [正在促销的数据]
+	 */
+	public function getPromoteGoods($limit = 5)
+	{	
+		$today = date("Y-m-d H:i");
+		//获得正在促销的商品
+		$proData = $this -> field('id,goods_name,mid_logo,promote_price')
+						 -> where(array(
+						 		'is_on_sale' => array('eq','是'),
+						 		'promote_price' => array('gt',0),
+						 		'promote_start_date' => array('elt',$today),
+						 		'promote_end_date' => array('egt',$today)
+						 	))
+						 -> limit($limit)
+						 -> order("sort_num asc")
+						 -> select();
+
+		return $proData;
+	}
+
+	/**
+	 * [getTypeGoods description]
+	 * @param  [type]  $type  [指定的类型]
+	 * @param  integer $limit [取几条]
+	 * @return [type]         [该类型下的前5条商品]
+	 */
+	public function getTypeGoods($type,$limit = 5)
+	{
+		return $this -> field('id,goods_name,shop_price,mid_logo')
+					 -> where(array(
+					 		'is_on_sale' => array('eq','是'),
+					 		"$type" => array('eq','是'),
+					 	))
+					 -> limit($limit)
+					 -> order("sort_num asc")
+					 -> select();
+	}
 }

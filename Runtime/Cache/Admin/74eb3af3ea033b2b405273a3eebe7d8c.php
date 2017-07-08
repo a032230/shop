@@ -1,4 +1,25 @@
-<layout name='layout' />
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ECSHOP 管理中心 - 商品列表 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/Public/Admin/styles/general.css" rel="stylesheet" type="text/css" />
+<link href="/Public/Admin/styles/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/Public/umeditor1_2_2-utf8-php/third-party/jquery.min.js"></script>
+
+</head>
+<body>
+
+<h1>
+	<?php if($_page_btn_name):?>
+    <span class="action-span"><a href="<?php echo ($_page_btn_link); ?>"><?php echo ($_page_btn_name); ?></a></span>
+    <?php endif?>
+    <span class="action-span1"><a href="<?php echo U('lst');?>">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - <?php echo ($_page_title); ?> </span>
+    <div style="clear:both"></div>
+</h1>
+
+
 
 <style>
     ul{
@@ -34,8 +55,8 @@
         </p>
     </div>
     <div id="tabbody-div">
-        <form enctype="multipart/form-data" action="__SELF__" method="post">
-        	<input type="hidden" name='id' value="{$data.id}" />
+        <form enctype="multipart/form-data" action="/index.php/Admin/Goods/edit/id/19.html" method="post">
+        	<input type="hidden" name='id' value="<?php echo ($data["id"]); ?>" />
 
             <table width="90%" class="tab-table" align="center">
                 <tr>
@@ -43,12 +64,10 @@
                     <td>
                         <select name="cat_id" id="">
                             <option value="">请选择主分类</option>
-                            <foreach name='cats' item = 'v'>
-                            <option <?=$v['id'] == $data['cat_id'] ? 'selected' :'' ?>  value="{$v.id}">
+                            <?php if(is_array($cats)): foreach($cats as $key=>$v): ?><option <?=$v['id'] == $data['cat_id'] ? 'selected' :'' ?>  value="<?php echo ($v["id"]); ?>">
                             <?php echo str_repeat('-',4*$v['level']) . $v['cat_name'] ?>
                             	
-                            </option>
-                            </foreach>
+                            </option><?php endforeach; endif; ?>
                         </select>
                     <span class="require-field">*</span></td>
                 </tr>
@@ -56,29 +75,23 @@
                     <td class="label">扩展分类： <input class="add_cat" type="button" value="增加一个"></td>
                     <td>
                     <?php if($ext):?>
-                    	<foreach name='ext' item='val'>
-                        <ul class="cat_list">
+                    	<?php if(is_array($ext)): foreach($ext as $key=>$val): ?><ul class="cat_list">
                             <li>
                                 <select name="ext[]" id="">
                                 <option value="">请选择扩展分类</option>
-                                <foreach name='cats' item = 'v'>
-                                <option <?=$v['id'] == $val['cat_id'] ? 'selected' : '' ?> value="{$v.id}">
+                                <?php if(is_array($cats)): foreach($cats as $key=>$v): ?><option <?=$v['id'] == $val['cat_id'] ? 'selected' : '' ?> value="<?php echo ($v["id"]); ?>">
                                 	<?php echo str_repeat('-',4*$v['level']) . $v['cat_name'] ?>
                                 	
-                                </option>
-                                </foreach>
+                                </option><?php endforeach; endif; ?>
                                 </select>
                             </li>
-                        </ul>
-                        </foreach>
+                        </ul><?php endforeach; endif; ?>
                     <?php else:?>
                     	<ul class="cat_list">
                             <li>
                                 <select name="ext[]" id="">
                                 <option value="">请选择扩展分类</option>
-                                <foreach name='cats' item = 'v'>
-                                <option value="{$v.id}"><?php echo str_repeat('-',4*$v['level']) . $v['cat_name'] ?></option>
-                                </foreach>
+                                <?php if(is_array($cats)): foreach($cats as $key=>$v): ?><option value="<?php echo ($v["id"]); ?>"><?php echo str_repeat('-',4*$v['level']) . $v['cat_name'] ?></option><?php endforeach; endif; ?>
                                 </select>
                             </li>
                         </ul>
@@ -90,28 +103,26 @@
                     <td>
                         <!-- <select name="brand_id" id="">
                             <option value="">请选择品牌</option>
-                            <foreach name='list' key='k' item = 'v'>
-                            <option value="{$k}">{$v}</option>
-                            </foreach>
+                            <?php if(is_array($list)): foreach($list as $k=>$v): ?><option value="<?php echo ($k); ?>"><?php echo ($v); ?></option><?php endforeach; endif; ?>
                         </select> -->
                         <?php buildSelect('brand','brand_id','id','brand_name',$data['brand_id']) ?>
                     <span class="require-field">*</span></td>
                 </tr>
                 <tr>
                     <td class="label">商品名称：</td>
-                    <td><input type="text" name="goods_name" value="{$data.goods_name}"size="30" />
+                    <td><input type="text" name="goods_name" value="<?php echo ($data["goods_name"]); ?>"size="30" />
                     <span class="require-field">*</span></td>
                 <tr>
                     <td class="label">本店售价：</td>
                     <td>
-                        <input type="text" name="shop_price" value="{$data.shop_price}" size="20"/>
+                        <input type="text" name="shop_price" value="<?php echo ($data["shop_price"]); ?>" size="20"/>
                         <span class="require-field">*</span>
                     </td>
                 </tr>
                 <tr>
                     <td class="label">市场售价：</td>
                     <td>
-                        <input type="text" name="market_price" value="{$data.market_price}" size="20" />
+                        <input type="text" name="market_price" value="<?php echo ($data["market_price"]); ?>" size="20" />
                         <span class="require-field">*</span>
                     </td>
                 </tr>
@@ -119,7 +130,7 @@
                     <td class="label">商品logo：</td>
                     <td>
                         <p><?php showImage($data['mid_logo'],50) ?>  </p> 
-                        <input type="file" name="logo" value="{$data.mid_logo}"  />
+                        <input type="file" name="logo" value="<?php echo ($data["mid_logo"]); ?>"  />
                     </td>
                 </tr>
                 <tr>
@@ -132,9 +143,9 @@
                  <tr>
                     <td class="label">促销价格：</td>
                     <td>
-                        价格：<input type="text" name="promote_price" value="{$data.promote_price}" size="20" />
-                       开始时间：<input type="text" id="start" name="promote_start_date" value="{$data.promote_start_date}" size="20" />
-                       结束时间：<input type="text" id="end" name="promote_end_date" value="{$data.promote_end_date}" size="20" />
+                        价格：<input type="text" name="promote_price" value="<?php echo ($data["promote_price"]); ?>" size="20" />
+                       开始时间：<input type="text" id="start" name="promote_start_date" value="<?php echo ($data["promote_start_date"]); ?>" size="20" />
+                       结束时间：<input type="text" id="end" name="promote_end_date" value="<?php echo ($data["promote_end_date"]); ?>" size="20" />
                     </td>
                 </tr>
                 <tr>
@@ -168,7 +179,7 @@
                 <tr>
                     <td class="label">排　　序：</td>
                     <td>
-                        <input type="text" name="sort_num" value="{$data.sort_num}" size="20" />
+                        <input type="text" name="sort_num" value="<?php echo ($data["sort_num"]); ?>" size="20" />
                     </td>
                 </tr>
             </table>
@@ -176,7 +187,7 @@
             <table style="display: none;" width="90%" class="tab-table"  align="center">
                 <tr>
                     <td>
-                        <textarea id="goods_desc" name="goods_desc" cols="40" rows="3">{$data.goods_desc}</textarea>
+                        <textarea id="goods_desc" name="goods_desc" cols="40" rows="3"><?php echo ($data["goods_desc"]); ?></textarea>
                     </td>
                 </tr>
             </table>
@@ -185,9 +196,7 @@
                 <tr>
                     <td class="label"></td>
                     <td>
-                        <foreach name = 'mldata' item = 'v' key = 'k' >
-                       {$v}：￥<input type="text" name="member_price[{$k}]" value="{$mpdata[$k]}" size="10" /><br /><br />
-                        </foreach>
+                        <?php if(is_array($mldata)): foreach($mldata as $k=>$v): echo ($v); ?>：￥<input type="text" name="member_price[<?php echo ($k); ?>]" value="<?php echo ($mpdata[$k]); ?>" size="10" /><br /><br /><?php endforeach; endif; ?>
                     </td>
                 </tr>
             </table>
@@ -202,35 +211,20 @@
                     <td>
                         <ul id="attr_list">
                             <?php
-                             $attrId = array();//保存所有出现过的属性id
-                             foreach($gadata as $v){
-                                //如果属性id已经存在就输出-号否则输出+
-                                if(in_array($v['id'],$attrId)){
-                                    $opt = '[-]';
-                                }else{
-                                    $attrId[] = $v['id'];
-                                    $opt = '[+]';
-                                }
-                             ?>
+ $attrId = array(); foreach($gadata as $v){ if(in_array($v['id'],$attrId)){ $opt = '[-]'; }else{ $attrId[] = $v['id']; $opt = '[+]'; } ?>
                             <li>
-                                <input type="hidden" name="goods_attr_id[]" value="{$v.goods_attr_id}">
+                                <input type="hidden" name="goods_attr_id[]" value="<?php echo ($v["goods_attr_id"]); ?>">
                                 <?php if($v['attr_type'] == '可选'):?>
-                                    <a onclick="addNewAttr(this)" href="javascript:;">{$opt}</a>
+                                    <a onclick="addNewAttr(this)" href="javascript:;"><?php echo ($opt); ?></a>
                                 <?php endif?>
-                                {$v.attr_name} :
-                                <?php 
-                                    //判断是否有可选值
-                                    if($v['attr_option_values']):
-                                    $attr = explode(',',$v['attr_option_values']);
-                                ?>
-                                    <select name="attr_value[{$v.id}][]" id="">
+                                <?php echo ($v["attr_name"]); ?> :
+                                <?php  if($v['attr_option_values']): $attr = explode(',',$v['attr_option_values']); ?>
+                                    <select name="attr_value[<?php echo ($v["id"]); ?>][]" id="">
                                         <option value="">请选择...</option>
-                                        <foreach name='attr' item = 'val'>
-                                        <option <?=$val == $v['attr_value'] ? 'selected' : ''?> value="{$val}">{$val}</option>
-                                        </foreach>
+                                        <?php if(is_array($attr)): foreach($attr as $key=>$val): ?><option <?=$val == $v['attr_value'] ? 'selected' : ''?> value="<?php echo ($val); ?>"><?php echo ($val); ?></option><?php endforeach; endif; ?>
                                     </select>
                                 <?php else:?>
-                                    <input name="attr_value[{$v.id}][]" type="text" value="{$v.attr_value}">
+                                    <input name="attr_value[<?php echo ($v["id"]); ?>][]" type="text" value="<?php echo ($v["attr_value"]); ?>">
                                 <?php endif?>
                             </li>
                             <?php } ?>
@@ -249,13 +243,11 @@
                     </td>
                     <td>
                         <ul class="old_list">
-                            <foreach name='gpdata' item='v' >
-                             <li>
+                            <?php if(is_array($gpdata)): foreach($gpdata as $key=>$v): ?><li>
                                  <?php showImage($v['mid_pic'],150) ?>
                                  <br>
-                                 <button class="delpic" alt="{$v.id}" style="margin: 5px 0 0 60px">删除</button>
-                             </li>
-                             </foreach>
+                                 <button class="delpic" alt="<?php echo ($v["id"]); ?>" style="margin: 5px 0 0 60px">删除</button>
+                             </li><?php endforeach; endif; ?>
                          </ul>
                     </td>
                 </tr>
@@ -269,17 +261,17 @@
 </div>
 
 <!--导入在线编辑器 -->
-<link href="__PUBLIC__/umeditor1_2_2-utf8-php/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor1_2_2-utf8-php/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor1_2_2-utf8-php/umeditor.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/umeditor1_2_2-utf8-php/lang/zh-cn/zh-cn.js"></script>
+<link href="/Public/umeditor1_2_2-utf8-php/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="/Public/umeditor1_2_2-utf8-php/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/Public/umeditor1_2_2-utf8-php/umeditor.min.js"></script>
+<script type="text/javascript" src="/Public/umeditor1_2_2-utf8-php/lang/zh-cn/zh-cn.js"></script>
 <!-- 引入时间插件 -->
-<link href="__PUBLIC__/datetimepicker/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" charset="utf-8" src="__PUBLIC__/datetimepicker/jquery-ui-1.9.2.custom.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="__PUBLIC__/datetimepicker/datepicker-zh_cn.js"></script>
-<link rel="stylesheet" media="all" type="text/css" href="__PUBLIC__/datetimepicker/time/jquery-ui-timepicker-addon.min.css" />
-<script type="text/javascript" src="__PUBLIC__/datetimepicker/time/jquery-ui-timepicker-addon.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/datetimepicker/time/i18n/jquery-ui-timepicker-addon-i18n.min.js"></script>
+<link href="/Public/datetimepicker/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="/Public/datetimepicker/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/Public/datetimepicker/datepicker-zh_cn.js"></script>
+<link rel="stylesheet" media="all" type="text/css" href="/Public/datetimepicker/time/jquery-ui-timepicker-addon.min.css" />
+<script type="text/javascript" src="/Public/datetimepicker/time/jquery-ui-timepicker-addon.min.js"></script>
+<script type="text/javascript" src="/Public/datetimepicker/time/i18n/jquery-ui-timepicker-addon-i18n.min.js"></script>
 
 <script>
 UM.getEditor('goods_desc', {
@@ -320,7 +312,7 @@ $('.delpic').on('click',function(){
     var pid = $(this).attr('alt');
     $.ajax({
         type : 'GET',
-        url : "{:U('ajaxDelPic','',FALSE)}/pid/"+pid,
+        url : "<?php echo U('ajaxDelPic','',FALSE);?>/pid/"+pid,
         success: function(data)
         {
             li.remove();
@@ -338,7 +330,7 @@ $('select[name=type_id]').change(function(){
     if(typeId > 0){
         $.ajax({
             type : 'get',
-            url : "{:U('ajaxGetAttr','',false)}/type_id/"+typeId,
+            url : "<?php echo U('ajaxGetAttr','',false);?>/type_id/"+typeId,
             dataType : 'json',
             success : function(data)
             {
@@ -417,7 +409,7 @@ function addNewAttr(a)
             {
                 $.ajax({
                     type : 'get',
-                    url : "{:U('ajaxDelAttr','',false)}/gaid/" + gaid + '/goods_id/'+ '{$data['id']}',
+                    url : "<?php echo U('ajaxDelAttr','',false);?>/gaid/" + gaid + '/goods_id/'+ '<?php echo ($data['id']); ?>',
                     success : function(data)
                     {
                         //同时删除dom节点
@@ -429,3 +421,9 @@ function addNewAttr(a)
     }
 }
 </script>
+
+<div id="footer">
+共执行 7 个查询，用时 0.028849 秒，Gzip 已禁用，内存占用 3.219 MB<br />
+版权所有 &copy; 2005-2012 上海商派网络科技有限公司，并保留所有权利。</div>
+</body>
+</html>

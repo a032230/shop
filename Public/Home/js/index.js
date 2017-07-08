@@ -21,7 +21,7 @@ $(function(){
 	});
 
 	//各楼层区域切换
-	$(".goodslist h2 span").mouseover(function(){
+	$(".goodslist h2 span").mouseenter(function(){
 		$(this).addClass("on").siblings().removeClass("on");
 		$(".goodslist_wrap div").hide().eq($(this).index()).show();
 

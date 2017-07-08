@@ -103,6 +103,48 @@
                         <input type="radio" name="is_on_sale" value="否"/> 否
                     </td>
                 </tr>
+                <tr>
+                    <td class="label">促销价格：</td>
+                    <td>
+                        价格：<input type="text" name="promote_price" value="" size="20" />
+                       开始时间：<input type="text" id="start" name="promote_start_date" value="" size="20" />
+                       结束时间：<input type="text" id="end" name="promote_end_date" value="" size="20" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">是否新品：</td>
+                    <td>
+                        <input type="radio" name="is_new" value="是"/> 是
+                        <input type="radio" name="is_new" value="否" checked="checked" /> 否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">是否热卖：</td>
+                    <td>
+                        <input type="radio" name="is_hot" value="是"  /> 是
+                        <input type="radio" name="is_hot" value="否" checked="checked"/> 否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">是否精品：</td>
+                    <td>
+                        <input type="radio" name="is_best" value="是" /> 是
+                        <input type="radio" name="is_best" value="否" checked="checked"  /> 否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">是否推荐到楼层：</td>
+                    <td>
+                        <input type="radio" name="is_floor" value="是" /> 是
+                        <input type="radio" name="is_floor" value="否" checked="checked"  /> 否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">排　　序：</td>
+                    <td>
+                        <input type="text" name="sort_num" value="100" size="20" />
+                    </td>
+                </tr>
             </table>
             <!-- 商品描述 -->
             <table style="display: none;" width="90%" class="tab-table"  align="center">
@@ -159,12 +201,26 @@
 <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor1_2_2-utf8-php/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor1_2_2-utf8-php/umeditor.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/umeditor1_2_2-utf8-php/lang/zh-cn/zh-cn.js"></script>
+<!-- 引入时间插件 -->
+<link href="__PUBLIC__/datetimepicker/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/datetimepicker/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/datetimepicker/datepicker-zh_cn.js"></script>
+<link rel="stylesheet" media="all" type="text/css" href="__PUBLIC__/datetimepicker/time/jquery-ui-timepicker-addon.min.css" />
+<script type="text/javascript" src="__PUBLIC__/datetimepicker/time/jquery-ui-timepicker-addon.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/datetimepicker/time/i18n/jquery-ui-timepicker-addon-i18n.min.js"></script>
+
 <script>
+//UE编辑器
 UM.getEditor('goods_desc', {
     initialFrameWidth : "100%",
     initialFrameHeight : 350
 });
 
+// 添加时间插件
+$.timepicker.setDefaults($.timepicker.regional['zh-CN']);  // 设置使用中文 
+
+$("#start").datetimepicker();
+$("#end").datetimepicker();
 
 //tab切换
 $('#tabbar-div p span').on('click',function(){
@@ -254,4 +310,6 @@ function addNewAttr(a)
         li.remove();
     }
 }
+
+
 </script>
