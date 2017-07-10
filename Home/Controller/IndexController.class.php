@@ -46,10 +46,16 @@ class IndexController extends NavController {
         }
     }
 
+    //ajax获取当前会员的会员价格
+    public function ajaxGetMemberPrice()
+    {
+        $id = I('get.id');
+        $goodsModel = D('Admin/goods');
+        echo $goodsModel -> getMemberPrice($id);
+    }
 
     //首页
     public function index(){
-
         //测试并发代码
         // $file = uniqid();
         // file_put_contents("./test/$file", '123');
@@ -115,7 +121,7 @@ class IndexController extends NavController {
                 $uniArr[] = $v;
             }
         }
-
+        // p($mulArr);
         //获取该商品的会员价格
         $mpModel = M('member_price');
         $mpData = $mpModel -> alias('a')

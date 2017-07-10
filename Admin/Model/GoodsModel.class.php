@@ -628,4 +628,64 @@ class GoodsModel extends Model{
 					 -> order("sort_num asc")
 					 -> select();
 	}
+
+	/**
+	 * [getMemberPrice 获取当前会员该商品的会员价格
+	 * @param  [type] $goodsId [商品id]
+	 * @return [type]          [description]
+	 */
+	public function getMemberPrice($goodsId)
+	{
+		$today = date('Y-m-d H:i');
+		$level_id = session('level_id');
+
+		$promotePrice = $this -> field('promote_price')
+							   -> where(array(
+							   		'id' => array('eq',$goodsId),
+							   		'promote_price' => array('gt',0),
+							   		'promote_start_date' => array('elt',$today),
+							   		'promote_end_date' => array('egt',$today),
+
+							   	))
+							   -> find();
+		// echo $promotePrice['promote_price'];
+		//判断会员是否登陆
+		if($level_id){
+			$mpModel = M('member_price');
+			$mpData = $mpModel -> field('price') 
+			                   -> where(array(
+			                   		'goods_id' => array('eq',$goodsId),
+			                   		'level_id' => $level_id,
+								))
+			                   -> find();
+			 //判断这个会员级别是否有会员价格
+			if($mpData['price']){
+				// 判断是否有促销价格
+				if($promotePrice['promote_price']){
+					return min($mpData['price'],$promotePrice['promote_price']);
+				}else{
+					return $mpData['price'];
+				}
+			}else{
+				//如果没有会员价格就返回本店价格或促销价格
+				$p = $this -> field('shop_price') -> find($goodsId);
+				//检查该商品是否促销
+				if($promotePrice['promote_price']){
+					return min($p['shop_price'],$promotePrice['promote_price']);
+				}else{
+					return $p['shop_price'];
+				}
+			}
+		}else{
+
+			//如果没有会员价格就返回本店价格或促销价格
+			$p = $this -> field('shop_price') -> find($goodsId);
+			//检查该商品是否促销
+			if($promotePrice['promote_price']){
+				return min($p['shop_price'],$promotePrice['promote_price']);
+			}else{
+				return $p['shop_price'];
+			}
+		}
+	}
 }

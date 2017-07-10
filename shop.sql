@@ -227,3 +227,26 @@ create table admin_role(
 	key admin_id(admin_id),
 	key role_id(role_id)
 )engine=InnoDB default charset=utf8 comment '管理员角色';
+
+
+/*****************前台相关表******************/
+#会员表
+create table member(
+	id mediumint unsigned not null auto_increment comment '主键id',
+	username char(30) not null comment '用户名',
+	password char(32) not null comment '密码',
+	face varchar(150) not null default '' comment '会员头像',
+	jifen mediumint unsigned not null default 0 comment '会员积分',
+	primary key (id)
+)engine=InnoDB default charset=utf8 comment '会员';
+
+#购物车表
+create table cart(
+	id mediumint unsigned not null auto_increment comment '主键id',
+	goods_id mediumint unsigned not null  comment '商品id',
+	goods_attr_id varchar(150) not null default '' comment '商品属性id',
+	goods_number tinyint unsigned not null default 0 comment '商品数量',
+	member_id mediumint unsigned not null comment '会员id',
+	primary key (id),
+	key member_id(member_id)
+)engine=InnoDB default charset=utf8 comment '购物车';

@@ -57,7 +57,9 @@
             	</foreach>
                 <td align="center" ><input type="text" name="goods_number[]" size="10" ></td>
                 <td align="center" ><input onclick="addNewTr(this)" type="button" value="+"></td>
-           	 <?php endif?>
+           	 <?php else:?>
+                <td align="center" ><input type="text" name="goods_number[]" size="10" ></td>
+             <?php endif?>
             </tr>
        		<?php endif?>
             <tr id="sub">

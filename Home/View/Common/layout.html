@@ -22,7 +22,8 @@
 			</div>
 			<div class="topnav_right fr">
 				<ul>
-					<li>您好，欢迎来到京西！[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>] </li>
+					<li id="loginStatus">
+					</li>
 					<li class="line">|</li>
 					<li>我的订单</li>
 					<li class="line">|</li>
@@ -70,3 +71,24 @@
 
 </body>
 </html>
+<script type="text/javascript">
+	//ajax判断登陆状态，实现局部不缓存
+	$.ajax({
+		type : 'get',
+		url : "{:U('Member/checkLogin')}",
+		dataType : 'json',
+		success : function(data){
+			var html = '';
+			if(data.login == 1)
+			{
+				 html += 	"您好,"+data.username+"  欢迎来到京西！[<a href='{:U('Member/logout')}'>退出</a>]";
+
+			}else{
+				 html += "[<a href='{:U('Member/login')}'>登录</a>] [<a href='{:U('Member/regist')}'>免费注册</a>]"; 
+			}
+
+			//放到页面
+			$('#loginStatus').html(html);
+		}
+	})
+</script>
