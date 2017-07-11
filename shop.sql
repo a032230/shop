@@ -250,3 +250,40 @@ create table cart(
 	primary key (id),
 	key member_id(member_id)
 )engine=InnoDB default charset=utf8 comment '购物车';
+
+
+/*************订单相关表******************/
+
+#订单基本信息表
+create table orders(
+	id mediumint unsigned not null auto_increment comment '主键id',
+	member_id mediumint unsigned not null comment '会员id',
+	addtime int unsigned not null comment '下单时间',
+	pay_status enum('是','否') not null default '否' comment '支付状态',
+	pay_time int unsigned not null default 0 comment '支付时间',
+	total_price decimal(10,2) not null  comment '订单总价',
+	shr_name char(30) not null comment '收货人姓名',
+	shr_tel char(30) not null comment '收货人电话',
+	shr_province char(30) not null comment '收货人所在省份',
+	shr_city char(30) not null comment '收货人所在城市',
+	shr_area char(30) not null comment '收货人所在地区',
+	shr_address char(30) not null comment '收货人所在详细地址',
+	post_status tinyint unsigned not null default 0 comment '发货状态,0:未发货,1:已发货,2:已收货',
+	post_number char(30) not null default '' comment '快递单号',
+	primary key (id),
+	key member_id(member_id),
+	key addtime(addtime)
+)engine=InnoDB default charset=utf8 comment '订单基本信息';
+
+#订单商品表
+create table order_goods(
+	id mediumint unsigned not null auto_increment comment '主键id',
+	order_id mediumint unsigned not null comment '订单id',
+	goods_id mediumint unsigned not null  comment '商品id',
+	goods_attr_id varchar(150) not null default '' comment '商品属性id',
+	goods_number tinyint unsigned not null default 0 comment '购买数量',
+	price decimal(10,2) not null comment '购买价格',
+	primary key (id),
+	key order_id(order_id),
+	key goods_id(goods_id)
+)engine=InnoDB default charset=utf8 comment '订单商品';

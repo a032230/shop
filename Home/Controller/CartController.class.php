@@ -11,6 +11,7 @@ class CartController extends Controller{
 	public function add()
 	{
 		if(IS_POST){
+			// p($_POST);die;
 			$cartModel = D('cart');
 			// p($_POST);die;
 			//接收并验证表单

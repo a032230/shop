@@ -41,8 +41,20 @@ class MemberController extends Controller{
 			//验证自定义表单规则
 			if($model -> validate($model -> _login_validate) -> create()){
 				if($model -> login())
-				{
-					$this -> success('登陆成功！',U('Index/index'));
+				{	
+					//默认跳转地址
+					$returnUrl = U('Index/index');
+					
+					//判断session是否保存跳转地址
+					$ru = session('returnUrl');
+					if($ru)
+					{
+						//清空，跳转
+						session('returnUrl',null);
+						$returnUrl = $ru;
+					}
+
+					$this -> success('登陆成功！',$returnUrl);
 					exit;
 				}
 			}

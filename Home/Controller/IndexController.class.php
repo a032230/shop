@@ -7,6 +7,14 @@ use Think\Controller;
 --------------------------*/
 class IndexController extends NavController {
 
+    //处理购物车
+    public function ajaxGetCart()
+    {
+        $model = D('cart');
+        $data = $model -> cartList();
+        echo json_encode($data);
+    }
+
     //处理浏览历史
     public function displayHistory()
     {

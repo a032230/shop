@@ -71,12 +71,12 @@
 			<div class="cart fl">
 				<dl>
 					<dt>
-						<a href="{:U('Cart/lst')}">去购物车结算</a>
+						<a id="cartlist" href="{:U('Cart/lst')}">去购物车结算</a>
 						<b></b>
 					</dt>
 					<dd>
-						<div class="prompt">
-							购物车中还没有商品，赶紧选购吧！
+						<div class="showCart prompt">
+							<img src="__PUBLIC__/Home/images/loading.gif" alt="">
 						</div>
 					</dd>
 				</dl>
@@ -138,3 +138,26 @@
 
 	<div style="clear:both;"></div>
 
+<script>
+	//ajax显示购物车
+	$('#cartlist').mouseenter(function(){
+		var imgPath = "{:C('IMAGE_CONFIG')['viewPath']}"
+		$.ajax({
+			type : 'get',
+			url : "{:U('Index/ajaxGetCart')}",
+			dataType : 'json',
+			success : function(data){
+				var li = "<table width='300'>";
+				$(data).each(function(k,v){
+					li += '<tr>';
+					li += "<td align='center'><img src='"+imgPath+v.sm_logo+"' /></td>";
+					li += "<td align='center'>"+v.goods_name+"</td>";
+					li += "<td align='right' style ='color:#f00'>￥"+v.price+"</td>";
+					li += '</tr>';
+				})
+				li += '</table>'
+				$('.showCart').html(li);
+			}
+		})
+	})
+</script>

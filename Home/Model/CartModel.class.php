@@ -73,7 +73,7 @@ class CartModel extends Model{
 			}else{
 				//否则调用父类add方法直接执行添加
 				parent::add(array(
-					'goods_id' => $goods_id,
+					'goods_id' => $this -> goods_id,
 					'goods_attr_id' =>  $this -> goods_attr_id,
 					'goods_number' => $this -> goods_number,
 					'member_id' => $memberId,
@@ -192,5 +192,16 @@ class CartModel extends Model{
 			}
 		}
 		return $data;
+	}
+
+	//清空购物车
+	public function clear($goods_id,$goods_attr_id)
+	{
+		$this -> where(array(
+						'member_id'=> array('eq',session('m_id')),
+						'goods_id' => array('eq',$goods_id),
+						'goods_attr_id' => array('eq',$goods_attr_id),
+						)) 
+		      -> delete();
 	}
 }
