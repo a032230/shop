@@ -5,6 +5,13 @@ use Think\Controller;
 |         订单控制器        |
 --------------------------*/
 class OrdersController extends Controller{
+
+	//接收支付宝发来的支付成功的消息
+	public function receive()
+	{
+		require('./alipay/notify_url.php');
+	}
+
 	//订单页
 	public function add()
 	{	
@@ -43,7 +50,15 @@ class OrdersController extends Controller{
 	public function order_success()
 	{
 
-
+		//生成支付宝支付按钮
+		$btn = makeAlipayBtn(I('get.order_id'));
+		//配置页面信息
+    	$this -> assign(array(
+    		'_page_title' => '下单成功页',
+    		'_page_keywords' => '下单成功页',
+    		'_page_description' => '下单成功页',
+    		'btn' => $btn,
+    	));
 		$this -> display();
 	}
 }

@@ -125,4 +125,21 @@ class OrdersModel extends Model{
 		flock($this -> fp,LOCK_UN);
 		fclose($this -> fp);
 	}
+
+	/**
+	 * [setPaid description 设置已支付状态
+	 * @param [type] $orderId [订单id]
+	 */
+	public function setPaid($orderId)
+	{
+		//更新该订单的支付状态
+		$this -> where(array('id' => array('eq',$orderId))) 
+		      -> save(array('pay_status'=>'是','pay_time'=>time()));
+
+		//更新会员积分[1元=1积分]
+		$tp = $this -> field('total_price,member_id') -> find($orderId);
+		$memberModel = M('member');
+		$memberModel -> where(array('id'=> array('eq',$tp['member_id']))) 
+		             -> setInc('jifen',$tp['total_price']);
+	}
 }

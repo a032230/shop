@@ -9,6 +9,19 @@ function p($var)
 }
 
 /**
+ * [makeAlipayBtn 生成支付宝支付按钮
+ * @param  [type] $orderId [订单id]
+ * @param  string $btnName [按钮名称]
+ * @return [type]          [description]
+ */
+function makeAlipayBtn($orderId,$btnName = '去支付宝支付')
+{
+	return require("./alipay/alipayapi.php");
+}
+
+
+
+/**
  * [showImage 前台页面显示图片函数
  * @param  [string] $url    [数据库取出的图片路径]
  * @param  string $width  [图片的宽]
