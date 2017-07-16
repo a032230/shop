@@ -14,6 +14,8 @@ class BrandModel extends Model
 		array('brand_name', '1,30', '品牌名称的值最长不能超过 30 个字符！', 1, 'length', 3),
 		array('site_url', '1,150', '品牌官方地址的值最长不能超过 150 个字符！', 2, 'length', 3),
 	);
+
+	//搜索，显示，分页
 	public function search($pageSize = 5)
 	{
 		/**************************************** 搜索 ****************************************/

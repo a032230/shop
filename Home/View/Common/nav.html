@@ -2,13 +2,15 @@
 	<div class="header w1210 bc mt15">
 		<!-- 头部上半部分 start 包括 logo、搜索、用户中心和购物车结算 -->
 		<div class="logo w1210">
-			<h1 class="fl"><a href="index.html"><img src="__PUBLIC__/Home/images/logo.png" alt="京西商城"></a></h1>
+			<h1 class="fl"><a href="{:U('Index/index')}"><img src="__PUBLIC__/Home/images/logo.png" alt="京西商城"></a></h1>
 			<!-- 头部搜索 start -->
 			<div class="search fl">
 				<div class="search_form">
 					<div class="form_left fl"></div>
-					<form action="" name="serarch" method="get" class="fl">
-						<input type="text" class="txt" value="请输入商品关键字" /><input type="submit" class="btn" value="搜索" />
+					<form action="{:U('Search/key_search')}"  name="serarch" method="get" class="fl">
+						<input id="key" type="text" name="key" class="txt" value="请输入商品关键字" />
+						<!-- <input onclick="location.href = '{:U('Search/key_search','',false)}/key/'+$('#key').val(); " type="button" class="btn" value="搜索" /> -->
+						<input  type="submit" class="btn" value="搜索" />
 					</form>
 					<div class="form_right fl"></div>
 				</div>
@@ -99,14 +101,14 @@
 				<div class="cat_bd <?php echo  $_show_nav == 1 ? '' : 'none' ?>"> 
 					<foreach name='cateData' item ='v' key='k' >
 					<div class="cat {$k == 0 ? 'item1' : ''}">
-						<h3><a href="">{$v.cat_name}</a> <b></b></h3>		
+						<h3><a href="{:U('Search/search_cat',array('cat_id'=>$v['id']),'',false)}">{$v.cat_name}</a> <b></b></h3>		
 						<div class="cat_detail none">
 						<?php foreach($v['children'] as $k1 => $v1):?>	
 							<dl class="{$k1 == 0 ? 'dl_1st' : ''}">
-								<dt><a href="">{$v1.cat_name}</a></dt>
+								<dt><a href="{:U('Search/search_cat',array('cat_id'=>$v1['id']),'',false)}">{$v1.cat_name}</a></dt>
 								<dd>
 									<?php foreach($v1['children'] as $v2):?>
-									<a href="">{$v2.cat_name}</a>	
+									<a href="{:U('Search/search_cat',array('cat_id'=>$v2['id']),'',false)}">{$v2.cat_name}</a>	
 									<?php endforeach?>				
 								</dd>
 							</dl>

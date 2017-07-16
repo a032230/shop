@@ -9,6 +9,20 @@ function p($var)
 }
 
 /**
+ * [filterUrl 从当前url中去掉某参数后的url
+ * @param  [type] $param [description]
+ * @return [type]        [description]
+ */
+function filterUrl($param)
+{	
+	//当前url
+	$url = $_SERVER['PHP_SELF'];
+	//正则去掉某参数
+	$re = "/\/$param\/[^\/]+/";
+	return preg_replace($re, '', $url);
+}
+
+/**
  * [makeAlipayBtn 生成支付宝支付按钮
  * @param  [type] $orderId [订单id]
  * @param  string $btnName [按钮名称]

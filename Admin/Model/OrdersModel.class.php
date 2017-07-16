@@ -142,4 +142,36 @@ class OrdersModel extends Model{
 		$memberModel -> where(array('id'=> array('eq',$tp['member_id']))) 
 		             -> setInc('jifen',$tp['total_price']);
 	}
+
+	//显示，分页
+	public function search($pageSize = 5)
+	{	
+		$memberId = session('m_id');
+		//查询未支付订单总数
+		$data['count'] = $this ->where(array(
+											'member_id'=>array('eq',$memberId),
+											'pay_status' => array('eq','否')
+										)) -> count();
+
+
+		$where['member_id'] = array('eq',$memberId);
+		
+		/**************************** 翻页 ***************************/
+		$count = $this->alias('a')->where($where)->count();
+		$page = new \Think\Page($count, $pageSize);
+		// 配置翻页的样式
+		$page->setConfig('prev', '上一页');
+		$page->setConfig('next', '下一页');
+		$data['page'] = $page->show();
+		/**************************** 取数据 ***************************/
+		$data['data'] = $this -> alias('a')
+		                      -> field('a.id,a.addtime,a.total_price,pay_status,a.shr_name,GROUP_CONCAT(DISTINCT c.sm_logo) logo')
+		                      -> join('LEFT JOIN __ORDER_GOODS__ b ON a.id=b.order_id
+		                      	       LEFT JOIN __GOODS__ c ON b.goods_id=c.id')
+		                      -> where($where)
+		                      -> group('a.id')
+		                      -> limit($page->firstRow.','.$page->listRows)
+		                      -> select();
+		return $data;
+	}
 }

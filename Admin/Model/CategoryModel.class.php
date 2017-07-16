@@ -245,4 +245,101 @@ class CategoryModel extends Model{
 
 		return $ret;
 	}
+
+
+	/**
+	 * [searchConditionByCatId 根据分类id显示搜索数据
+	 * @param  [type] $catId [description]
+	 * @return [type]        [description]
+	 */
+	public function searchConditionByGoodsId($goodsId)
+	{	
+		//返回搜索数据的数组
+		$ret = array();
+
+		//获得该分类下的所有商品id
+		$goodsModel = D('Admin/goods');
+		// $goodsId = $goodsModel -> getGoodsIdByCatId($catId);	
+		// echo $goodsModel -> getLastSql();
+		// p($goodsId);	
+		/**************品牌**************/
+		$ret['brand'] = $goodsModel -> alias('a')
+					-> field('DISTINCT a.brand_id,b.brand_name')
+					-> join("LEFT JOIN __BRAND__ b ON a.brand_id=b.id")
+					-> where(array(
+						'a.id' => array('IN',$goodsId),
+						'a.brand_id' => array('neq',0),
+					))
+					-> select();
+
+
+		/*****************搜索的价格区间******************/
+		$sectionCount = 6;//默认分几段
+		//取出这个分类下最大和最小的商品价格
+		$priceInfo = $goodsModel -> field('MAX(shop_price) max_price,MIN(shop_price) min_price') 
+		                            -> where(array('id'=>array('IN',$goodsId))) 
+		                            -> find();
+		//最大和最小价格的差
+		$priceSection = $priceInfo['max_price'] - $priceInfo['min_price'];
+		//分类下的商品数量
+		$goodsCount = count($goodsId);
+
+		//只有商品数量大于这些时才分段
+		if($goodsCount > 1)
+		{
+			//根据最大价和最小价的差计算分几段
+			if($priceSection < 100)
+				$sectionCount = 2;
+			elseif($priceSection < 1000)
+				$sectionCount = 4;
+			elseif($priceSection < 10000)
+				$sectionCount = 6;
+			else
+				$sectionCount = 7;
+
+			//根据这些段数以价格分段
+			$pricePerSection = ceil($priceSection / $sectionCount); //每段的价格范围
+			// p($pricePerSection /1000 * 1000 -1);
+			//存放最终分段的价格
+			$price = array();
+			$firstPrice = 0;//第一个价格区间的开始价格
+			for($i = 0 ;$i < $sectionCount; $i++)
+			{
+				//每段结束的价格
+				$tmpEnd = $firstPrice + $pricePerSection ;
+				//结束价格取整
+				$tmpEnd = (ceil($tmpEnd / 1000) * 1000 -1);
+				$price[] = $firstPrice . '-' . $tmpEnd;
+
+				//计算下一个价格段的开始价格
+				$firstPrice = $tmpEnd + 1;
+
+			}
+			$ret['price'] = $price;
+		}
+
+		/*******************商品属性****************/
+		$gaModel = M('goods_attr');
+		$_gaData = $gaModel -> alias('a')
+				 -> field('DISTINCT a.attr_id,a.attr_value,b.attr_name')
+				 -> join('LEFT JOIN __ATTR__ b ON a.attr_id=b.id')
+				 -> where(array(
+				 		'a.goods_id'=> array('IN',$goodsId),
+				 		'a.attr_value' => array('neq', ''),
+				 		))
+				 -> select();
+		//处理这个属性数组，将属性名相同的放到一起
+		$gaData = array();
+		foreach($_gaData as $k => $v)
+		{	
+			$gaData[$v['attr_name']][] =$v;
+
+		}	
+		// array_unique($gaData['颜色']);
+		// p($gaData);
+		$ret['gaData'] = $gaData;
+
+
+		return $ret;
+	}
 }

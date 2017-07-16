@@ -688,4 +688,280 @@ class GoodsModel extends Model{
 			}
 		}
 	}
+
+	/**
+	 * [cat_search 根据分类id查找出该分类及其子类下的所有商品[搜索，排序，分页，取数据]
+	 * @param  [type]  $catId    [description]
+	 * @param  integer $pageSize [description]
+	 * @return [type]            [description]
+	 */
+	public function cat_search($catId,$pageSize = 20)
+	{	
+		/****************搜索*****************/
+		//根据分类id找出其下的所以商品
+		$goodsId = $this -> getGoodsIdByCatId($catId);
+		$where['a.id'] = array('IN',$goodsId);
+
+		//品牌
+		$brand_id = (int)I('get.brand_id');
+		// echo $brand_id;
+		if($brand_id)
+			$where['brand_id'] =  array('eq',$brand_id);
+
+		//价格
+		$price = I('get.price');
+		if($price)
+		{
+			$price = explode('-',$price);
+			$where['shop_price'] = array('between',$price);
+		}
+
+		/***商品属性***/
+		$gaModel = M('goods_attr');
+		$attrGoodsId = null;//保存每个属性搜索处理的商品id
+		//根据商品搜索，循环所有参数找出属性的参数进行搜索
+		foreach($_GET as $k => $v)
+		{
+			if(strpos($k,'attr_') !== false)
+			{
+				//解析出属性id和属性值
+				$attrId = str_replace('attr_','',$k); //属性id
+				$attrName = strrchr($v,'-'); //属性名
+				$attrValue = str_replace($attrName,'', $v);//属性值
+
+				//根据属性id和属性值搜索出这个属性值下的商品id并返回字符串格式[1,2,3,4,5]
+				$gids = $gaModel -> field('GROUP_CONCAT(goods_id) gid')
+								 -> where(array(
+								 		'attr_value' => array('eq',$attrValue),
+								 		'attr_id' => array('eq',$attrId),
+								 	))
+								 -> find();
+				// p($gids['gid']);
+				//判断是否有商品
+				if($gids['gid'])
+				{
+					$gids['gid'] = explode(',', $gids['gid']);
+					//判断是否是第一个搜索属性
+					if($attrGoodsId === null)
+					{
+						$attrGoodsId = $gids['gid'];
+					}else{
+						// 和上一次搜索出来的结果求集
+						$attrGoodsId = array_intersect($attrGoodsId, $gids['gid']);
+						//如果没有商品满足条件就不考虑下一个属性
+						if(empty($attrGoodsId)){
+							$where['a.id'] = array('eq',0);
+							break;
+						}
+					}
+				}
+				else
+				{
+					//前几次交集的结果清空
+					$attrGoodsId = array();
+					$where['a.id'] = array('eq',0);
+					break;
+				}
+			}
+
+		}
+		//判断如果循环求次之后这个数组不为空说明这些就是满足条件的商品id
+		if($attrGoodsId)
+		{
+			$where['a.id'] = array('IN',$attrGoodsId);
+		}
+
+		/***************排序********************/
+		//默认根据销量降序
+		$orderby = 'xl';
+		$orderway = 'desc';
+		$odby = I('get.odby');
+		// echo $odby . '<br>';
+		if($odby)
+		{	//商品时间排序
+			if($odby == 'addtime'){
+				$orderby = 'a.addtime';
+			}
+			//根据商品价格排序
+			if(strpos($odby,'price_') !== FALSE )
+			{
+				$orderby = 'a.shop_price';
+				if($odby == 'price_asc')
+				{
+					$orderway = 'asc';
+				}
+			}
+
+		}
+
+		/***************分页*******************/
+		$count = $this ->alias('a') ->field('COUNT(a.id) goods_count,GROUP_CONCAT(a.id) goods_id') -> where($where)->find();//取出总记录数
+		// echo $this -> getLastSql();
+		// 把商品ID返回
+		$data['goods_id'] = explode(',', $count['goods_id']);
+		// p($count['goods_id']);
+		//生成分页类对象
+		$pageObj = new \Think\Page($count['goods_count'],$pageSize);
+
+		//设置样式
+		$pageObj -> setConfig('prev' , '上一页');
+		$pageObj -> setConfig('next' , '下一页');
+
+		//生成在页面显示的分页字符串
+		$data['page'] =  $pageObj -> show();
+
+		/**************取数据*******************/
+		$data['data'] = $this -> alias('a')
+			  -> field('a.id,a.goods_name,a.shop_price,a.mid_logo,SUM(b.goods_number) xl')
+			  -> join("LEFT JOIN __ORDER_GOODS__ b ON( a.id=b.goods_id 
+			  			AND 
+			  			b.order_id IN (SELECT id FROM __ORDERS__ WHERE pay_status = '是'))")
+			  -> where($where)
+			  -> group('a.id')
+			  -> limit($page->firstRow . ',' . $page->listRows)
+			  -> order ("$orderby $orderway")
+			  -> select();
+		// echo $this ->getLastSql();
+		//返回分页字符串和数据
+		return  $data;
+	}
+
+
+	/**
+	 * 获取某个关键字下某一页的商品
+	 *
+	 * @param unknown_type $key
+	 * @param unknown_type $perPage
+	 */
+	public function key_search($key, $pageSize = 60)
+	{
+		/*************** 搜索 *************************/
+		
+		//$goodsId = $this->getGoodsIdByCatId($catId);
+		
+		// 根据关键字【商品名称、商品描述、商品属性值】取出商品ID
+		$goodsId = $this->alias('a')
+		->field('GROUP_CONCAT(DISTINCT a.id) gids')
+		->join('LEFT JOIN __GOODS_ATTR__ b ON a.id=b.goods_id')
+		->where(array(
+			'a.is_on_sale' => array('eq', '是'),
+			'a.goods_name' => array('exp', " LIKE '%$key%' OR a.goods_desc LIKE '%$key%' OR attr_value LIKE '%$key%'"),
+		))
+		->find();
+
+		$goodsId = explode(',', $goodsId['gids']);
+		
+		$where['a.id'] = array('in', $goodsId);
+		// 品牌
+		$brandId = I('get.brand_id');
+		if($brandId)
+			$where['a.brand_id'] = array('eq', (int)$brandId);
+		// 价格
+		$price = I('get.price');
+		if($price)
+		{
+			$price = explode('-', $price);
+			$where['a.shop_price'] = array('between', $price);
+		}
+		
+		/******************************************* 商品搜索开始 ************************************************/
+		$gaModel = D('goods_attr');
+		$attrGoodsId = NULL;  // 根据每个属性搜索出来的商品的ID
+		// 根据属性搜索 : 循环所有的参数找出属性的参数进行查询
+		foreach ($_GET as $k => $v)
+		{
+			// 如果变量是以attr_开头的说明是一个属性的查询, 格式：attr_1/黑色-颜色
+			if(strpos($k, 'attr_') === 0)
+			{
+				// 先解析出属性ID和属性值
+				$attrId = str_replace('attr_', '', $k); // 属性id
+				// 先取出最后一个-往后的字符串
+				$attrName = strrchr($v, '-');
+				$attrValue = str_replace($attrName, '', $v);
+				// 根据属性ID和属性值搜索出这个属性值下的商品id：并返回一个字符串格式：1,2,3,4,5,6,7
+				$gids = $gaModel->field('GROUP_CONCAT(goods_id) gids')->where(array(
+					'attr_id' => array('eq', $attrId),
+					'attr_value' => array('eq', $attrValue),
+				))->find();
+				// 判断是有商品
+				if($gids['gids'])
+				{
+					$gids['gids'] = explode(',', $gids['gids']);
+					// 说明是搜索的第一个属性
+					if($attrGoodsId === NULL)
+						$attrGoodsId = $gids['gids'];  // 先暂存起来
+					else 
+					{
+						// 和上一个属性搜索出来的结果求集
+						$attrGoodsId = array_intersect($attrGoodsId, $gids['gids']);
+						// 如果已经没有商品满足条件就不用再考虑下一个属性了
+						if(empty($attrGoodsId))
+						{
+							$where['a.id'] = array('eq', 0);
+							break;
+						}
+					}
+				}
+				else 
+				{
+					// 前几次的交集结果清空
+					$attrGoodsId = array();
+					// 如果这个属性下没有商品就应该向where中添加一个不可能满足的条件，这样后面取商品时就取不出来了！
+					$where['a.id'] = array('eq', 0);
+					// 取出循环，不用再查询下一个属性了
+					break;
+				}
+			}
+		}
+		// 判断如果循环求次之后这个数组还不为空说明这些就是满足所有条件的商品id
+		if($attrGoodsId)
+			$where['a.id'] = array('IN', $attrGoodsId);
+		/******************************************* 商品搜索结束 ************************************************/	
+			
+		
+		
+		/**************** 翻页 *********************/
+		// 取出总的记录数，以及所有的商品ID的字符串
+		//$count = $this->alias('a')->where($where)->count();  // 这个只能取总记录数，改成下面这行，即取总记录数，又取出了商品ID
+		$count = $this->alias('a')->field('COUNT(a.id) goods_count,GROUP_CONCAT(a.id) goods_id')->where($where)->find();
+		// 把商品ID返回
+		$data['goods_id'] = explode(',', $count['goods_id']);
+		
+		$page = new \Think\Page($count['goods_count'], $pageSize);
+		// 配置翻页的样式
+		$page->setConfig('prev', '上一页');
+		$page->setConfig('next', '下一页');
+		$data['page'] = $page->show();
+		
+		/*********************** 排序 ********************/
+		$oderby = 'xl';    // 默认
+		$oderway = 'desc'; // 默认
+		$odby = I('get.odby');
+		if($odby)
+		{
+			if($odby == 'addtime')
+				$oderby = 'a.addtime';
+			if(strpos($odby, 'price_') === 0)
+			{
+				$oderby = 'a.shop_price';
+				if($odby == 'price_asc')
+					$oderway = 'asc';
+			}
+		}
+		
+		/**************** 取数据 ********************/
+		$data['data'] = $this->alias('a')
+		->field('a.id,a.goods_name,a.mid_logo,a.shop_price,SUM(b.goods_number) xl')
+		->join('LEFT JOIN __ORDER_GOODS__ b 
+				 ON (a.id=b.goods_id 
+				      AND 
+				     b.order_id IN(SELECT id FROM __ORDERS__ WHERE pay_status="是"))')
+		->where($where)
+		->group('a.id')
+		->limit($page->firstRow.','.$page->listRows)
+		->order("$oderby $oderway")
+		->select();
+		// echo $this -> getLastSql();
+		return $data;
+	}
 }
