@@ -58,6 +58,7 @@ class MemberModel extends Model{
 				//登陆成功记录session
 				session('m_id',$user['id']);
 				session('m_user',$user['username']);
+				session('face','/Public/Home/images/user1.gif');
 
 				//计算当前会员等级id并存入session
 				$mlModel = M('member_level');

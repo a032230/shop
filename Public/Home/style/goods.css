@@ -86,7 +86,7 @@
 .rate span{color: #999;}
 .percent{width: 200px; border-right:1px solid #e4e4e4; padding-top: 10px;}
 .percent dl{clear: both; padding: 5px 0;}
-.percent dt{float: left; width: 70px; color: #666;}
+.percent dt{float: left; width: 101px; color: #666;}
 .percent dd{float: left; width: 100px; height: 10px; background: #efefef;}
 .percent dd div{height:10px;background:-webkit-gradient(linear,0 0,0 100%,from(#ed0000),to(#a50000)); background: -moz-linear-gradient(top,#ed0000,#a50000); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ed0000', endColorstr='#a50000');}
 .buyer{width: 400px; margin-left: 20px;}

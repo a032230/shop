@@ -1,8 +1,48 @@
-<layout name='Common/layout' />
-	<link rel="stylesheet" href="__PUBLIC__/Home/style/common.css" type="text/css">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="keywords" content="<?php echo ($_page_keywords); ?>" />
+	<meta name="description" content="<?php echo ($_page_description); ?>" />
+	<title><?php echo ($_page_title); ?></title>
+	<link rel="stylesheet" href="/Public/Home/style/base.css" type="text/css">
+	<link rel="stylesheet" href="/Public/Home/style/global.css" type="text/css">
+	<link rel="stylesheet" href="/Public/Home/style/header.css" type="text/css">
+	<link rel="stylesheet" href="/Public/Home/style/bottomnav.css" type="text/css">
+	<link rel="stylesheet" href="/Public/Home/style/footer.css" type="text/css">
+	<script type="text/javascript" src="/Public/Home/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="/Public/Home/js/header.js"></script>
+</head>
+<body>
+	<!-- 顶部导航 start -->
+	<div class="topnav">
+		<div class="topnav_bd w1210 bc">
+			<div class="topnav_left">
+				
+			</div>
+			<div class="topnav_right fr">
+				<ul>
+					<li id="loginStatus">
+					</li>
+					<li class="line">|</li>
+					<li><a href="<?php echo U('My/order');?>">我的订单</a></li>
+					<li class="line">|</li>
+					<li>客户服务</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 顶部导航 end -->
+	
+	<div style="clear:both;"></div>
+
+	
+	
+	<link rel="stylesheet" href="/Public/Home/style/common.css" type="text/css">
 	<!--引入jqzoom css -->
-	<link rel="stylesheet" href="__PUBLIC__/Home/style/jqzoom.css" type="text/css">
-	<link rel="stylesheet" href="__PUBLIC__/Home/style/goods.css" type="text/css">
+	<link rel="stylesheet" href="/Public/Home/style/jqzoom.css" type="text/css">
+	<link rel="stylesheet" href="/Public/Home/style/goods.css" type="text/css">
 	<style>
 		.reply_container{
 			margin-top: 25px;
@@ -20,8 +60,8 @@
 			float: right;
 		}
 	</style>
-	<script type="text/javascript" src="__PUBLIC__/Home/js/goods.js"></script>
-	<script type="text/javascript" src="__PUBLIC__/Home/js/jqzoom-core.js"></script>
+	<script type="text/javascript" src="/Public/Home/js/goods.js"></script>
+	<script type="text/javascript" src="/Public/Home/js/jqzoom-core.js"></script>
 	<!-- jqzoom 效果 -->
 	<script type="text/javascript">
 		$(function(){
@@ -36,7 +76,170 @@
 	        });
 		})
 	</script>
-	<include file='Common/nav' />
+	<!-- 头部 start -->
+	<div class="header w1210 bc mt15">
+		<!-- 头部上半部分 start 包括 logo、搜索、用户中心和购物车结算 -->
+		<div class="logo w1210">
+			<h1 class="fl"><a href="<?php echo U('Index/index');?>"><img src="/Public/Home/images/logo.png" alt="京西商城"></a></h1>
+			<!-- 头部搜索 start -->
+			<div class="search fl">
+				<div class="search_form">
+					<div class="form_left fl"></div>
+					<form action="<?php echo U('Search/key_search');?>"  name="serarch" method="get" class="fl">
+						<input id="key" type="text" name="key" class="txt" value="请输入商品关键字" />
+						<!-- <input onclick="location.href = '<?php echo U('Search/key_search','',false);?>/key/'+$('#key').val(); " type="button" class="btn" value="搜索" /> -->
+						<input  type="submit" class="btn" value="搜索" />
+					</form>
+					<div class="form_right fl"></div>
+				</div>
+				
+				<div style="clear:both;"></div>
+
+				<div class="hot_search">
+					<strong>热门搜索:</strong>
+					<a href="">D-Link无线路由</a>
+					<a href="">休闲男鞋</a>
+					<a href="">TCL空调</a>
+					<a href="">耐克篮球鞋</a>
+				</div>
+			</div>
+			<!-- 头部搜索 end -->
+
+			<!-- 用户中心 start-->
+			<div class="user fl">
+				<dl>
+					<dt>
+						<em></em>
+						<a href="">用户中心</a>
+						<b></b>
+					</dt>
+					<dd>
+						<div class="prompt">
+							您好，请<a href="">登录</a>
+						</div>
+						<div class="uclist mt10">
+							<ul class="list1 fl">
+								<li><a href="">用户信息></a></li>
+								<li><a href="">我的订单></a></li>
+								<li><a href="">收货地址></a></li>
+								<li><a href="">我的收藏></a></li>
+							</ul>
+
+							<ul class="fl">
+								<li><a href="">我的留言></a></li>
+								<li><a href="">我的红包></a></li>
+								<li><a href="">我的评论></a></li>
+								<li><a href="">资金管理></a></li>
+							</ul>
+
+						</div>
+						<div style="clear:both;"></div>
+						<div class="viewlist mt10">
+							<h3>最近浏览的商品：</h3>
+							<ul>
+								<li><a href=""><img src="/Public/Home/images/view_list1.jpg" alt="" /></a></li>
+								<li><a href=""><img src="/Public/Home/images/view_list2.jpg" alt="" /></a></li>
+								<li><a href=""><img src="/Public/Home/images/view_list3.jpg" alt="" /></a></li>
+							</ul>
+						</div>
+					</dd>
+				</dl>
+			</div>
+			<!-- 用户中心 end-->
+
+			<!-- 购物车 start -->
+			<div class="cart fl">
+				<dl>
+					<dt>
+						<a id="cartlist" href="<?php echo U('Cart/lst');?>">去购物车结算</a>
+						<b></b>
+					</dt>
+					<dd>
+						<div class="showCart prompt">
+							<img src="/Public/Home/images/loading.gif" alt="">
+						</div>
+					</dd>
+				</dl>
+			</div>
+			<!-- 购物车 end -->
+		</div>
+		<!-- 头部上半部分 end -->
+		
+		<div style="clear:both;"></div>
+
+		<!-- 导航条部分 start -->
+		<div class="nav w1210 bc mt10">
+			<!--  商品分类部分 start-->
+			<div class="category fl <?php echo $_show_nav == 1 ? '' : 'cat1' ?>">
+				<div class="cat_hd <?php echo $_show_nav == 1 ? '' : 'off' ?>">  <!-- 注意，首页在此div上只需要添加cat_hd类，非首页，默认收缩分类时添加上off类，并将cat_bd设置为不显示(加上类none即可)，鼠标滑过时展开菜单则将off类换成on类 -->
+					<h2>全部商品分类</h2>
+					<em></em>
+				</div>
+				
+				<div class="cat_bd <?php echo $_show_nav == 1 ? '' : 'none' ?>"> 
+					<?php if(is_array($cateData)): foreach($cateData as $k=>$v): ?><div class="cat <?php echo ($k == 0 ? 'item1' : ''); ?>">
+						<h3><a href="<?php echo U('Search/search_cat',array('cat_id'=>$v['id']),'',false);?>"><?php echo ($v["cat_name"]); ?></a> <b></b></h3>		
+						<div class="cat_detail none">
+						<?php foreach($v['children'] as $k1 => $v1):?>	
+							<dl class="<?php echo ($k1 == 0 ? 'dl_1st' : ''); ?>">
+								<dt><a href="<?php echo U('Search/search_cat',array('cat_id'=>$v1['id']),'',false);?>"><?php echo ($v1["cat_name"]); ?></a></dt>
+								<dd>
+									<?php foreach($v1['children'] as $v2):?>
+									<a href="<?php echo U('Search/search_cat',array('cat_id'=>$v2['id']),'',false);?>"><?php echo ($v2["cat_name"]); ?></a>	
+									<?php endforeach?>				
+								</dd>
+							</dl>
+						<?php endforeach?>
+						</div>
+					</div><?php endforeach; endif; ?>
+				</div>
+
+			</div>
+			<!--  商品分类部分 end--> 
+
+			<div class="navitems fl">
+				<ul class="fl">
+					<li class="current"><a href="">首页</a></li>
+					<li><a href="">电脑频道</a></li>
+					<li><a href="">家用电器</a></li>
+					<li><a href="">品牌大全</a></li>
+					<li><a href="">团购</a></li>
+					<li><a href="">积分商城</a></li>
+					<li><a href="">夺宝奇兵</a></li>
+				</ul>
+				<div class="right_corner fl"></div>
+			</div>
+		</div>
+		<!-- 导航条部分 end -->
+	</div>
+	<!-- 头部 end-->
+
+	<div style="clear:both;"></div>
+
+<script>
+	//ajax显示购物车
+	$('#cartlist').mouseenter(function(){
+		var imgPath = "<?php echo C('IMAGE_CONFIG')['viewPath'];?>"
+		$.ajax({
+			type : 'get',
+			url : "<?php echo U('Index/ajaxGetCart');?>",
+			dataType : 'json',
+			success : function(data){
+				var li = "<table width='300'>";
+				$(data).each(function(k,v){
+					li += '<tr>';
+					li += "<td align='center'><img src='"+imgPath+v.sm_logo+"' /></td>";
+					li += "<td align='center'>"+v.goods_name+"</td>";
+					li += "<td align='right' style ='color:#f00'>￥"+v.price+"</td>";
+					li += '</tr>';
+				})
+				li += '</table>'
+				$('.showCart').html(li);
+			}
+		})
+	})
+</script>
+
 	
 	<!-- 商品页面主体 start -->
 	<div class="main w1210 mt10 bc">
@@ -44,10 +247,8 @@
 		<div class="breadcrumb">
 			<h2>当前位置：
 			<a href="/">首页</a> >
-			<foreach name='path' item ='v'>
-			<a href="">{$v.cat_name}</a> >
-			</foreach>
-			{$data['goods_name']}</h2>
+			<?php if(is_array($path)): foreach($path as $key=>$v): ?><a href=""><?php echo ($v["cat_name"]); ?></a> ><?php endforeach; endif; ?>
+			<?php echo ($data['goods_name']); ?></h2>
 		</div>
 		<!-- 面包屑导航 end -->
 		
@@ -102,7 +303,7 @@
 					<ul>
 						<li>
 							<dl>
-								<dt><a href=""><img src="__PUBLIC__/Home/images/relate_view1.jpg" alt="" /></a></dt>
+								<dt><a href=""><img src="/Public/Home/images/relate_view1.jpg" alt="" /></a></dt>
 								<dd><a href="">ThinkPad E431(62771A7) 14英寸笔记本电脑 (i5-3230 4G 1TB 2G独显 蓝牙 win8)</a></dd>
 								<dd><strong>￥5199.00</strong></dd>
 							</dl>
@@ -110,7 +311,7 @@
 
 						<li>
 							<dl>
-								<dt><a href=""><img src="__PUBLIC__/Home/images/relate_view2.jpg" alt="" /></a></dt>
+								<dt><a href=""><img src="/Public/Home/images/relate_view2.jpg" alt="" /></a></dt>
 								<dd><a href="">ThinkPad X230i(2306-3V9） 12.5英寸笔记本电脑 （i3-3120M 4GB 500GB 7200转 蓝牙 摄像头 Win8）</a></dd>
 								<dd><strong>￥5199.00</strong></dd>
 							</dl>
@@ -118,7 +319,7 @@
 
 						<li>
 							<dl>
-								<dt><a href=""><img src="__PUBLIC__/Home/images/relate_view3.jpg" alt="" /></a></dt>
+								<dt><a href=""><img src="/Public/Home/images/relate_view3.jpg" alt="" /></a></dt>
 								<dd><a href="">T联想（Lenovo） Yoga13 II-Pro 13.3英寸超极本 （i5-4200U 4G 128G固态硬盘 摄像头 蓝牙 Win8）晧月银</a></dd>
 								<dd><strong>￥7999.00</strong></dd>
 							</dl>
@@ -126,7 +327,7 @@
 
 						<li>
 							<dl>
-								<dt><a href=""><img src="__PUBLIC__/Home/images/relate_view4.jpg" alt="" /></a></dt>
+								<dt><a href=""><img src="/Public/Home/images/relate_view4.jpg" alt="" /></a></dt>
 								<dd><a href="">联想（Lenovo） Y510p 15.6英寸笔记本电脑（i5-4200M 4G 1T 2G独显 摄像头 DVD刻录 Win8）黑色</a></dd>
 								<dd><strong>￥6199.00</strong></dd>
 							</dl>
@@ -134,7 +335,7 @@
 
 						<li class="last">
 							<dl>
-								<dt><a href=""><img src="__PUBLIC__/Home/images/relate_view5.jpg" alt="" /></a></dt>
+								<dt><a href=""><img src="/Public/Home/images/relate_view5.jpg" alt="" /></a></dt>
 								<dd><a href="">ThinkPad E530c(33662D0) 15.6英寸笔记本电脑 （i5-3210M 4G 500G NV610M 1G独显 摄像头 Win8）</a></dd>
 								<dd><strong>￥4399.00</strong></dd>
 							</dl>
@@ -159,12 +360,12 @@
 		<div class="goods_content fl mt10 ml10">
 			<!-- 商品概要信息 start -->
 			<div class="summary">
-				<h3><strong>{$data.goods_name}</strong></h3>
+				<h3><strong><?php echo ($data["goods_name"]); ?></strong></h3>
 				
 				<!-- 图片预览区域 start -->
 				<div class="preview fl">
 					<div class="midpic">
-						<a href="{$imgPath['viewPath']}{$data.mbig_logo}" class="jqzoom" rel="gal1">   <!-- 第一幅图片的大图 class 和 rel属性不能更改 -->
+						<a href="<?php echo ($imgPath['viewPath']); echo ($data["mbig_logo"]); ?>" class="jqzoom" rel="gal1">   <!-- 第一幅图片的大图 class 和 rel属性不能更改 -->
 						<?php showImage($data['big_logo'])?>           <!-- 第一幅图片的中图 -->
 						</a>
 					</div>
@@ -177,18 +378,16 @@
 						<div class="smallpic_wrap">
 							<ul>
 								<li class="cur">
-									<a class="zoomThumbActive" href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '{$imgPath['viewPath']}{$data['big_logo']}',largeimage: '{$imgPath['viewPath']}{$data['mbig_logo']}'}">
-										{:showImage($data['mid_logo'])}
+									<a class="zoomThumbActive" href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '<?php echo ($imgPath['viewPath']); echo ($data['big_logo']); ?>',largeimage: '<?php echo ($imgPath['viewPath']); echo ($data['mbig_logo']); ?>'}">
+										<?php echo showImage($data['mid_logo']);?>
 									</a>
 								</li>
 
-								<foreach name='gpic' item='v' key='k'>
-								<li>
-									<a href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '{$imgPath['viewPath']}{$v['mid_pic']}',largeimage: '{$imgPath['viewPath']}{$v['big_pic']}'}">
-										{:showImage($v['mid_pic'])}
+								<?php if(is_array($gpic)): foreach($gpic as $k=>$v): ?><li>
+									<a href="javascript:void(0);" rel="{gallery: 'gal1', smallimage: '<?php echo ($imgPath['viewPath']); echo ($v['mid_pic']); ?>',largeimage: '<?php echo ($imgPath['viewPath']); echo ($v['big_pic']); ?>'}">
+										<?php echo showImage($v['mid_pic']);?>
 									</a>
-								</li>
-								</foreach>
+								</li><?php endforeach; endif; ?>
 							</ul>
 						</div>
 						
@@ -199,18 +398,16 @@
 				<!-- 商品基本信息区域 start -->
 				<div class="goodsinfo fl ml10">
 					<ul>
-						<li><span>商品编号： </span>{$data.id}</li>
-						<li class="market_price"><span>定价：</span><em>￥{$data.market_price}</em></li>
-						<li class="shop_price"><span>本店价：</span> <strong>￥{$data.shop_price}</strong> <a href="">(降价通知)</a></li>
+						<li><span>商品编号： </span><?php echo ($data["id"]); ?></li>
+						<li class="market_price"><span>定价：</span><em>￥<?php echo ($data["market_price"]); ?></em></li>
+						<li class="shop_price"><span>本店价：</span> <strong>￥<?php echo ($data["shop_price"]); ?></strong> <a href="">(降价通知)</a></li>
 						<li class="shop_price">
 							<span>会员价：</span>
 							<table border="1" cellpadding="5" cellspacing="5" width="30%" >
-								<foreach name='mpData' item='v'>
-								<tr>
-									<td align="center">{$v.level_name}</td>
-									<td align="center" style="font-weight: bold;color: #c30">￥{$v.price}</td>
-								</tr>
-								</foreach>
+								<?php if(is_array($mpData)): foreach($mpData as $key=>$v): ?><tr>
+									<td align="center"><?php echo ($v["level_name"]); ?></td>
+									<td align="center" style="font-weight: bold;color: #c30">￥<?php echo ($v["price"]); ?></td>
+								</tr><?php endforeach; endif; ?>
 							</table>
 						</li>
 						<li class="shop_price"><span>购买价格：</span>
@@ -220,25 +417,23 @@
 						<li><span>上架时间：</span><?php echo date("Y-m-d",$data['addtime'])?></li>
 						<li class="star"><span>商品评分：</span> <strong></strong><a href="">(已有21人评价)</a></li> <!-- 此处的星级切换css即可 默认为5星 star4 表示4星 star3 表示3星 star2表示2星 star1表示1星 -->
 					</ul>
-					<form action="{:U('Cart/add')}" method="post" class="choose">
-						<input type="hidden" name="goods_id" value="{$data['id']}">
+					<form action="<?php echo U('Cart/add');?>" method="post" class="choose">
+						<input type="hidden" name="goods_id" value="<?php echo ($data['id']); ?>">
 						<ul>
-							<foreach name ='mulArr' item ='v' key ='k'>
-							<li class="product">
+							<?php if(is_array($mulArr)): foreach($mulArr as $k=>$v): ?><li class="product">
 								<dl>
-									<dt>{$k}：</dt>
+									<dt><?php echo ($k); ?>：</dt>
 									<dd>
 										<!-- <a class="selected" href="javascript:;">黑色 <input type="radio" name="color" value="黑色" checked="checked" /></a> -->
 										<?php foreach($v as $k1 => $v1):?>
-										<a {$k1 == 0 ? "class='selected'" : ''} href="javascript:;">{$v1.attr_value} 
-										<input {$k1 == 0 ? "checked" : ''} type="radio" name="goods_attr_id[{$v1.attr_id}]" value="{$v1.id}" />
+										<a <?php echo ($k1 == 0 ? "class='selected'" : ''); ?> href="javascript:;"><?php echo ($v1["attr_value"]); ?> 
+										<input <?php echo ($k1 == 0 ? "checked" : ''); ?> type="radio" name="goods_attr_id[<?php echo ($v1["attr_id"]); ?>]" value="<?php echo ($v1["id"]); ?>" />
 										</a>
 									    <?php endforeach ?>
 										<input type="hidden" name="" value="" />
 									</dd>
 								</dl>
-							</li>
-							</foreach>
+							</li><?php endforeach; endif; ?>
 							<li>
 								<dl>
 									<dt>购买数量：</dt>
@@ -282,14 +477,12 @@
 					<div class="introduce detail_div none">
 						<div class="attr mt15">
 							<ul>
-								<foreach name='uniArr' item ='v'>
-								<li><span>{$v.attr_name}：</span>{$v.attr_value}</li>
-								</foreach>
+								<?php if(is_array($uniArr)): foreach($uniArr as $key=>$v): ?><li><span><?php echo ($v["attr_name"]); ?>：</span><?php echo ($v["attr_value"]); ?></li><?php endforeach; endif; ?>
 							</ul>
 						</div>
 
 						<div class="desc mt10">
-							{$data.goods_desc}
+							<?php echo ($data["goods_desc"]); ?>
 						</div>
 					</div>
 					<!-- 商品介绍 end -->
@@ -335,7 +528,7 @@
 						<!--  评论表单 start-->
 						<div class="comment_form mt20">
 							<form action="" id="comment_form">
-								<input type="hidden" name="goods_id" value="{$data.id}">
+								<input type="hidden" name="goods_id" value="<?php echo ($data["id"]); ?>">
 								<ul>
 									<li>
 										<label for=""> 评分：</label>
@@ -401,11 +594,76 @@
 
 	</div>
 	<!-- 商品页面主体 end -->
-	<include file='Common/help' />
+	
+	
+	<div style="clear:both;"></div>
+
+	<!-- 底部导航 start -->
+	<div class="bottomnav w1210 bc mt10">
+		<div class="bnav1">
+			<h3><b></b> <em>购物指南</em></h3>
+			<ul>
+				<li><a href="">购物流程</a></li>
+				<li><a href="">会员介绍</a></li>
+				<li><a href="">团购/机票/充值/点卡</a></li>
+				<li><a href="">常见问题</a></li>
+				<li><a href="">大家电</a></li>
+				<li><a href="">联系客服</a></li>
+			</ul>
+		</div>
+		
+		<div class="bnav2">
+			<h3><b></b> <em>配送方式</em></h3>
+			<ul>
+				<li><a href="">上门自提</a></li>
+				<li><a href="">快速运输</a></li>
+				<li><a href="">特快专递（EMS）</a></li>
+				<li><a href="">如何送礼</a></li>
+				<li><a href="">海外购物</a></li>
+			</ul>
+		</div>
+
+		
+		<div class="bnav3">
+			<h3><b></b> <em>支付方式</em></h3>
+			<ul>
+				<li><a href="">货到付款</a></li>
+				<li><a href="">在线支付</a></li>
+				<li><a href="">分期付款</a></li>
+				<li><a href="">邮局汇款</a></li>
+				<li><a href="">公司转账</a></li>
+			</ul>
+		</div>
+
+		<div class="bnav4">
+			<h3><b></b> <em>售后服务</em></h3>
+			<ul>
+				<li><a href="">退换货政策</a></li>
+				<li><a href="">退换货流程</a></li>
+				<li><a href="">价格保护</a></li>
+				<li><a href="">退款说明</a></li>
+				<li><a href="">返修/退换货</a></li>
+				<li><a href="">退款申请</a></li>
+			</ul>
+		</div>
+
+		<div class="bnav5">
+			<h3><b></b> <em>特色服务</em></h3>
+			<ul>
+				<li><a href="">夺宝岛</a></li>
+				<li><a href="">DIY装机</a></li>
+				<li><a href="">延保服务</a></li>
+				<li><a href="">家电下乡</a></li>
+				<li><a href="">京东礼品卡</a></li>
+				<li><a href="">能效补贴</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- 底部导航 end -->
 
 <!-- 导入jquery ui dialog插件 -->
-<link href="__PUBLIC__/jquery-ui-1.9.2.custom/css/blitzer/jquery-ui-1.9.2.custom.css" rel="stylesheet">
-<script src="__PUBLIC__/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.js"></script>
+<link href="/Public/jquery-ui-1.9.2.custom/css/blitzer/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+<script src="/Public/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.js"></script>
 <style>
 	li{
 		margin:5px 0;
@@ -433,7 +691,7 @@
 			<li class="checkcode">
 				<label for="">验证码：</label>
 				<input type="text" class="txt"  name="chkcode" />
-				<img width="100" height="40" onclick="this.src='{:U('Member/chkcode')}#'+Math.random()" src="{:U('Member/chkcode')}" alt="" />
+				<img width="100" height="40" onclick="this.src='<?php echo U('Member/chkcode');?>#'+Math.random()" src="<?php echo U('Member/chkcode');?>" alt="" />
 			</li>
 		</ul>
 	</form>
@@ -453,7 +711,7 @@ $( "#dialog_login" ).dialog({
 				//ajax判断登陆
 				$.ajax({
 					type : 'post',
-					url : "{:U('Member/login')}",
+					url : "<?php echo U('Member/login');?>",
 					data : $('#login_form').serialize(),
 					dataType : 'json',
 					success : function(data){
@@ -480,19 +738,19 @@ $( "#dialog_login" ).dialog({
 });
 
 
-	var imgPath = "{$imgPath['viewPath']}";
+	var imgPath = "<?php echo ($imgPath['viewPath']); ?>";
 	//记录浏览历史
 	$.ajax({
 		type : 'get',
-		url :"{:U('displayHistory',array('id'=>$data['id']))}",
+		url :"<?php echo U('displayHistory',array('id'=>$data['id']));?>",
 		dataType : 'json',
 		success : function(data){
 			//循环服务器返回的浏览历史数据并拼接成字符串显示到页面
 			var html = '';
 			$(data).each(function(k,v){
 				html += "<dl>";
-			    html +=	'<dt><a href="{:U("goods","",false)}/id/'+v.id+'"><img src="'+imgPath+v.mid_logo+'" alt="" /></a></dt>';
-			    html +=	'<dd><a href="{:U("goods","",false)}/id/'+v.id+'">'+v.goods_name+'</a></dd>';
+			    html +=	'<dt><a href="<?php echo U("goods","",false);?>/id/'+v.id+'"><img src="'+imgPath+v.mid_logo+'" alt="" /></a></dt>';
+			    html +=	'<dd><a href="<?php echo U("goods","",false);?>/id/'+v.id+'">'+v.goods_name+'</a></dd>';
 				html +=	'</dl>';
 
 			})
@@ -504,7 +762,7 @@ $( "#dialog_login" ).dialog({
 	//ajax获取会员价格
 	$.ajax({
 		type : 'get',
-		url : "{:U('ajaxGetMemberPrice',array('id' => $data['id']))}",
+		url : "<?php echo U('ajaxGetMemberPrice',array('id' => $data['id']));?>",
 		success : function(data){
 			$('#member_price').html('￥'+data);
 		}
@@ -515,7 +773,7 @@ $( "#dialog_login" ).dialog({
 		var formData = $('#comment_form').serialize();
 		$.ajax({
 			type : 'post',
-			url : "{:U('Comment/add')}",
+			url : "<?php echo U('Comment/add');?>",
 			data : formData,
 			dataType : 'json',
 			success : function(data){
@@ -614,7 +872,7 @@ function post_reply(btn)
 	var formData = $(btn).parent().serialize();
 	$.ajax({
 		type: 'post',
-		url : "{:U('Comment/ajaxReply')}",
+		url : "<?php echo U('Comment/ajaxReply');?>",
 		data : formData,
 		dataType : 'json',
 		success : function(data){
@@ -657,7 +915,7 @@ function ajaxGetPl(page)
 	}
 	$.ajax({
 		type : 'get',
-		url : "{:U('Comment/ajaxPl?id='.$data['id'],'',false)}/p/" + page,
+		url : "<?php echo U('Comment/ajaxPl?id='.$data['id'],'',false);?>/p/" + page,
 		dataType : 'json',
 		success : function(data){
 			// 好评率
@@ -753,4 +1011,58 @@ ajaxGetPl(1);
 
 //ajax回复
 
+</script>
+
+
+
+	<div style="clear:both;"></div>
+	<!-- 底部版权 start -->
+	<div class="footer w1210 bc mt10">
+		<p class="links">
+			<a href="">关于我们</a> |
+			<a href="">联系我们</a> |
+			<a href="">人才招聘</a> |
+			<a href="">商家入驻</a> |
+			<a href="">千寻网</a> |
+			<a href="">奢侈品网</a> |
+			<a href="">广告服务</a> |
+			<a href="">移动终端</a> |
+			<a href="">友情链接</a> |
+			<a href="">销售联盟</a> |
+			<a href="">京西论坛</a>
+		</p>
+		<p class="copyright">
+			 © 2005-2013 京东网上商城 版权所有，并保留所有权利。  ICP备案证书号:京ICP证070359号 
+		</p>
+		<p class="auth">
+			<a href=""><img src="/Public/Home/images/xin.png" alt="" /></a>
+			<a href=""><img src="/Public/Home/images/kexin.jpg" alt="" /></a>
+			<a href=""><img src="/Public/Home/images/police.jpg" alt="" /></a>
+			<a href=""><img src="/Public/Home/images/beian.gif" alt="" /></a>
+		</p>
+	</div>
+	<!-- 底部版权 end -->
+
+</body>
+</html>
+<script type="text/javascript">
+	//ajax判断登陆状态，实现局部不缓存
+	$.ajax({
+		type : 'get',
+		url : "<?php echo U('Member/checkLogin');?>",
+		dataType : 'json',
+		success : function(data){
+			var html = '';
+			if(data.login == 1)
+			{
+				 html += 	"您好,"+data.username+"  欢迎来到京西！[<a href='<?php echo U('Member/logout');?>'>退出</a>]";
+
+			}else{
+				 html += "[<a href='<?php echo U('Member/login');?>'>登录</a>] [<a href='<?php echo U('Member/regist');?>'>免费注册</a>]"; 
+			}
+
+			//放到页面
+			$('#loginStatus').html(html);
+		}
+	})
 </script>

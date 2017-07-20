@@ -287,3 +287,42 @@ create table order_goods(
 	key order_id(order_id),
 	key goods_id(goods_id)
 )engine=InnoDB default charset=utf8 comment '订单商品';
+
+#商品评论表
+create table comment(
+	id mediumint unsigned not null auto_increment comment 'id',
+	goods_id mediumint unsigned not null comment '商品id',
+	member_id mediumint unsigned not null comment '会员id',
+	content varchar(200) not null comment '内容',
+	addtime datetime not null comment '发布时间',
+	star tinyint unsigned not null comment '评论分值',
+	click_count smallint unsigned not null default 0 comment '有用次数',
+	primary key (id),
+	key goods_id(goods_id)
+)engine=InnoDB default charset=utf8 comment '评论';
+
+#商品回复表
+create table comment_reply(
+	id mediumint unsigned not null auto_increment comment 'id',
+	comment_id mediumint unsigned not null comment '评论id',
+	member_id mediumint unsigned not null comment '会员id',
+	content varchar(200) not null comment '内容',
+	addtime datetime not null comment '回复时间',
+	primary key (id),
+	key comment_id(comment_id)
+)engine=InnoDB default charset=utf8 comment '回复';
+
+#印象表
+create table yinxiang(
+	id mediumint unsigned not null auto_increment comment 'id',
+	goods_id mediumint unsigned not null comment '商品id',
+	yx_name varchar(30) not null  comment '印象名称',
+	yx_count smallint unsigned not null default 1 comment '印象次数',
+	primary key (id),
+	key goods_id(goods_id)
+)engine=InnoDB default charset=utf8 comment '印象';
+
+
+
+
+
